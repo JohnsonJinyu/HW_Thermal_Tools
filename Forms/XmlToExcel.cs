@@ -14,6 +14,7 @@ using HZH_Controls.Forms;
 using OfficeOpenXml;
 using OfficeOpenXml.Style;
 using Excel = Microsoft.Office.Interop.Excel;
+using LicenseContext = OfficeOpenXml.LicenseContext;
 
 namespace HW_Thermal_Tools.Forms
 {
@@ -103,7 +104,26 @@ namespace HW_Thermal_Tools.Forms
 
         private void ReadFile()
         {
-                
+            //读取用户选择的XML文件
+            XmlDocument doc = new XmlDocument();
+            doc.Load(TxtXmlFilePath.Text);
+            /*
+             首先遍历所有的gear_config节点，获取每个节点的属性的名称；
+             */
+            XmlNodeList nodeList = doc.SelectSingleNode("gear_config").ChildNodes;
+            //遍历所有的gear_config节点
+            foreach (XmlNode node in nodeList)
+            {
+
+            }
+
+
+
+
+
+
+
+
         }
 
 
