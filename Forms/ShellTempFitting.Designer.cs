@@ -28,80 +28,167 @@
         /// </summary>
         private void InitializeComponent()
         {
-            textBox1 = new TextBox();
-            button1 = new Button();
-            button2 = new Button();
-            button3 = new Button();
+            TxtboxNtcnames = new TableLayoutPanel();
+            pictureBox3 = new PictureBox();
+            pictureBox2 = new PictureBox();
+            TxtboxStfResult = new TextBox();
+            TxtboxStfFilesPath = new TextBox();
             textBox2 = new TextBox();
+            BtnStfSelectFiles = new Button();
+            BtnStfConfirm = new Button();
+            pictureBox1 = new PictureBox();
+            TxtboxNtcnames.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)pictureBox3).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)pictureBox2).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)pictureBox1).BeginInit();
             SuspendLayout();
             // 
-            // textBox1
+            // TxtboxNtcnames
             // 
-            textBox1.Location = new Point(196, 107);
-            textBox1.Name = "textBox1";
-            textBox1.Size = new Size(195, 23);
-            textBox1.TabIndex = 0;
+            TxtboxNtcnames.ColumnCount = 6;
+            TxtboxNtcnames.ColumnStyles.Add(new ColumnStyle(SizeType.Percent, 16.66333F));
+            TxtboxNtcnames.ColumnStyles.Add(new ColumnStyle(SizeType.Percent, 16.66333F));
+            TxtboxNtcnames.ColumnStyles.Add(new ColumnStyle(SizeType.Percent, 16.67334F));
+            TxtboxNtcnames.ColumnStyles.Add(new ColumnStyle(SizeType.Percent, 16.67334F));
+            TxtboxNtcnames.ColumnStyles.Add(new ColumnStyle(SizeType.Percent, 16.66333F));
+            TxtboxNtcnames.ColumnStyles.Add(new ColumnStyle(SizeType.Percent, 16.66333F));
+            TxtboxNtcnames.Controls.Add(pictureBox3, 4, 5);
+            TxtboxNtcnames.Controls.Add(pictureBox2, 2, 5);
+            TxtboxNtcnames.Controls.Add(TxtboxStfResult, 1, 3);
+            TxtboxNtcnames.Controls.Add(TxtboxStfFilesPath, 1, 0);
+            TxtboxNtcnames.Controls.Add(textBox2, 1, 2);
+            TxtboxNtcnames.Controls.Add(BtnStfSelectFiles, 5, 1);
+            TxtboxNtcnames.Controls.Add(BtnStfConfirm, 5, 2);
+            TxtboxNtcnames.Controls.Add(pictureBox1, 0, 5);
+            TxtboxNtcnames.Dock = DockStyle.Fill;
+            TxtboxNtcnames.Location = new Point(0, 0);
+            TxtboxNtcnames.Name = "TxtboxNtcnames";
+            TxtboxNtcnames.RowCount = 8;
+            TxtboxNtcnames.RowStyles.Add(new RowStyle(SizeType.Percent, 12.5F));
+            TxtboxNtcnames.RowStyles.Add(new RowStyle(SizeType.Percent, 12.5F));
+            TxtboxNtcnames.RowStyles.Add(new RowStyle(SizeType.Percent, 12.5F));
+            TxtboxNtcnames.RowStyles.Add(new RowStyle(SizeType.Percent, 12.5F));
+            TxtboxNtcnames.RowStyles.Add(new RowStyle(SizeType.Percent, 12.5F));
+            TxtboxNtcnames.RowStyles.Add(new RowStyle(SizeType.Percent, 12.5F));
+            TxtboxNtcnames.RowStyles.Add(new RowStyle(SizeType.Percent, 12.5F));
+            TxtboxNtcnames.RowStyles.Add(new RowStyle(SizeType.Percent, 12.5F));
+            TxtboxNtcnames.Size = new Size(800, 450);
+            TxtboxNtcnames.TabIndex = 0;
             // 
-            // button1
+            // pictureBox3
             // 
-            button1.FlatStyle = FlatStyle.Flat;
-            button1.Location = new Point(486, 112);
-            button1.Name = "button1";
-            button1.Size = new Size(75, 23);
-            button1.TabIndex = 1;
-            button1.Text = "button1";
-            button1.UseVisualStyleBackColor = true;
+            TxtboxNtcnames.SetColumnSpan(pictureBox3, 2);
+            pictureBox3.Dock = DockStyle.Fill;
+            pictureBox3.Location = new Point(535, 283);
+            pictureBox3.Name = "pictureBox3";
+            TxtboxNtcnames.SetRowSpan(pictureBox3, 3);
+            pictureBox3.Size = new Size(262, 164);
+            pictureBox3.TabIndex = 7;
+            pictureBox3.TabStop = false;
             // 
-            // button2
+            // pictureBox2
             // 
-            button2.FlatStyle = FlatStyle.Flat;
-            button2.Location = new Point(495, 169);
-            button2.Name = "button2";
-            button2.Size = new Size(75, 23);
-            button2.TabIndex = 2;
-            button2.Text = "button2";
-            button2.UseVisualStyleBackColor = true;
+            TxtboxNtcnames.SetColumnSpan(pictureBox2, 2);
+            pictureBox2.Dock = DockStyle.Fill;
+            pictureBox2.Location = new Point(269, 283);
+            pictureBox2.Name = "pictureBox2";
+            TxtboxNtcnames.SetRowSpan(pictureBox2, 3);
+            pictureBox2.Size = new Size(260, 164);
+            pictureBox2.TabIndex = 6;
+            pictureBox2.TabStop = false;
             // 
-            // button3
+            // TxtboxStfResult
             // 
-            button3.FlatStyle = FlatStyle.Flat;
-            button3.Location = new Point(330, 278);
-            button3.Name = "button3";
-            button3.Size = new Size(75, 23);
-            button3.TabIndex = 3;
-            button3.Text = "button3";
-            button3.UseVisualStyleBackColor = true;
+            TxtboxNtcnames.SetColumnSpan(TxtboxStfResult, 4);
+            TxtboxStfResult.Dock = DockStyle.Fill;
+            TxtboxStfResult.Location = new Point(136, 171);
+            TxtboxStfResult.Multiline = true;
+            TxtboxStfResult.Name = "TxtboxStfResult";
+            TxtboxNtcnames.SetRowSpan(TxtboxStfResult, 2);
+            TxtboxStfResult.Size = new Size(526, 106);
+            TxtboxStfResult.TabIndex = 2;
+            // 
+            // TxtboxStfFilesPath
+            // 
+            TxtboxNtcnames.SetColumnSpan(TxtboxStfFilesPath, 4);
+            TxtboxStfFilesPath.Dock = DockStyle.Fill;
+            TxtboxStfFilesPath.Location = new Point(136, 3);
+            TxtboxStfFilesPath.Multiline = true;
+            TxtboxStfFilesPath.Name = "TxtboxStfFilesPath";
+            TxtboxNtcnames.SetRowSpan(TxtboxStfFilesPath, 2);
+            TxtboxStfFilesPath.Size = new Size(526, 106);
+            TxtboxStfFilesPath.TabIndex = 0;
             // 
             // textBox2
             // 
-            textBox2.Location = new Point(196, 170);
+            TxtboxNtcnames.SetColumnSpan(textBox2, 4);
+            textBox2.Dock = DockStyle.Fill;
+            textBox2.Location = new Point(136, 115);
+            textBox2.Multiline = true;
             textBox2.Name = "textBox2";
-            textBox2.Size = new Size(195, 23);
-            textBox2.TabIndex = 4;
+            textBox2.Size = new Size(526, 50);
+            textBox2.TabIndex = 1;
+            // 
+            // BtnStfSelectFiles
+            // 
+            BtnStfSelectFiles.Dock = DockStyle.Fill;
+            BtnStfSelectFiles.FlatStyle = FlatStyle.Flat;
+            BtnStfSelectFiles.Location = new Point(668, 59);
+            BtnStfSelectFiles.Name = "BtnStfSelectFiles";
+            BtnStfSelectFiles.Size = new Size(129, 50);
+            BtnStfSelectFiles.TabIndex = 3;
+            BtnStfSelectFiles.Text = "选择文件";
+            BtnStfSelectFiles.UseVisualStyleBackColor = false;
+            // 
+            // BtnStfConfirm
+            // 
+            BtnStfConfirm.Dock = DockStyle.Fill;
+            BtnStfConfirm.FlatStyle = FlatStyle.Flat;
+            BtnStfConfirm.Location = new Point(668, 115);
+            BtnStfConfirm.Name = "BtnStfConfirm";
+            BtnStfConfirm.Size = new Size(129, 50);
+            BtnStfConfirm.TabIndex = 4;
+            BtnStfConfirm.Text = "确认";
+            BtnStfConfirm.UseVisualStyleBackColor = false;
+            // 
+            // pictureBox1
+            // 
+            TxtboxNtcnames.SetColumnSpan(pictureBox1, 2);
+            pictureBox1.Dock = DockStyle.Fill;
+            pictureBox1.Location = new Point(3, 283);
+            pictureBox1.Name = "pictureBox1";
+            TxtboxNtcnames.SetRowSpan(pictureBox1, 3);
+            pictureBox1.Size = new Size(260, 164);
+            pictureBox1.TabIndex = 5;
+            pictureBox1.TabStop = false;
             // 
             // ShellTempFitting
             // 
             AutoScaleDimensions = new SizeF(7F, 17F);
             AutoScaleMode = AutoScaleMode.Font;
             ClientSize = new Size(800, 450);
-            Controls.Add(textBox2);
-            Controls.Add(button3);
-            Controls.Add(button2);
-            Controls.Add(button1);
-            Controls.Add(textBox1);
+            Controls.Add(TxtboxNtcnames);
             Name = "ShellTempFitting";
             Text = "ShellTempFitting";
             Load += ShellTempFitting_Load;
+            TxtboxNtcnames.ResumeLayout(false);
+            TxtboxNtcnames.PerformLayout();
+            ((System.ComponentModel.ISupportInitialize)pictureBox3).EndInit();
+            ((System.ComponentModel.ISupportInitialize)pictureBox2).EndInit();
+            ((System.ComponentModel.ISupportInitialize)pictureBox1).EndInit();
             ResumeLayout(false);
-            PerformLayout();
         }
 
         #endregion
 
-        private TextBox textBox1;
-        private Button button1;
-        private Button button2;
-        private Button button3;
+        private TableLayoutPanel TxtboxNtcnames;
+        private TextBox TxtboxStfResult;
+        private TextBox TxtboxStfFilesPath;
         private TextBox textBox2;
+        private Button BtnStfSelectFiles;
+        private Button BtnStfConfirm;
+        private PictureBox pictureBox1;
+        private PictureBox pictureBox3;
+        private PictureBox pictureBox2;
     }
 }

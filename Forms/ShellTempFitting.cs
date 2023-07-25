@@ -15,6 +15,7 @@ namespace HW_Thermal_Tools.Forms
         public ShellTempFitting()
         {
             InitializeComponent();
+            LoadTheme();
         }
 
         private void ShellTempFitting_Load(object sender, EventArgs e)
@@ -31,7 +32,7 @@ namespace HW_Thermal_Tools.Forms
                     Button btn = (Button)btns;
                     btn.BackColor = ThemeColor.PrimaryColor;
                     btn.ForeColor = Color.White;
-                    btn.FlatAppearance.BorderColor =ThemeColor.SecondaryColor ;
+                    btn.FlatAppearance.BorderColor = ThemeColor.SecondaryColor;
                 }
             }
         }

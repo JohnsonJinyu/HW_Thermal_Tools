@@ -20,7 +20,7 @@ namespace HW_Thermal_Tools.Forms
 
         private void XmlToExcel_Load(object sender, EventArgs e)
         {
-
+            LoadTheme();
         }
 
         private void LoadTheme()

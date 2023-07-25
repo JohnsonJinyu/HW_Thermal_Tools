@@ -28,80 +28,124 @@
         /// </summary>
         private void InitializeComponent()
         {
-            textBox2 = new TextBox();
-            button3 = new Button();
-            button2 = new Button();
-            button1 = new Button();
-            textBox1 = new TextBox();
+            tableLayoutPanel1 = new TableLayoutPanel();
+            BtnXmlToExcelFile = new Button();
+            BtnSelectConfigFile = new Button();
+            TxtXmlFilePath = new TextBox();
+            TxtConfigFile = new TextBox();
+            BtnSelectXmlFile = new Button();
+            tableLayoutPanel1.SuspendLayout();
             SuspendLayout();
             // 
-            // textBox2
+            // tableLayoutPanel1
             // 
-            textBox2.Location = new Point(213, 191);
-            textBox2.Name = "textBox2";
-            textBox2.Size = new Size(195, 23);
-            textBox2.TabIndex = 9;
+            tableLayoutPanel1.ColumnCount = 8;
+            tableLayoutPanel1.ColumnStyles.Add(new ColumnStyle(SizeType.Percent, 12.5F));
+            tableLayoutPanel1.ColumnStyles.Add(new ColumnStyle(SizeType.Percent, 12.5F));
+            tableLayoutPanel1.ColumnStyles.Add(new ColumnStyle(SizeType.Percent, 12.5F));
+            tableLayoutPanel1.ColumnStyles.Add(new ColumnStyle(SizeType.Percent, 12.5F));
+            tableLayoutPanel1.ColumnStyles.Add(new ColumnStyle(SizeType.Percent, 12.5F));
+            tableLayoutPanel1.ColumnStyles.Add(new ColumnStyle(SizeType.Percent, 12.5F));
+            tableLayoutPanel1.ColumnStyles.Add(new ColumnStyle(SizeType.Percent, 12.5F));
+            tableLayoutPanel1.ColumnStyles.Add(new ColumnStyle(SizeType.Percent, 12.5F));
+            tableLayoutPanel1.Controls.Add(BtnXmlToExcelFile, 3, 5);
+            tableLayoutPanel1.Controls.Add(BtnSelectConfigFile, 6, 3);
+            tableLayoutPanel1.Controls.Add(TxtXmlFilePath, 0, 1);
+            tableLayoutPanel1.Controls.Add(TxtConfigFile, 0, 3);
+            tableLayoutPanel1.Controls.Add(BtnSelectXmlFile, 6, 1);
+            tableLayoutPanel1.Dock = DockStyle.Fill;
+            tableLayoutPanel1.Location = new Point(0, 0);
+            tableLayoutPanel1.Name = "tableLayoutPanel1";
+            tableLayoutPanel1.RowCount = 8;
+            tableLayoutPanel1.RowStyles.Add(new RowStyle(SizeType.Percent, 12.5F));
+            tableLayoutPanel1.RowStyles.Add(new RowStyle(SizeType.Percent, 12.5F));
+            tableLayoutPanel1.RowStyles.Add(new RowStyle(SizeType.Percent, 12.5F));
+            tableLayoutPanel1.RowStyles.Add(new RowStyle(SizeType.Percent, 12.5F));
+            tableLayoutPanel1.RowStyles.Add(new RowStyle(SizeType.Percent, 12.5F));
+            tableLayoutPanel1.RowStyles.Add(new RowStyle(SizeType.Percent, 12.5F));
+            tableLayoutPanel1.RowStyles.Add(new RowStyle(SizeType.Percent, 12.5F));
+            tableLayoutPanel1.RowStyles.Add(new RowStyle(SizeType.Percent, 12.5F));
+            tableLayoutPanel1.RowStyles.Add(new RowStyle(SizeType.Absolute, 20F));
+            tableLayoutPanel1.Size = new Size(800, 450);
+            tableLayoutPanel1.TabIndex = 0;
             // 
-            // button3
+            // BtnXmlToExcelFile
             // 
-            button3.FlatStyle = FlatStyle.Flat;
-            button3.Location = new Point(347, 299);
-            button3.Name = "button3";
-            button3.Size = new Size(75, 23);
-            button3.TabIndex = 8;
-            button3.Text = "button3";
-            button3.UseVisualStyleBackColor = true;
+            tableLayoutPanel1.SetColumnSpan(BtnXmlToExcelFile, 2);
+            BtnXmlToExcelFile.Dock = DockStyle.Fill;
+            BtnXmlToExcelFile.FlatStyle = FlatStyle.Flat;
+            BtnXmlToExcelFile.Location = new Point(303, 283);
+            BtnXmlToExcelFile.Name = "BtnXmlToExcelFile";
+            BtnXmlToExcelFile.Size = new Size(194, 50);
+            BtnXmlToExcelFile.TabIndex = 4;
+            BtnXmlToExcelFile.Text = "确认";
+            BtnXmlToExcelFile.UseVisualStyleBackColor = false;
             // 
-            // button2
+            // BtnSelectConfigFile
             // 
-            button2.FlatStyle = FlatStyle.Flat;
-            button2.Location = new Point(512, 190);
-            button2.Name = "button2";
-            button2.Size = new Size(75, 23);
-            button2.TabIndex = 7;
-            button2.Text = "button2";
-            button2.UseVisualStyleBackColor = true;
+            tableLayoutPanel1.SetColumnSpan(BtnSelectConfigFile, 2);
+            BtnSelectConfigFile.Dock = DockStyle.Fill;
+            BtnSelectConfigFile.FlatStyle = FlatStyle.Flat;
+            BtnSelectConfigFile.Location = new Point(603, 171);
+            BtnSelectConfigFile.Name = "BtnSelectConfigFile";
+            BtnSelectConfigFile.Size = new Size(194, 50);
+            BtnSelectConfigFile.TabIndex = 3;
+            BtnSelectConfigFile.Text = "选择配置文件";
+            BtnSelectConfigFile.UseVisualStyleBackColor = false;
             // 
-            // button1
+            // TxtXmlFilePath
             // 
-            button1.FlatStyle = FlatStyle.Flat;
-            button1.Location = new Point(503, 133);
-            button1.Name = "button1";
-            button1.Size = new Size(75, 23);
-            button1.TabIndex = 6;
-            button1.Text = "button1";
-            button1.UseVisualStyleBackColor = true;
+            tableLayoutPanel1.SetColumnSpan(TxtXmlFilePath, 6);
+            TxtXmlFilePath.Dock = DockStyle.Fill;
+            TxtXmlFilePath.Location = new Point(3, 59);
+            TxtXmlFilePath.Multiline = true;
+            TxtXmlFilePath.Name = "TxtXmlFilePath";
+            TxtXmlFilePath.Size = new Size(594, 50);
+            TxtXmlFilePath.TabIndex = 0;
             // 
-            // textBox1
+            // TxtConfigFile
             // 
-            textBox1.Location = new Point(213, 128);
-            textBox1.Name = "textBox1";
-            textBox1.Size = new Size(195, 23);
-            textBox1.TabIndex = 5;
+            tableLayoutPanel1.SetColumnSpan(TxtConfigFile, 6);
+            TxtConfigFile.Dock = DockStyle.Fill;
+            TxtConfigFile.Location = new Point(3, 171);
+            TxtConfigFile.Multiline = true;
+            TxtConfigFile.Name = "TxtConfigFile";
+            TxtConfigFile.Size = new Size(594, 50);
+            TxtConfigFile.TabIndex = 1;
+            // 
+            // BtnSelectXmlFile
+            // 
+            tableLayoutPanel1.SetColumnSpan(BtnSelectXmlFile, 2);
+            BtnSelectXmlFile.Dock = DockStyle.Fill;
+            BtnSelectXmlFile.FlatStyle = FlatStyle.Flat;
+            BtnSelectXmlFile.Location = new Point(603, 59);
+            BtnSelectXmlFile.Name = "BtnSelectXmlFile";
+            BtnSelectXmlFile.Size = new Size(194, 50);
+            BtnSelectXmlFile.TabIndex = 2;
+            BtnSelectXmlFile.Text = "选择XML文件";
+            BtnSelectXmlFile.UseVisualStyleBackColor = false;
             // 
             // XmlToExcel
             // 
             AutoScaleDimensions = new SizeF(7F, 17F);
             AutoScaleMode = AutoScaleMode.Font;
             ClientSize = new Size(800, 450);
-            Controls.Add(textBox2);
-            Controls.Add(button3);
-            Controls.Add(button2);
-            Controls.Add(button1);
-            Controls.Add(textBox1);
+            Controls.Add(tableLayoutPanel1);
             Name = "XmlToExcel";
             Text = "XmlToExcel";
             Load += XmlToExcel_Load;
+            tableLayoutPanel1.ResumeLayout(false);
+            tableLayoutPanel1.PerformLayout();
             ResumeLayout(false);
-            PerformLayout();
         }
 
         #endregion
 
-        private TextBox textBox2;
-        private Button button3;
-        private Button button2;
-        private Button button1;
-        private TextBox textBox1;
+        private TableLayoutPanel tableLayoutPanel1;
+        private TextBox TxtXmlFilePath;
+        private Button BtnXmlToExcelFile;
+        private Button BtnSelectConfigFile;
+        private TextBox TxtConfigFile;
+        private Button BtnSelectXmlFile;
     }
 }

@@ -101,7 +101,7 @@ namespace HW_Thermal_Tools
 
         private void BtnForm2_Click(object sender, EventArgs e)
         {
-            OpenChildForm(new Forms.XmlToExcel(), sender);
+            OpenChildForm(new Forms.ShellTempFitting(), sender);
         }
     }
 }
