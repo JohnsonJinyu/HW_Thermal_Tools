@@ -131,6 +131,7 @@
             // 
             // BtnStfSelectFiles
             // 
+            BtnStfSelectFiles.BackColor = SystemColors.ControlLight;
             BtnStfSelectFiles.Dock = DockStyle.Fill;
             BtnStfSelectFiles.FlatStyle = FlatStyle.Flat;
             BtnStfSelectFiles.Location = new Point(668, 59);
@@ -142,6 +143,7 @@
             // 
             // BtnStfConfirm
             // 
+            BtnStfConfirm.BackColor = SystemColors.ControlLight;
             BtnStfConfirm.Dock = DockStyle.Fill;
             BtnStfConfirm.FlatStyle = FlatStyle.Flat;
             BtnStfConfirm.Location = new Point(668, 115);

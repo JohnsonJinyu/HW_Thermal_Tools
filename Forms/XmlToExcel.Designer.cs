@@ -71,6 +71,7 @@
             // 
             // BtnXmlToExcelFile
             // 
+            BtnXmlToExcelFile.BackColor = SystemColors.ControlLight;
             tableLayoutPanel1.SetColumnSpan(BtnXmlToExcelFile, 2);
             BtnXmlToExcelFile.Dock = DockStyle.Fill;
             BtnXmlToExcelFile.FlatStyle = FlatStyle.Flat;
@@ -80,9 +81,11 @@
             BtnXmlToExcelFile.TabIndex = 4;
             BtnXmlToExcelFile.Text = "确认";
             BtnXmlToExcelFile.UseVisualStyleBackColor = false;
+            BtnXmlToExcelFile.Click += BtnXmlToExcelFile_Click;
             // 
             // BtnSelectConfigFile
             // 
+            BtnSelectConfigFile.BackColor = SystemColors.ControlLight;
             tableLayoutPanel1.SetColumnSpan(BtnSelectConfigFile, 2);
             BtnSelectConfigFile.Dock = DockStyle.Fill;
             BtnSelectConfigFile.FlatStyle = FlatStyle.Flat;
@@ -92,6 +95,7 @@
             BtnSelectConfigFile.TabIndex = 3;
             BtnSelectConfigFile.Text = "选择配置文件";
             BtnSelectConfigFile.UseVisualStyleBackColor = false;
+            BtnSelectConfigFile.Click += BtnSelectConfigFile_Click;
             // 
             // TxtXmlFilePath
             // 
@@ -115,6 +119,7 @@
             // 
             // BtnSelectXmlFile
             // 
+            BtnSelectXmlFile.BackColor = SystemColors.ControlLight;
             tableLayoutPanel1.SetColumnSpan(BtnSelectXmlFile, 2);
             BtnSelectXmlFile.Dock = DockStyle.Fill;
             BtnSelectXmlFile.FlatStyle = FlatStyle.Flat;
@@ -124,6 +129,7 @@
             BtnSelectXmlFile.TabIndex = 2;
             BtnSelectXmlFile.Text = "选择XML文件";
             BtnSelectXmlFile.UseVisualStyleBackColor = false;
+            BtnSelectXmlFile.Click += BtnSelectXmlFile_Click;
             // 
             // XmlToExcel
             // 
