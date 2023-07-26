@@ -166,53 +166,52 @@ namespace HW_Thermal_Tools.Forms
         /*
         1、定义一个方法LoadExcelToDic()，用于读取用户选择的配置表excel文件，遍历每个worksheet页；
         2、从TxtConfigFile.Text中获取用户选择的配置表excel文件路径；
-        3、读取excel文件，将每个sheet页的内容保存到一个字典中；
-        4、每个sheet页第一行为字典的标题，第二行开始：第一列为字典key，第二列开始为字典value；
-        5、每个字典的名称与sheet页的名称相同；
-        6、返回字典；
-        7、设置非商业用途的许可证
+        3、获取每个worksheet的名称，并分别生成对应名称的字典；
+        4、遍历每个sheet页的内容，并将内容保存到一个字典中。
+        5、设置非商业用途的许可证；
+        6、返回字典，并在控制台打印；
+
         */
         private Dictionary<string, Dictionary<string, string>> LoadExcelToDic()
         {
-            //设置非商业用途的许可证
-            ExcelPackage.LicenseContext = LicenseContext.NonCommercial;
-            //从TxtConfigFile.Text中获取用户选择的配置表excel文件路径
+            //从TxtConfigFile.Text中获取用户选择的配置表excel文件路径；
             string path = TxtConfigFile.Text;
-            //定义一个字典，用于保存excel文件中每个sheet页的内容
+            //定义一个字典，用于保存每个sheet页的内容
             Dictionary<string, Dictionary<string, string>> dic = new Dictionary<string, Dictionary<string, string>>();
-            //读取excel文件
-            using (ExcelPackage package = new ExcelPackage(new System.IO.FileInfo(path)))
+            //设置非商业用途的许可证；
+            ExcelPackage.LicenseContext = LicenseContext.NonCommercial;
+            //读取Excel文件
+            using (var package = new ExcelPackage(new System.IO.FileInfo(path)))
             {
                 //遍历每个worksheet页
-                foreach (ExcelWorksheet worksheet in package.Workbook.Worksheets)
+                foreach (var sheet in package.Workbook.Worksheets)
                 {
-                    //定义一个字典，用于保存每个sheet页的内容
+                    //获取每个worksheet的名称，并分别生成对应名称的字典；
                     Dictionary<string, string> sheetDic = new Dictionary<string, string>();
-                    //遍历每个sheet页的内容，并将内容保存到一个字典中
-                    for (int i = 1; i <= worksheet.Dimension.Rows; i++)
+                    //遍历每个sheet页的内容，并将内容保存到一个字典中。
+                    for (int i = 1; i <= sheet.Dimension.End.Row; i++)
                     {
-                        //第一行为字典的标题
-                        if (i == 1)
-                        {
-                            for (int j = 1; j <= worksheet.Dimension.Columns; j++)
-                            {
-                                sheetDic.Add(worksheet.Cells[i, j].Value.ToString(), "");
-                            }
-                        }
-                        //第二行开始：第一列为字典key，第二列开始为字典value
-                        else
-                        {
-                            for (int j = 1; j <= worksheet.Dimension.Columns; j++)
-                            {
-                                sheetDic[worksheet.Cells[1, j].Value.ToString()] = worksheet.Cells[i, j].Value.ToString();
-                            }
-                        }
+                        //获取第一列的值
+                        string key = sheet.Cells[i, 1].Value.ToString();
+                        //获取第二列的值
+                        string value = sheet.Cells[i, 2].Value.ToString();
+                        //将第一列和第二列的值保存到字典中
+                        sheetDic.Add(key, value);
                     }
-                    //每个字典的名称与sheet页的名称相同
-                    dic.Add(worksheet.Name, sheetDic);
+                    //将每个sheet页的字典保存到dic中
+                    dic.Add(sheet.Name, sheetDic);
                 }
             }
-            //返回字典
+            //在控制台打印dic中的内容
+            foreach (var item in dic)
+            {
+                Console.WriteLine(item.Key);
+                foreach (var item2 in item.Value)
+                {
+                    Console.WriteLine(item2.Key + ":" + item2.Value);
+                }
+            }
+            //返回dic
             return dic;
         }
         
