@@ -57,3 +57,13 @@
 - 包含分层结构与节点组织
 ```
 
+# XmlToExcel方案思路
+## 逻辑
+- 读取XML文件
+  - 读取XML所有的"gear_config"节点，遍历属性名称；
+- 读取Excel文件
+  - 将所有的worksheet内容保存为字典
+  - 获取每个worksheet页第一行的内容
+- 根据XML和Excel读取到的内容，生成dataTable的新的标题行
+  - 遍历XML中所有的gear_config节点的属性值，根据属性名称，匹配dict，将值填入databel
+  - 同步获取每个gear_config节点的父节点，添加到dataTable和属性值同一行的第一列，作为场景名称；

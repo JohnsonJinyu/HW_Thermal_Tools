@@ -23,11 +23,13 @@ namespace HW_Thermal_Tools.Forms
 
         //定义一个全局变量ExcelTitleList，用于保存Excel表格的标题
         List<string> ExcelTitleList = new List<string>();
+        //定义一个Excel2DictList，用于保存遍历Excel得到的字典合集
+        List<Dictionary<string, string>> Excel2DictList = new List<Dictionary<string, string>>();
 
         public XmlToExcel()
         {
             InitializeComponent();
-            
+
         }
 
 
@@ -64,7 +66,7 @@ namespace HW_Thermal_Tools.Forms
                 //把文件路径显示到textbox中
                 TxtXmlFilePath.Text = path;
             }
-            
+
 
         }
 
@@ -93,7 +95,7 @@ namespace HW_Thermal_Tools.Forms
             }
             try
             {
-                //GetExcelTitle();
+                GetExcelTitle();
                 LoadExcelToDic();
 
 
@@ -106,10 +108,11 @@ namespace HW_Thermal_Tools.Forms
 
         }
 
-        
+
 
         private void GetExcelTitle()
         {
+
             //读取用户选择的XML文件
             XmlDocument doc = new XmlDocument();
             doc.Load(TxtXmlFilePath.Text);
@@ -135,30 +138,79 @@ namespace HW_Thermal_Tools.Forms
 
 
             /*
-            1、读取用户选择的配置表excel文件，遍历每个worksheet页；
-            2、遍历每个sheet页的内容，并将内容保存到一个字典中。
-            3、遍历ExcelTitleList，做以下操作：
-                将“CPU”sheet第一行第二列的内容，插入到ExcelTitleList中“cpu”后面，作为cpu属性值描述的列的标题；
-                将“GPU”sheet第一行第二列的内容，插入到ExcelTitleList中“gpu”后面，作为gpu属性值描述的列的标题；
-                将“亮度等级”sheet第一行第二列的内容，插入到ExcelTitleList中“brightness”后面，作为brightness属性值描述的列的标题；
-                将“充电电流”sheet第一行第二列的内容，插入到ExcelTitleList中“charge_”后面，作为charge属性值描述的列的标题；
-                将“温度档位”sheet第一行第二列和第一行第三列的内容，插入到ExcelTitleList中“tempGear”后面，作为tempGear属性值描述的列的标题；
-
+            1、读取Excel文件；
+            2、设置非商用许可证；
+            3、遍历这个workbook中的每个worksheet页；
+            4、然后遍历ExcelTitleList：
+                4.1：获取名称为“CPU”的worksheet页，将第一行第二个单元格的内容插入到ExcelTitleList的“cpu”元素后面；
+                4.2：获取名称为“GPU”的worksheet页，将第一行第二个单元格的内容插入到ExcelTitleList的“gpu”元素后面；
+                4.3：获取名称为“温度档位”或者“温控档位”的worksheet页，将第一行第二个、第三个单元格的内容插入到ExcelTitleList的“tempGear”元素后面；
+                4.4：获取名称为“亮度等级”的worksheet页，将第一行第二个单元格的内容插入到ExcelTitleList的“brightness”元素后面；
+                4.5：获取名称为“ 充电电流”的worksheet页，将第一行第二个单元格的内容插入到ExcelTitleList的“charge”元素后面；
+            5、返回ExcelTtileList 
             */
-           
-            //打印出ExcelTitleList中的内容
+            //读取用户选择的配置表excel文件
+            string path = TxtConfigFile.Text;
+            //设置非商业用途的许可证
+            ExcelPackage.LicenseContext = LicenseContext.NonCommercial;
+            /*读取Excel文件，遍历每个worksheet页：
+                获取名称为“CPU”的worksheet页，将第一行第二个单元格的内容插入到ExcelTitleList的“cpu”元素后面；
+                获取名称为“GPU”的worksheet页，将第一行第二个单元格的内容插入到ExcelTitleList的“gpu”元素后面；
+                获取名称为“温度档位”或者“温控档位”的worksheet页，将第一行第二个、第三个单元格的内容插入到ExcelTitleList的“tempGear”元素后面；
+                获取名称为“亮度等级”的worksheet页，将第一行第二个单元格的内容插入到ExcelTitleList的“brightness”元素后面；
+                获取名称为“ 充电电流”的worksheet页，将第一行第二个单元格的内容插入到ExcelTitleList的“charge”元素后面；
+            */
+            using (ExcelPackage package = new ExcelPackage(new FileInfo(path)))
+            {
+                //遍历每个worksheet页
+                foreach (ExcelWorksheet worksheet in package.Workbook.Worksheets)
+                {
+                    //获取worksheet页的名称
+                    string sheetName = worksheet.Name;
+                    //获取worksheet页的第一行第二个单元格的内容
+                    string cellValue = worksheet.Cells[1, 2].Value.ToString();
+                    //判断worksheet页的名称
+                    switch (sheetName)
+                    {
+                        case "CPU":
+                            ExcelTitleList.Insert(ExcelTitleList.IndexOf("cpu") + 1, cellValue);
+                            break;
+                        case "GPU":
+                            ExcelTitleList.Insert(ExcelTitleList.IndexOf("gpu") + 1, cellValue);
+                            break;
+                        case "温度档位":
+                        case "温控档位":
+                            ExcelTitleList.Insert(ExcelTitleList.IndexOf("tempGear") + 1, cellValue);
+                            ExcelTitleList.Insert(ExcelTitleList.IndexOf("tempGear") + 2, cellValue);
+                            break;
+                        case "亮度等级":
+                            ExcelTitleList.Insert(ExcelTitleList.IndexOf("brightness") + 1, cellValue);
+                            break;
+                        case "充电档位":
+                            ExcelTitleList.Insert(ExcelTitleList.IndexOf("charge") + 1, cellValue);
+                            break;
+                    }
+                }
+            }
+
+
+
+            //将ExcelTitleList打印出来
             foreach (string str in ExcelTitleList)
             {
                 Console.WriteLine(str);
             }
-
-            //返回ExcelTitleList
             
 
+            
+
+
+
+
+
+
+
         }
-
-
-
 
 
 
@@ -170,7 +222,6 @@ namespace HW_Thermal_Tools.Forms
         4、遍历每个sheet页的内容，并将内容保存到一个字典中。
         5、设置非商业用途的许可证；
         6、返回字典，并在控制台打印；
-
         */
         private Dictionary<string, Dictionary<string, string>> LoadExcelToDic()
         {
@@ -214,8 +265,5 @@ namespace HW_Thermal_Tools.Forms
             //返回dic
             return dic;
         }
-        
-        
     }
-
 }
