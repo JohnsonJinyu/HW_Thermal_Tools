@@ -67,3 +67,14 @@
 - 根据XML和Excel读取到的内容，生成dataTable的新的标题行
   - 遍历XML中所有的gear_config节点的属性值，根据属性名称，匹配dict，将值填入databel
   - 同步获取每个gear_config节点的父节点，添加到dataTable和属性值同一行的第一列，作为场景名称；
+
+
+
+# 多元线性回归的方法 
+
+
+- **Math.NET Numerics**：这是一个开源的数学和统计库，它提供了一些方法来执行 **多元线性回归**，并且可以读写 **Excel** 文件
+- **Accord.NET Framework**：这是一个机器学习和数据挖掘的库，它也提供了一些方法来执行 **多元线性回归**，并且可以读写 **Excel** 文件。
+- **EPPlus** 和 **Accord.Statistics**：这是一个组合方案，使用 **EPPlus** 来读写 **Excel** 文件，使用 **Accord.Statistics** 来执行 **多元线性回归**。
+
+
