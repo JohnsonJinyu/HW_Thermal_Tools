@@ -100,7 +100,7 @@ namespace HW_Thermal_Tools.Forms
                 GetExcelTitle();
                 LoadExcelToDic();
                 MatchData();
-
+                DataTableToExcel();
             }
             catch (Exception ex)
             {
@@ -109,6 +109,91 @@ namespace HW_Thermal_Tools.Forms
             }
 
         }
+
+        private void DataTableToExcel()
+        {
+            /*
+            1、使用EPPLUS插件，将XMLDataTable中的数据写入到Excel文件中；
+                将Excel文件第一行全部居中 加粗，微软雅黑字体；
+                将Excel文件第一列相同的内容合并单元格，并垂直居中，左对齐；
+            2、将Excel文件保存到用户选择的路径中；
+            3、提示用户转换成功；
+             */
+            // 创建一个Excel文件
+            using (var p = new ExcelPackage())
+            {
+                // 创建一个工作表
+                var workSheet = p.Workbook.Worksheets.Add("Sheet1");
+                // 写入数据，包括表头
+                workSheet.Cells["A1"].LoadFromDataTable(XMLDataTable, true);
+
+
+                workSheet.Cells.Style.HorizontalAlignment = ExcelHorizontalAlignment.Center; //设置所有单元格为水平居中
+
+                //设置第一行的字体为微软雅黑，加粗，居中
+                workSheet.Row(1).Style.Font.Name = "微软雅黑";
+                workSheet.Row(1).Style.Font.Bold = true;
+                workSheet.Row(1).Style.HorizontalAlignment = ExcelHorizontalAlignment.Center;
+
+                
+
+                //遍历第一列中的内容，将内容相同的单元格合并
+                int fromRow = 2; //起始行索引
+                int toRow = 2; //结束行索引
+                string value = workSheet.Cells[2, 1].Value.ToString(); //起始单元格的值
+                for (int i = 2; i <= workSheet.Dimension.Rows; i++)
+                {
+                    var nextValue = workSheet.Cells[i + 1, 1].Value?.ToString(); //下一个单元格的值
+                    if (value != nextValue) //如果值不同，则合并之前的单元格
+                    {
+                        value = nextValue; //更新值
+                        toRow = i; //更新结束行索引
+                        workSheet.Cells[fromRow, 1, toRow, 1].Merge = true; //合并单元格
+                        workSheet.Cells[fromRow, 1, toRow, 1].Style.VerticalAlignment = ExcelVerticalAlignment.Center; //垂直居中
+                        fromRow = i + 1; //更新起始行索引
+                    }
+                    if (nextValue == null) //如果下一个单元格为空，则跳出循环
+                    {
+                        break;
+                    }
+                }
+
+                workSheet.Cells["A2:A" + workSheet.Dimension.Rows].Style.WrapText = true; //设置第一列从第二行开始的单元格为自动换行
+                workSheet.Cells["A2:A" + workSheet.Dimension.Rows].Style.HorizontalAlignment = ExcelHorizontalAlignment.Left; //设置第一列从第二行开始的单元格为水平左对齐
+
+                workSheet.Cells["B1:" + workSheet.Dimension.Address].AutoFitColumns(); //设置除第一列以外的其他列为自适应宽度
+                //设置第一列的宽度为25
+                workSheet.Column(1).Width = 25;
+
+                //将整个excel中所有包含字符格式数字的单元格改为数字格式
+                for (int i = 2; i <= workSheet.Dimension.Rows; i++)
+                {
+                    for (int j = 2; j <= workSheet.Dimension.Columns; j++)
+                    {
+                        var cellValue = workSheet.Cells[i, j].Value?.ToString(); //获取单元格的值
+                        if (double.TryParse(cellValue, out double number)) //如果值是数字，则转换为常规格式
+                        {
+                            workSheet.Cells[i, j].Value = number;
+                            workSheet.Cells[i, j].Style.Numberformat.Format = "General"; //设置单元格格式为常规
+                        }
+                    }
+                }
+
+                // 弹出保存对话框，让用户选择保存路径
+                SaveFileDialog saveFileDialog = new SaveFileDialog();
+                saveFileDialog.Filter = "Excel文件|*.xlsx";
+                saveFileDialog.Title = "保存Excel文件";
+                saveFileDialog.FileName = "test.xlsx";
+
+                if (saveFileDialog.ShowDialog() == DialogResult.OK)
+                {
+                    // 保存文件到指定路径
+                    p.SaveAs(new FileInfo(saveFileDialog.FileName));
+                    MessageBox.Show("转换成功！", "提示", MessageBoxButtons.OK, MessageBoxIcon.Information, MessageBoxDefaultButton.Button1, MessageBoxOptions.ServiceNotification); //提示用户转换成功，并设置宽度为自动
+                }
+            }
+        }
+
 
         private void GetExcelTitle()
         {
@@ -221,12 +306,6 @@ namespace HW_Thermal_Tools.Forms
                 Excel2Dict.Add(sheetName, sheetDict);
             }
         }
-
-
-
-
-
-
 
 
         private void MatchData()
