@@ -54,9 +54,9 @@
             TxtboxNtcnames.ColumnStyles.Add(new ColumnStyle(SizeType.Percent, 16.66333F));
             TxtboxNtcnames.Controls.Add(pictureBox3, 4, 5);
             TxtboxNtcnames.Controls.Add(pictureBox2, 2, 5);
-            TxtboxNtcnames.Controls.Add(TxtboxStfResult, 1, 3);
-            TxtboxNtcnames.Controls.Add(TxtboxStfFilesPath, 1, 0);
-            TxtboxNtcnames.Controls.Add(textBox2, 1, 2);
+            TxtboxNtcnames.Controls.Add(TxtboxStfResult, 0, 3);
+            TxtboxNtcnames.Controls.Add(TxtboxStfFilesPath, 0, 0);
+            TxtboxNtcnames.Controls.Add(textBox2, 0, 2);
             TxtboxNtcnames.Controls.Add(BtnStfSelectFiles, 5, 1);
             TxtboxNtcnames.Controls.Add(BtnStfConfirm, 5, 2);
             TxtboxNtcnames.Controls.Add(pictureBox1, 0, 5);
@@ -72,6 +72,7 @@
             TxtboxNtcnames.RowStyles.Add(new RowStyle(SizeType.Percent, 12.5F));
             TxtboxNtcnames.RowStyles.Add(new RowStyle(SizeType.Percent, 12.5F));
             TxtboxNtcnames.RowStyles.Add(new RowStyle(SizeType.Percent, 12.5F));
+            TxtboxNtcnames.RowStyles.Add(new RowStyle(SizeType.Absolute, 20F));
             TxtboxNtcnames.Size = new Size(800, 450);
             TxtboxNtcnames.TabIndex = 0;
             // 
@@ -99,34 +100,38 @@
             // 
             // TxtboxStfResult
             // 
-            TxtboxNtcnames.SetColumnSpan(TxtboxStfResult, 4);
+            TxtboxNtcnames.SetColumnSpan(TxtboxStfResult, 5);
             TxtboxStfResult.Dock = DockStyle.Fill;
-            TxtboxStfResult.Location = new Point(136, 171);
+            TxtboxStfResult.Location = new Point(3, 171);
             TxtboxStfResult.Multiline = true;
             TxtboxStfResult.Name = "TxtboxStfResult";
+            TxtboxStfResult.ReadOnly = true;
             TxtboxNtcnames.SetRowSpan(TxtboxStfResult, 2);
-            TxtboxStfResult.Size = new Size(526, 106);
+            TxtboxStfResult.ScrollBars = ScrollBars.Vertical;
+            TxtboxStfResult.Size = new Size(659, 106);
             TxtboxStfResult.TabIndex = 2;
             // 
             // TxtboxStfFilesPath
             // 
-            TxtboxNtcnames.SetColumnSpan(TxtboxStfFilesPath, 4);
+            TxtboxNtcnames.SetColumnSpan(TxtboxStfFilesPath, 5);
             TxtboxStfFilesPath.Dock = DockStyle.Fill;
-            TxtboxStfFilesPath.Location = new Point(136, 3);
+            TxtboxStfFilesPath.Location = new Point(3, 3);
             TxtboxStfFilesPath.Multiline = true;
             TxtboxStfFilesPath.Name = "TxtboxStfFilesPath";
             TxtboxNtcnames.SetRowSpan(TxtboxStfFilesPath, 2);
-            TxtboxStfFilesPath.Size = new Size(526, 106);
+            TxtboxStfFilesPath.ScrollBars = ScrollBars.Vertical;
+            TxtboxStfFilesPath.Size = new Size(659, 106);
             TxtboxStfFilesPath.TabIndex = 0;
             // 
             // textBox2
             // 
-            TxtboxNtcnames.SetColumnSpan(textBox2, 4);
+            TxtboxNtcnames.SetColumnSpan(textBox2, 5);
             textBox2.Dock = DockStyle.Fill;
-            textBox2.Location = new Point(136, 115);
+            textBox2.Location = new Point(3, 115);
             textBox2.Multiline = true;
             textBox2.Name = "textBox2";
-            textBox2.Size = new Size(526, 50);
+            textBox2.PlaceholderText = "请输入用到的NTC名称，以空格间隔";
+            textBox2.Size = new Size(659, 50);
             textBox2.TabIndex = 1;
             // 
             // BtnStfSelectFiles
@@ -140,6 +145,7 @@
             BtnStfSelectFiles.TabIndex = 3;
             BtnStfSelectFiles.Text = "选择文件";
             BtnStfSelectFiles.UseVisualStyleBackColor = false;
+            BtnStfSelectFiles.Click += BtnStfSelectFiles_Click;
             // 
             // BtnStfConfirm
             // 
@@ -152,6 +158,7 @@
             BtnStfConfirm.TabIndex = 4;
             BtnStfConfirm.Text = "确认";
             BtnStfConfirm.UseVisualStyleBackColor = false;
+            BtnStfConfirm.Click += BtnStfConfirm_Click;
             // 
             // pictureBox1
             // 

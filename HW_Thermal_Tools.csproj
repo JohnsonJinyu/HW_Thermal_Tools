@@ -9,12 +9,14 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <PackageReference Include="CsvHelper" Version="30.0.1" />
     <PackageReference Include="EPPlus" Version="6.2.7" />
     <PackageReference Include="ExcelDataReader" Version="3.6.0" />
     <PackageReference Include="ExcelDataReader.DataSet" Version="3.6.0" />
     <PackageReference Include="ExcelWriter" Version="1.0.0.2" />
     <PackageReference Include="HZH_Controls" Version="1.0.14" />
     <PackageReference Include="Microsoft.Office.Interop.Excel" Version="15.0.4795.1001" />
+    <PackageReference Include="NPOI" Version="2.6.1" />
   </ItemGroup>
 
 </Project>
