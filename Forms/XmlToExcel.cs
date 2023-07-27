@@ -11,9 +11,9 @@ using System.Xml;
 using ExcelDataReader;
 using ExcelWriter;
 using HZH_Controls.Forms;
+using Microsoft.Office.Interop.Excel;
 using OfficeOpenXml;
 using OfficeOpenXml.Style;
-using Excel = Microsoft.Office.Interop.Excel;
 using LicenseContext = OfficeOpenXml.LicenseContext;
 
 namespace HW_Thermal_Tools.Forms
@@ -23,8 +23,10 @@ namespace HW_Thermal_Tools.Forms
 
         //定义一个全局变量ExcelTitleList，用于保存Excel表格的标题
         List<string> ExcelTitleList = new List<string>();
-        //定义一个Excel2DictList，用于保存遍历Excel得到的字典合集
-        List<Dictionary<string, string>> Excel2DictList = new List<Dictionary<string, string>>();
+        //定义一个Excel2DictList，用于保存遍历Excel得到的字典合集,内层嵌套列表，用于存储多个value
+        Dictionary<string, Dictionary<string, List<string>>> Excel2Dict = new Dictionary<string, Dictionary<string, List<string>>>();
+        //定义一个DataTable用于存储XML读取以及匹配后的数据
+        System.Data.DataTable XMLDataTable = new System.Data.DataTable();
 
         public XmlToExcel()
         {
@@ -44,9 +46,9 @@ namespace HW_Thermal_Tools.Forms
         {
             foreach (Control btns in this.Controls)
             {
-                if (btns.GetType() == typeof(Button))
+                if (btns.GetType() == typeof(System.Windows.Forms.Button))
                 {
-                    Button btn = (Button)btns;
+                    System.Windows.Forms.Button btn = (System.Windows.Forms.Button)btns;
                     btn.BackColor = ThemeColor.PrimaryColor;
                     btn.ForeColor = Color.White;
                     btn.FlatAppearance.BorderColor = ThemeColor.SecondaryColor;
@@ -97,7 +99,7 @@ namespace HW_Thermal_Tools.Forms
             {
                 GetExcelTitle();
                 LoadExcelToDic();
-
+                MatchData();
 
             }
             catch (Exception ex)
@@ -108,10 +110,10 @@ namespace HW_Thermal_Tools.Forms
 
         }
 
-
-
         private void GetExcelTitle()
         {
+            //先将“场景名称”添加到ExcelTitleList中作为第一个元素
+            ExcelTitleList.Add("场景名称");
 
             //读取用户选择的XML文件
             XmlDocument doc = new XmlDocument();
@@ -137,18 +139,6 @@ namespace HW_Thermal_Tools.Forms
             }
 
 
-            /*
-            1、读取Excel文件；
-            2、设置非商用许可证；
-            3、遍历这个workbook中的每个worksheet页；
-            4、然后遍历ExcelTitleList：
-                4.1：获取名称为“CPU”的worksheet页，将第一行第二个单元格的内容插入到ExcelTitleList的“cpu”元素后面；
-                4.2：获取名称为“GPU”的worksheet页，将第一行第二个单元格的内容插入到ExcelTitleList的“gpu”元素后面；
-                4.3：获取名称为“温度档位”或者“温控档位”的worksheet页，将第一行第二个、第三个单元格的内容插入到ExcelTitleList的“tempGear”元素后面；
-                4.4：获取名称为“亮度等级”的worksheet页，将第一行第二个单元格的内容插入到ExcelTitleList的“brightness”元素后面；
-                4.5：获取名称为“ 充电电流”的worksheet页，将第一行第二个单元格的内容插入到ExcelTitleList的“charge”元素后面；
-            5、返回ExcelTtileList 
-            */
             //读取用户选择的配置表excel文件
             string path = TxtConfigFile.Text;
             //设置非商业用途的许可证
@@ -156,114 +146,264 @@ namespace HW_Thermal_Tools.Forms
             /*读取Excel文件，遍历每个worksheet页：
                 获取名称为“CPU”的worksheet页，将第一行第二个单元格的内容插入到ExcelTitleList的“cpu”元素后面；
                 获取名称为“GPU”的worksheet页，将第一行第二个单元格的内容插入到ExcelTitleList的“gpu”元素后面；
-                获取名称为“温度档位”或者“温控档位”的worksheet页，将第一行第二个、第三个单元格的内容插入到ExcelTitleList的“tempGear”元素后面；
+                获取名称为“温度档位”或者“温控档位”的worksheet页，将第一行第二个和第三个单元格的内容插入到ExcelTitleList的“tempGear”元素后面；
                 获取名称为“亮度等级”的worksheet页，将第一行第二个单元格的内容插入到ExcelTitleList的“brightness”元素后面；
                 获取名称为“ 充电电流”的worksheet页，将第一行第二个单元格的内容插入到ExcelTitleList的“charge”元素后面；
             */
-            using (ExcelPackage package = new ExcelPackage(new FileInfo(path)))
+
+            ExcelPackage ep = new ExcelPackage(new FileInfo(path));
+            ExcelWorksheets sheets = ep.Workbook.Worksheets;
+            foreach (ExcelWorksheet sheet in sheets)
             {
-                //遍历每个worksheet页
-                foreach (ExcelWorksheet worksheet in package.Workbook.Worksheets)
+                if (sheet.Name == "CPU")
                 {
-                    //获取worksheet页的名称
-                    string sheetName = worksheet.Name;
-                    //获取worksheet页的第一行第二个单元格的内容
-                    string cellValue = worksheet.Cells[1, 2].Value.ToString();
-                    //判断worksheet页的名称
-                    switch (sheetName)
-                    {
-                        case "CPU":
-                            ExcelTitleList.Insert(ExcelTitleList.IndexOf("cpu") + 1, cellValue);
-                            break;
-                        case "GPU":
-                            ExcelTitleList.Insert(ExcelTitleList.IndexOf("gpu") + 1, cellValue);
-                            break;
-                        case "温度档位":
-                        case "温控档位":
-                            ExcelTitleList.Insert(ExcelTitleList.IndexOf("tempGear") + 1, cellValue);
-                            ExcelTitleList.Insert(ExcelTitleList.IndexOf("tempGear") + 2, cellValue);
-                            break;
-                        case "亮度等级":
-                            ExcelTitleList.Insert(ExcelTitleList.IndexOf("brightness") + 1, cellValue);
-                            break;
-                        case "充电档位":
-                            ExcelTitleList.Insert(ExcelTitleList.IndexOf("charge") + 1, cellValue);
-                            break;
-                    }
+                    ExcelTitleList.Insert(ExcelTitleList.IndexOf("cpu") + 1, sheet.Cells[1, 2].Value.ToString());
+                }
+                else if (sheet.Name == "GPU")
+                {
+                    ExcelTitleList.Insert(ExcelTitleList.IndexOf("gpu") + 1, sheet.Cells[1, 2].Value.ToString());
+                }
+                else if (sheet.Name == "温度档位" || sheet.Name == "温控档位")
+                {
+                    ExcelTitleList.Insert(ExcelTitleList.IndexOf("tempGear") + 1, sheet.Cells[1, 2].Value.ToString());
+                    ExcelTitleList.Insert(ExcelTitleList.IndexOf("tempGear") + 2, sheet.Cells[1, 3].Value.ToString());
+                }
+                else if (sheet.Name == "亮度等级")
+                {
+                    ExcelTitleList.Insert(ExcelTitleList.IndexOf("brightness") + 1, sheet.Cells[1, 2].Value.ToString());
+                }
+                else if (sheet.Name == "充电电流" || sheet.Name == "充电档位")
+                {
+                    ExcelTitleList.Insert(ExcelTitleList.IndexOf("charge") + 1, sheet.Cells[1, 2].Value.ToString());
                 }
             }
-
-
 
             //将ExcelTitleList打印出来
             foreach (string str in ExcelTitleList)
             {
                 Console.WriteLine(str);
             }
-            
-
-            
-
-
-
-
-
-
 
         }
 
 
 
-
         /*
-        1、定义一个方法LoadExcelToDic()，用于读取用户选择的配置表excel文件，遍历每个worksheet页；
-        2、从TxtConfigFile.Text中获取用户选择的配置表excel文件路径；
-        3、获取每个worksheet的名称，并分别生成对应名称的字典；
-        4、遍历每个sheet页的内容，并将内容保存到一个字典中。
-        5、设置非商业用途的许可证；
-        6、返回字典，并在控制台打印；
-        */
-        private Dictionary<string, Dictionary<string, string>> LoadExcelToDic()
+        1、定义一个LoadExcelToDic方法；上面已经定义了Dictionary<string, Dictionary<string, List<string>>> Excel2Dict = new Dictionary<string, Dictionary<string, List<string>>>();
+        2、读取Excel，遍历每个worksheet页：
+            1、获取worksheet页的名称，作为Excel2Dict的key；
+            2、获取每个worksheet页的内容，将第一列作为Excel2Dict的子字典的key，第二列开始作为子字典的value，
+            3、将Excel2Dict添加到Excel2Dict中；
+         */
+        private void LoadExcelToDic()
         {
-            //从TxtConfigFile.Text中获取用户选择的配置表excel文件路径；
             string path = TxtConfigFile.Text;
-            //定义一个字典，用于保存每个sheet页的内容
-            Dictionary<string, Dictionary<string, string>> dic = new Dictionary<string, Dictionary<string, string>>();
-            //设置非商业用途的许可证；
+            //设置非商业用途的许可证
             ExcelPackage.LicenseContext = LicenseContext.NonCommercial;
-            //读取Excel文件
-            using (var package = new ExcelPackage(new System.IO.FileInfo(path)))
+            ExcelPackage ep = new ExcelPackage(new FileInfo(path));
+            ExcelWorksheets sheets = ep.Workbook.Worksheets;
+            foreach (ExcelWorksheet sheet in sheets)
             {
-                //遍历每个worksheet页
-                foreach (var sheet in package.Workbook.Worksheets)
+                //获取worksheet页的名称，作为Excel2Dict的key；
+                string sheetName = sheet.Name;
+                //获取每个worksheet页的内容，将第一列作为Excel2Dict的子字典的key，第二列开始作为子字典的value，
+                Dictionary<string, List<string>> sheetDict = new Dictionary<string, List<string>>();
+                for (int i = 1; i <= sheet.Dimension.Rows; i++)
                 {
-                    //获取每个worksheet的名称，并分别生成对应名称的字典；
-                    Dictionary<string, string> sheetDic = new Dictionary<string, string>();
-                    //遍历每个sheet页的内容，并将内容保存到一个字典中。
-                    for (int i = 1; i <= sheet.Dimension.End.Row; i++)
+                    List<string> list = new List<string>();
+                    for (int j = 2; j <= sheet.Dimension.Columns; j++)
                     {
-                        //获取第一列的值
-                        string key = sheet.Cells[i, 1].Value.ToString();
-                        //获取第二列的值
-                        string value = sheet.Cells[i, 2].Value.ToString();
-                        //将第一列和第二列的值保存到字典中
-                        sheetDic.Add(key, value);
+                        list.Add(sheet.Cells[i, j].Value.ToString());
                     }
-                    //将每个sheet页的字典保存到dic中
-                    dic.Add(sheet.Name, sheetDic);
+                    sheetDict.Add(sheet.Cells[i, 1].Value.ToString(), list);
                 }
+                //将Excel2Dict添加到Excel2Dict中；
+                Excel2Dict.Add(sheetName, sheetDict);
             }
-            //在控制台打印dic中的内容
-            foreach (var item in dic)
+        }
+
+
+
+
+
+
+
+
+        private void MatchData()
+        {
+            //将ExcelTitleList作为XMLDataTable的列的索引
+            for (int i = 0; i < ExcelTitleList.Count; i++)
             {
-                Console.WriteLine(item.Key);
-                foreach (var item2 in item.Value)
-                {
-                    Console.WriteLine(item2.Key + ":" + item2.Value);
-                }
+                XMLDataTable.Columns.Add(ExcelTitleList[i]);
             }
-            //返回dic
-            return dic;
+
+
+            //获取XML文件，遍历文件中所有的"gear_config"节点的属性和值，同时，每次遍历一个gear_config的时候，获取父节点的名称，父节点没有属性，将获取到的名称作为场景名称
+            XmlDocument doc = new XmlDocument();
+            doc.Load(TxtXmlFilePath.Text);
+            XmlNodeList nodeList = doc.SelectNodes("//gear_config");
+            foreach (XmlNode node in nodeList)
+            {
+                //获取父节点的名称，将获取到的名称，添加到XMLDataTable的第一列
+                string parentName = node.ParentNode.Name;
+
+                //添加新的一行
+                DataRow row = XMLDataTable.NewRow();
+
+                //在新添加的一行里，将父节点的名称添加到列名为“场景名称”的列中
+                row["场景名称"] = parentName;
+                /*
+                1、遍历gear_config节点的属性；
+                2、根据属性的名称，与XMLDataTable的列的名称进行匹配，如果匹配成功，将属性的值添加到XMLDataTable的对应列中；
+                 */
+                foreach (XmlAttribute attr in node.Attributes)
+                {
+
+                    // 检查数据表中是否存在该列 
+                    if (!XMLDataTable.Columns.Contains(attr.Name))
+                    {
+                        XMLDataTable.Columns.Add(attr.Name);
+                    }
+
+                    /*
+                   1、如果属性名称是cpu、gpu、charge、brightness、tempGear：
+                       则需要根据名称在Excel2DictList这个字典合集中查找对应的字典key；
+                       再根据属性的值，在对应的子字典里面查找对应的对应的key以及value(描述)；
+                       将描述插入到属性值的后面
+                   2、如果属性名称不是cpu、gpu、charge、brightness、tempGear：
+                       则直接将属性值插入到XMLDataTable中
+                     */
+                    switch (attr.Name)
+                    {
+                        case "tempGear":
+
+                            //先将XML文件中的属性值插入到XMLDataTable中
+                            row[attr.Name] = attr.Value;
+
+                            //将attr.Name(温度档位)作为key，在Excel2Dict中查找对应的子字典
+                            Dictionary<string, List<string>> TempDict;
+                            Excel2Dict.TryGetValue("温度档位", out TempDict);
+
+                            //将attr.Value作为key，在TempDict中查找对应的value
+                            List<string> TempList;
+                            TempDict.TryGetValue(attr.Value, out TempList);
+
+                            //获取row[attr.Name]的索引
+                            int TempIndex = XMLDataTable.Columns.IndexOf(attr.Name);
+                            //以循环的方式按照索引将TempList内容添加到row[attr.Name]后；
+                            for (int i = 1; i <= TempList.Count; i++)
+                            {
+                                row[TempIndex + i] = TempList[i - 1];
+                            }
+                            break;
+
+                        case "charge":
+
+                            //先将XML文件中的属性值插入到XMLDataTable中
+                            row[attr.Name] = attr.Value;
+
+                            //将attr.Name(充电档位)作为key，在Excel2Dict中查找对应的子字典
+                            Dictionary<string, List<string>> ChargeDict;
+                            Excel2Dict.TryGetValue("充电档位", out ChargeDict);
+
+                            //将attr.Value作为key，在ChargeDict中查找对应的value
+                            List<string> ChargeList;
+                            ChargeDict.TryGetValue(attr.Value, out ChargeList);
+
+                            //获取row[attr.Name]的索引
+                            int ChargeIndex = XMLDataTable.Columns.IndexOf(attr.Name);
+                            //以循环的方式按照索引将ChargeList内容添加到row[attr.Name]后；
+                            for (int i = 1; i <= ChargeList.Count; i++)
+                            {
+                                row[ChargeIndex + i] = ChargeList[i - 1];
+                            }
+
+                            break;
+
+                        case "cpu":
+                        case "CPU":
+
+                            row[attr.Name] = attr.Value;
+
+                            //将attr.Name(CPU)作为key，在Excel2Dict中查找对应的子字典
+                            Dictionary<string, List<string>> CPUDict;
+                            Excel2Dict.TryGetValue("CPU", out CPUDict);
+
+                            //将attr.Value作为key，在CPUDict中查找对应的value
+                            List<string> CPUList;
+                            CPUDict.TryGetValue(attr.Value, out CPUList);
+
+                            //获取row[attr.Name]的索引
+                            int CPUIndex = XMLDataTable.Columns.IndexOf(attr.Name);
+                            //以循环的方式按照索引将CPUList内容添加到row[attr.Name]后；
+                            for (int i = 1; i <= CPUList.Count; i++)
+                            {
+                                row[CPUIndex + i] = CPUList[i - 1];
+                            }
+
+                            break;
+
+                        case "gpu":
+                        case "GPU":
+
+                            row[attr.Name] = attr.Value;
+
+                            //将attr.Name(GPU)作为key，在Excel2Dict中查找对应的子字典
+                            Dictionary<string, List<string>> GPUDict;
+                            Excel2Dict.TryGetValue("GPU", out GPUDict);
+
+                            //将attr.Value作为key，在GPUDict中查找对应的value
+                            List<string> GPUList;
+                            GPUDict.TryGetValue(attr.Value, out GPUList);
+
+                            //获取row[attr.Name]的索引
+                            int GPUIndex = XMLDataTable.Columns.IndexOf(attr.Name);
+                            //以循环的方式按照索引将GPUList内容添加到row[attr.Name]后；
+                            for (int i = 1; i <= GPUList.Count; i++)
+                            {
+                                row[GPUIndex + i] = GPUList[i - 1];
+                            }
+
+                            break;
+
+                        case "brightness":
+
+                            row[attr.Name] = attr.Value;
+
+                            //将attr.Name(亮度等级)作为key，在Excel2Dict中查找对应的子字典
+                            Dictionary<string, List<string>> BrightnessDict;
+                            Excel2Dict.TryGetValue("亮度等级", out BrightnessDict);
+                            List<string> BrightnessList;
+
+                            //将attr.Value作为key，在BrightnessDict中查找对应的value
+                            BrightnessDict.TryGetValue(attr.Value, out BrightnessList);
+
+                            //获取row[attr.Name]的索引
+                            int BrightnessIndex = XMLDataTable.Columns.IndexOf(attr.Name);
+                            //以循环的方式按照索引将BrightnessList内容添加到row[attr.Name]后；
+                            for (int i = 1; i <= BrightnessList.Count; i++)
+                            {
+                                row[BrightnessIndex + i] = BrightnessList[i - 1];
+                            }
+
+                            break;
+
+                        default:
+                            row[attr.Name] = attr.Value;
+                            break;
+                    }
+
+                    /*
+                    上面成功将XML的值获取并赋给XMLDataTable
+                    另外将根据字典将cpu GPU、tempGear、charge、brightness的描述添加到dataTable中
+                     */
+
+                }
+
+                // 添加行
+                XMLDataTable.Rows.Add(row);
+
+            }
         }
     }
 }
