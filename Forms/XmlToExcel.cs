@@ -101,6 +101,7 @@ namespace HW_Thermal_Tools.Forms
                 LoadExcelToDic();
                 MatchData();
                 DataTableToExcel();
+                GC.Collect();//主动触发 .NET 垃圾回收器执行垃圾回收操作
             }
             catch (Exception ex)
             {
@@ -222,7 +223,7 @@ namespace HW_Thermal_Tools.Forms
                     }
                 }
             }
-
+            doc = null;
 
             //读取用户选择的配置表excel文件
             string path = TxtConfigFile.Text;
@@ -236,32 +237,36 @@ namespace HW_Thermal_Tools.Forms
                 获取名称为“ 充电电流”的worksheet页，将第一行第二个单元格的内容插入到ExcelTitleList的“charge”元素后面；
             */
 
-            ExcelPackage ep = new ExcelPackage(new FileInfo(path));
-            ExcelWorksheets sheets = ep.Workbook.Worksheets;
-            foreach (ExcelWorksheet sheet in sheets)
+            using (ExcelPackage ep = new ExcelPackage(new FileInfo(path))) 
             {
-                if (sheet.Name == "CPU")
+                ExcelWorksheets sheets = ep.Workbook.Worksheets;
+                foreach (ExcelWorksheet sheet in sheets)
                 {
-                    ExcelTitleList.Insert(ExcelTitleList.IndexOf("cpu") + 1, sheet.Cells[1, 2].Value.ToString());
-                }
-                else if (sheet.Name == "GPU")
-                {
-                    ExcelTitleList.Insert(ExcelTitleList.IndexOf("gpu") + 1, sheet.Cells[1, 2].Value.ToString());
-                }
-                else if (sheet.Name == "温度档位" || sheet.Name == "温控档位")
-                {
-                    ExcelTitleList.Insert(ExcelTitleList.IndexOf("tempGear") + 1, sheet.Cells[1, 2].Value.ToString());
-                    ExcelTitleList.Insert(ExcelTitleList.IndexOf("tempGear") + 2, sheet.Cells[1, 3].Value.ToString());
-                }
-                else if (sheet.Name == "亮度等级")
-                {
-                    ExcelTitleList.Insert(ExcelTitleList.IndexOf("brightness") + 1, sheet.Cells[1, 2].Value.ToString());
-                }
-                else if (sheet.Name == "充电电流" || sheet.Name == "充电档位")
-                {
-                    ExcelTitleList.Insert(ExcelTitleList.IndexOf("charge") + 1, sheet.Cells[1, 2].Value.ToString());
+                    if (sheet.Name == "CPU")
+                    {
+                        ExcelTitleList.Insert(ExcelTitleList.IndexOf("cpu") + 1, sheet.Cells[1, 2].Value.ToString());
+                    }
+                    else if (sheet.Name == "GPU")
+                    {
+                        ExcelTitleList.Insert(ExcelTitleList.IndexOf("gpu") + 1, sheet.Cells[1, 2].Value.ToString());
+                    }
+                    else if (sheet.Name == "温度档位" || sheet.Name == "温控档位")
+                    {
+                        ExcelTitleList.Insert(ExcelTitleList.IndexOf("tempGear") + 1, sheet.Cells[1, 2].Value.ToString());
+                        ExcelTitleList.Insert(ExcelTitleList.IndexOf("tempGear") + 2, sheet.Cells[1, 3].Value.ToString());
+                    }
+                    else if (sheet.Name == "亮度等级")
+                    {
+                        ExcelTitleList.Insert(ExcelTitleList.IndexOf("brightness") + 1, sheet.Cells[1, 2].Value.ToString());
+                    }
+                    else if (sheet.Name == "充电电流" || sheet.Name == "充电档位")
+                    {
+                        ExcelTitleList.Insert(ExcelTitleList.IndexOf("charge") + 1, sheet.Cells[1, 2].Value.ToString());
+                    }
                 }
             }
+                
+            
 
             //将ExcelTitleList打印出来
             foreach (string str in ExcelTitleList)
@@ -285,25 +290,29 @@ namespace HW_Thermal_Tools.Forms
             string path = TxtConfigFile.Text;
             //设置非商业用途的许可证
             ExcelPackage.LicenseContext = LicenseContext.NonCommercial;
-            ExcelPackage ep = new ExcelPackage(new FileInfo(path));
-            ExcelWorksheets sheets = ep.Workbook.Worksheets;
-            foreach (ExcelWorksheet sheet in sheets)
+            using (ExcelPackage ep = new ExcelPackage(new FileInfo(path)))
             {
-                //获取worksheet页的名称，作为Excel2Dict的key；
-                string sheetName = sheet.Name;
-                //获取每个worksheet页的内容，将第一列作为Excel2Dict的子字典的key，第二列开始作为子字典的value，
-                Dictionary<string, List<string>> sheetDict = new Dictionary<string, List<string>>();
-                for (int i = 1; i <= sheet.Dimension.Rows; i++)
+                ExcelWorksheets sheets = ep.Workbook.Worksheets;
+                foreach (ExcelWorksheet sheet in sheets)
                 {
-                    List<string> list = new List<string>();
-                    for (int j = 2; j <= sheet.Dimension.Columns; j++)
+                    //获取worksheet页的名称，作为Excel2Dict的key；
+                    string sheetName = sheet.Name;
+                    //获取每个worksheet页的内容，将第一列作为Excel2Dict的子字典的key，第二列开始作为子字典的value，
+                    Dictionary<string, List<string>> sheetDict = new Dictionary<string, List<string>>();
+                    for (int i = 1; i <= sheet.Dimension.Rows; i++)
                     {
-                        list.Add(sheet.Cells[i, j].Value.ToString());
+                        List<string> list = new List<string>();
+                        for (int j = 2; j <= sheet.Dimension.Columns; j++)
+                        {
+                            list.Add(sheet.Cells[i, j].Value.ToString());
+                        }
+                        sheetDict.Add(sheet.Cells[i, 1].Value.ToString(), list);
                     }
-                    sheetDict.Add(sheet.Cells[i, 1].Value.ToString(), list);
+                    //将Excel2Dict添加到Excel2Dict中；
+                    Excel2Dict.Add(sheetName, sheetDict);
                 }
-                //将Excel2Dict添加到Excel2Dict中；
-                Excel2Dict.Add(sheetName, sheetDict);
+                
+            
             }
         }
 
@@ -483,6 +492,8 @@ namespace HW_Thermal_Tools.Forms
                 XMLDataTable.Rows.Add(row);
 
             }
+            //释放XMLDocument占用的非托管资源
+            doc = null;
         }
     }
 }
