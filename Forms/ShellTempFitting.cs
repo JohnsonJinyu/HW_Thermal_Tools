@@ -1,4 +1,5 @@
 ﻿using CsvHelper;
+using MathNet.Numerics.LinearAlgebra;
 using NPOI.SS.UserModel;
 using OfficeOpenXml;
 using OfficeOpenXml.Style;
@@ -88,8 +89,11 @@ namespace HW_Thermal_Tools.Forms
             }
 
             DataTablesList = MatchData(CsvFilesList, ExcelFilesList);
+            Calculator(DataTablesList);
 
         }
+
+
 
         private List<DataTable> MatchData(List<string> csvFilesList, List<string> excelFilesList)
         {
@@ -405,6 +409,208 @@ namespace HW_Thermal_Tools.Forms
 
             return resultDataTablesList;
 
+
+        }
+
+        private void TxtboxNtcnames_Paint(object sender, PaintEventArgs e)
+        {
+
+        }
+
+        private void Calculator(List<DataTable> dataTablesList)
+        {
+            //获取用户输入的点位名称、NTC名称，保存为字符串数组
+            string[] FrontPoint = txtFrontPoint.Text.Split(" ");
+            string[] FramePoint = txtFramePoint.Text.Split(" ");
+            string[] BottomPoint = txtBottomPoint.Text.Split(" ");
+            string[] NtcName = txtNtcNames.Text.Split(" ");
+
+            //获取csvDateTable 和 ExcelDataTable
+            DataTable csvDataTable = dataTablesList[0];
+            DataTable ExcelDataTable = dataTablesList[1];
+
+            //初始化自变量X的矩阵
+            Matrix<double> X = Matrix<double>.Build.Dense(csvDataTable.Rows.Count, NtcName.Length);
+
+            //初始化因变量Y的向量
+            Vector<double> Y_Front_Vector = Vector<double>.Build.Dense(ExcelDataTable.Rows.Count);
+            Vector<double> Y_FrameVector = Vector<double>.Build.Dense(ExcelDataTable.Rows.Count);
+            Vector<double> Y_Bottom_Vector = Vector<double>.Build.Dense(ExcelDataTable.Rows.Count);
+
+            //有个要注意的地方，hypermonitor的数据是35600,GP10数据是35.6
+
+            //先根据用户输入的正面 侧面 背面的点位，获取dateTable中对应列表的最大值，然后保存为各自的向量
+            //正面点位
+            for (int i = 0; i < FrontPoint.Length; i++)
+            {
+                switch (FrontPoint[i])
+                {
+                    case "1":
+                        FrontPoint[i] = "CH001";
+                        break;
+                    case "2":
+                        FrontPoint[i] = "CH002";
+                        break;
+                    case "3":
+                        FrontPoint[i] = "CH003";
+                        break;
+                    case "4":
+                        FrontPoint[i] = "CH004";
+                        break;
+                    case "5":
+                        FrontPoint[i] = "CH005";
+                        break;
+                    case "6":
+                        FrontPoint[i] = "CH006";
+                        break;
+                    case "7":
+                        FrontPoint[i] = "CH007";
+                        break;
+                    case "8":
+                        FrontPoint[i] = "CH008";
+                        break;
+                    case "9":
+                        FrontPoint[i] = "CH009";
+                        break;
+                    case "10":
+                        FrontPoint[i] = "CH010";
+                        break;
+                }
+            }
+            //侧面点位
+            for (int i = 0; i < FramePoint.Length; i++)
+            {
+                switch (FramePoint[i])
+                {
+                    case "1":
+                        FramePoint[i] = "CH001";
+                        break;
+                    case "2":
+                        FramePoint[i] = "CH002";
+                        break;
+                    case "3":
+                        FramePoint[i] = "CH003";
+                        break;
+                    case "4":
+                        FramePoint[i] = "CH004";
+                        break;
+                    case "5":
+                        FramePoint[i] = "CH005";
+                        break;
+                    case "6":
+                        FramePoint[i] = "CH006";
+                        break;
+                    case "7":
+                        FramePoint[i] = "CH007";
+                        break;
+                    case "8":
+                        FramePoint[i] = "CH008";
+                        break;
+                    case "9":
+                        FramePoint[i] = "CH009";
+                        break;
+                    case "10":
+                        FramePoint[i] = "CH010";
+                        break;
+                }
+            }
+            //背面点位
+            for (int i = 0; i < BottomPoint.Length; i++)
+            {
+                switch (BottomPoint[i])
+                {
+                    case "1":
+                        BottomPoint[i] = "CH001";
+                        break;
+                    case "2":
+                        BottomPoint[i] = "CH002";
+                        break;
+                    case "3":
+                        BottomPoint[i] = "CH003";
+                        break;
+                    case "4":
+                        BottomPoint[i] = "CH004";
+                        break;
+                    case "5":
+                        BottomPoint[i] = "CH005";
+                        break;
+                    case "6":
+                        BottomPoint[i] = "CH006";
+                        break;
+                    case "7":
+                        BottomPoint[i] = "CH007";
+                        break;
+                    case "8":
+                        BottomPoint[i] = "CH008";
+                        break;
+                    case "9":
+                        BottomPoint[i] = "CH009";
+                        break;
+                    case "10":
+                        BottomPoint[i] = "CH010";
+                        break;
+                }
+            }
+
+            double[] Y_Front_Max = new double[ExcelDataTable.Rows.Count];
+            double[] Y_Frame_Max = new double[ExcelDataTable.Rows.Count];
+            double[] Y_Bottom_Max = new double[ExcelDataTable.Rows.Count];
+
+            for (int i = 0; i < ExcelDataTable.Rows.Count; i++)
+            {
+                DataRow row = ExcelDataTable.Rows[i];
+
+                // 计算Front部分最大值
+                double maxFront = double.MinValue;
+                for (int col = 0; col < FrontPoint.Length; col++)
+                {
+                    double value = double.Parse(row[FrontPoint[col]].ToString());
+                    if (value > maxFront)
+                        maxFront = value;
+                }
+                Y_Front_Max[i] = maxFront;
+
+                // 计算Frame部分最大值
+                double maxFrame = double.MinValue;
+                for (int col = 0; col < FramePoint.Length; col++)
+                {
+                    double value = double.Parse(row[FramePoint[col]].ToString());
+                    if (value > maxFrame)
+                        maxFrame = value;
+                }
+                Y_Frame_Max[i] = maxFrame;
+
+
+                // 计算Bottom部分最大值
+                double maxBottom = double.MinValue;
+                for (int col = 0; col < BottomPoint.Length; col++)
+                {
+                    double value = double.Parse(row[BottomPoint[col]].ToString());
+                    if (value > maxBottom)
+                        maxBottom = value;
+                }
+                Y_Bottom_Max[i] = maxBottom;
+
+            }
+
+            //构建因变量的向量
+            Y_Front_Vector = Vector<double>.Build.DenseOfArray(Y_Front_Max);
+            Y_FrameVector = Vector<double>.Build.DenseOfArray(Y_Frame_Max);
+            Y_Bottom_Vector = Vector<double>.Build.DenseOfArray(Y_Bottom_Max);
+
+
+            //根据用户输入的ntcName，遍历dateTable中对应的列名，并添加到矩阵x中
+            foreach (DataRow row in csvDataTable.Rows)
+            {
+                for (int i = 0; i < NtcName.Length; i++)
+                {
+                    double value = double.Parse(row[NtcName[i]].ToString()) / 1000;
+                    X.Add(value);
+                }
+            }
+
+
+            
 
         }
     }
