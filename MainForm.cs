@@ -103,5 +103,10 @@ namespace HW_Thermal_Tools
         {
             OpenChildForm(new Forms.ShellTempFitting(), sender);
         }
+
+        private void panelLogo_Paint(object sender, PaintEventArgs e)
+        {
+
+        }
     }
 }

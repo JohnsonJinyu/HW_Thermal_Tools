@@ -11,6 +11,7 @@ using OxyPlot;
 using OxyPlot.Series;
 using OxyPlot.WindowsForms;
 using SixLabors.ImageSharp.ColorSpaces;
+using System;
 using System.Data;
 using System.Drawing;
 using System.Formats.Asn1;
@@ -24,12 +25,25 @@ namespace HW_Thermal_Tools.Forms
     public partial class ShellTempFitting : Form
     {
         //files
-
-
+        //创建三个不同的plotModel对象，用于显示最后的对比曲线
+        private PlotModel plotModel_front;
+        private PlotModel plotModel_frame;
+        private PlotModel plotModel_bottom;
+        //创建一个plotModel的索引，用于点击切换
+        private int plotModelIndex = 0;
         public ShellTempFitting()
         {
             InitializeComponent();
             LoadTheme();
+
+            //初始化plotModel对象
+            plotModel_front = new PlotModel { Title = "Front Predict VS Actual" };
+            plotModel_frame = new PlotModel { Title = "Frame Predict VS Actual" };
+            plotModel_bottom = new PlotModel { Title = "Bottom Predict VS Actual" };
+
+            plotModelIndex = 0;
+
+
         }
 
         private void ShellTempFitting_Load(object sender, EventArgs e)
@@ -738,11 +752,167 @@ namespace HW_Thermal_Tools.Forms
 
 
             //创建 Chart 对象,设置类型为曲线图
-            DataVisualization.Charting.Chart chart = new DataVisualization.Charting.Chart();
-            chart.ChartType = DataVisualization.Charting.SeriesChartType.Curve;
+            //PlotModel plotModel_front = new PlotModel() { Title = "Front" };
+            //PlotModel plotModel_frame = new PlotModel() { Title = "Frame" };
+            //PlotModel plotModel_bottom = new PlotModel() { Title = "Bottom" };
+
+            //Front
+            // 创建一个LineSeries对象，用于表示预测值的曲线
+            var Front_predictedSeries = new LineSeries
+            {
+                Title = "预测值",
+                Color = OxyColors.Blue,
+                MarkerType = MarkerType.Circle,
+                MarkerSize = 4,
+                MarkerStroke = OxyColors.White,
+                MarkerFill = OxyColors.Blue,
+                StrokeThickness = 2,
+                InterpolationAlgorithm = InterpolationAlgorithms.CanonicalSpline //设置曲线的插值算法
+            };
+            // 创建一个LineSeries对象，用于表示实际值的曲线
+            var Front_actualSeries = new LineSeries
+            {
+                Title = "实际值",
+                Color = OxyColors.Red,
+                MarkerType = MarkerType.Square,
+                MarkerSize = 4,
+                MarkerStroke = OxyColors.White,
+                MarkerFill = OxyColors.Red,
+                StrokeThickness = 2,
+                InterpolationAlgorithm = InterpolationAlgorithms.CanonicalSpline //设置曲线的插值算法
+            };
+
+            // 将一维数组的数据添加到LineSeries对象中
+            for (int i = 0; i < front_predict.Length; i++)
+            {
+                Front_predictedSeries.Points.Add(new DataPoint(i + 1, front_predict[i]));
+                Front_actualSeries.Points.Add(new DataPoint(i + 1, Y_Front_List[i]));
+            }
+
+            // 将LineSeries对象添加到PlotModel对象中
+            plotModel_front.Series.Add(Front_predictedSeries);
+            plotModel_front.Series.Add(Front_actualSeries);
+            plotModel_front.PlotAreaBackground = OxyColors.LightGray;
+            plotModel_front.PlotAreaBorderColor = OxyColors.Black;
+
+            //Frame
+            // 创建一个LineSeries对象，用于表示预测值的曲线
+            var Frame_predictedSeries = new LineSeries
+            {
+                Title = "预测值",
+                Color = OxyColors.Blue,
+                MarkerType = MarkerType.Circle,
+                MarkerSize = 4,
+                MarkerStroke = OxyColors.White,
+                MarkerFill = OxyColors.Blue,
+                StrokeThickness = 2,
+                InterpolationAlgorithm = InterpolationAlgorithms.CanonicalSpline //设置曲线的插值算法
+            };
+            // 创建一个LineSeries对象，用于表示实际值的曲线
+            var Frame_actualSeries = new LineSeries
+            {
+                Title = "实际值",
+                Color = OxyColors.Red,
+                MarkerType = MarkerType.Square,
+                MarkerSize = 4,
+                MarkerStroke = OxyColors.White,
+                MarkerFill = OxyColors.Red,
+                StrokeThickness = 2,
+                InterpolationAlgorithm = InterpolationAlgorithms.CanonicalSpline //设置曲线的插值算法
+            };
+
+            // 将一维数组的数据添加到LineSeries对象中
+            for (int i = 0; i < frame_predict.Length; i++)
+            {
+                Frame_predictedSeries.Points.Add(new DataPoint(i + 1, frame_predict[i]));
+                Frame_actualSeries.Points.Add(new DataPoint(i + 1, Y_Frame_List[i]));
+            }
+
+            // 将LineSeries对象添加到PlotModel对象中
+            plotModel_frame.Series.Add(Frame_predictedSeries);
+            plotModel_frame.Series.Add(Frame_actualSeries);
+            plotModel_frame.PlotAreaBackground = OxyColors.LightGray;
+            plotModel_frame.PlotAreaBorderColor = OxyColors.Black;
+
+
+            //Frame
+            // 创建一个LineSeries对象，用于表示预测值的曲线
+            var Bottom_predictedSeries = new LineSeries
+            {
+                Title = "预测值",
+                Color = OxyColors.Blue,
+                MarkerType = MarkerType.Circle,
+                MarkerSize = 4,
+                MarkerStroke = OxyColors.White,
+                MarkerFill = OxyColors.Blue,
+                StrokeThickness = 2,
+                InterpolationAlgorithm = InterpolationAlgorithms.CanonicalSpline //设置曲线的插值算法
+            };
+            // 创建一个LineSeries对象，用于表示实际值的曲线
+            var Bottom_actualSeries = new LineSeries
+            {
+                Title = "实际值",
+                Color = OxyColors.Red,
+                MarkerType = MarkerType.Square,
+                MarkerSize = 4,
+                MarkerStroke = OxyColors.White,
+                MarkerFill = OxyColors.Red,
+                StrokeThickness = 2,
+                InterpolationAlgorithm = InterpolationAlgorithms.CanonicalSpline //设置曲线的插值算法
+            };
+
+            // 将一维数组的数据添加到LineSeries对象中
+            for (int i = 0; i < bottom_predict.Length; i++)
+            {
+                Bottom_predictedSeries.Points.Add(new DataPoint(i + 1, bottom_predict[i]));
+                Bottom_actualSeries.Points.Add(new DataPoint(i + 1, Y_Bottom_List[i]));
+            }
+
+            // 将LineSeries对象添加到PlotModel对象中
+            plotModel_bottom.Series.Add(Bottom_predictedSeries);
+            plotModel_bottom.Series.Add(Bottom_actualSeries);
+            plotModel_bottom.PlotAreaBackground = OxyColors.LightGray;
+            plotModel_bottom.PlotAreaBorderColor = OxyColors.Black;
 
 
 
+
+
+
+            // 将PlotModel对象赋值给plotview控件的Model属性
+            PlotViewResult.Model = plotModel_front;
+            plotModelIndex = 1;
+
+
+        }
+
+        private void BtnPictureFront_Click(object sender, EventArgs e)
+        {
+            if (plotModelIndex == 2 || plotModelIndex == 3)
+            {
+                PlotViewResult.Model = plotModel_front;
+                plotModelIndex = 1;
+
+            }
+
+        }
+
+        private void BtnPictureFrame_Click(object sender, EventArgs e)
+        {
+            if (plotModelIndex == 1 || plotModelIndex == 3)
+            {
+                PlotViewResult.Model = plotModel_frame;
+                plotModelIndex = 2;
+            }
+        }
+
+        private void BtnPictureBottom_Click(object sender, EventArgs e)
+        {
+            if (plotModelIndex == 2 || plotModelIndex == 1)
+            {
+                PlotViewResult.Model = plotModel_bottom;
+                plotModelIndex = 3;
+            }
         }
     }
 
