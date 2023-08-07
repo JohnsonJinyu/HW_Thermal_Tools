@@ -29,7 +29,7 @@
         private void InitializeComponent()
         {
             TxtboxNtcnames = new TableLayoutPanel();
-            pictureBox1 = new PictureBox();
+            PictureBoxResultCompare = new PictureBox();
             TxtboxStfFilesPath = new TextBox();
             TxtboxStfResult = new TextBox();
             txtNtcNames = new TextBox();
@@ -42,7 +42,7 @@
             BtnPictureFrame = new Button();
             BtnPictureBottom = new Button();
             TxtboxNtcnames.SuspendLayout();
-            ((System.ComponentModel.ISupportInitialize)pictureBox1).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)PictureBoxResultCompare).BeginInit();
             SuspendLayout();
             // 
             // TxtboxNtcnames
@@ -73,7 +73,7 @@
             TxtboxNtcnames.ColumnStyles.Add(new ColumnStyle(SizeType.Percent, 4F));
             TxtboxNtcnames.ColumnStyles.Add(new ColumnStyle(SizeType.Percent, 4F));
             TxtboxNtcnames.ColumnStyles.Add(new ColumnStyle(SizeType.Percent, 4F));
-            TxtboxNtcnames.Controls.Add(pictureBox1, 1, 3);
+            TxtboxNtcnames.Controls.Add(PictureBoxResultCompare, 1, 3);
             TxtboxNtcnames.Controls.Add(TxtboxStfFilesPath, 1, 0);
             TxtboxNtcnames.Controls.Add(TxtboxStfResult, 16, 6);
             TxtboxNtcnames.Controls.Add(txtNtcNames, 16, 1);
@@ -110,17 +110,17 @@
             TxtboxNtcnames.Size = new Size(917, 537);
             TxtboxNtcnames.TabIndex = 0;
             // 
-            // pictureBox1
+            // PictureBoxResultCompare
             // 
-            pictureBox1.BorderStyle = BorderStyle.Fixed3D;
-            TxtboxNtcnames.SetColumnSpan(pictureBox1, 15);
-            pictureBox1.Dock = DockStyle.Fill;
-            pictureBox1.Location = new Point(39, 135);
-            pictureBox1.Name = "pictureBox1";
-            TxtboxNtcnames.SetRowSpan(pictureBox1, 8);
-            pictureBox1.Size = new Size(534, 346);
-            pictureBox1.TabIndex = 5;
-            pictureBox1.TabStop = false;
+            PictureBoxResultCompare.BorderStyle = BorderStyle.Fixed3D;
+            TxtboxNtcnames.SetColumnSpan(PictureBoxResultCompare, 15);
+            PictureBoxResultCompare.Dock = DockStyle.Fill;
+            PictureBoxResultCompare.Location = new Point(39, 135);
+            PictureBoxResultCompare.Name = "PictureBoxResultCompare";
+            TxtboxNtcnames.SetRowSpan(PictureBoxResultCompare, 8);
+            PictureBoxResultCompare.Size = new Size(534, 346);
+            PictureBoxResultCompare.TabIndex = 5;
+            PictureBoxResultCompare.TabStop = false;
             // 
             // TxtboxStfFilesPath
             // 
@@ -267,7 +267,7 @@
             Load += ShellTempFitting_Load;
             TxtboxNtcnames.ResumeLayout(false);
             TxtboxNtcnames.PerformLayout();
-            ((System.ComponentModel.ISupportInitialize)pictureBox1).EndInit();
+            ((System.ComponentModel.ISupportInitialize)PictureBoxResultCompare).EndInit();
             ResumeLayout(false);
         }
 
@@ -279,7 +279,7 @@
         private TextBox txtNtcNames;
         private Button BtnStfSelectFiles;
         private Button BtnStfConfirm;
-        private PictureBox pictureBox1;
+        private PictureBox PictureBoxResultCompare;
         private TextBox txtFrontPoint;
         private TextBox txtFramePoint;
         private TextBox txtBottomPoint;

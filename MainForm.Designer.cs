@@ -50,7 +50,7 @@
             panelMenu.Dock = DockStyle.Left;
             panelMenu.Location = new Point(0, 0);
             panelMenu.Name = "panelMenu";
-            panelMenu.Size = new Size(150, 450);
+            panelMenu.Size = new Size(150, 532);
             panelMenu.TabIndex = 0;
             // 
             // BtnForm2
@@ -107,7 +107,7 @@
             panelTitleBar.Dock = DockStyle.Top;
             panelTitleBar.Location = new Point(150, 0);
             panelTitleBar.Name = "panelTitleBar";
-            panelTitleBar.Size = new Size(650, 80);
+            panelTitleBar.Size = new Size(952, 80);
             panelTitleBar.TabIndex = 1;
             // 
             // lblTitle
@@ -116,7 +116,7 @@
             lblTitle.AutoSize = true;
             lblTitle.Font = new Font("Microsoft YaHei UI", 15F, FontStyle.Bold, GraphicsUnit.Point);
             lblTitle.ForeColor = Color.White;
-            lblTitle.Location = new Point(274, 24);
+            lblTitle.Location = new Point(425, 24);
             lblTitle.Name = "lblTitle";
             lblTitle.Size = new Size(76, 27);
             lblTitle.TabIndex = 0;
@@ -127,14 +127,14 @@
             panelDeskTopPanel.Dock = DockStyle.Fill;
             panelDeskTopPanel.Location = new Point(150, 80);
             panelDeskTopPanel.Name = "panelDeskTopPanel";
-            panelDeskTopPanel.Size = new Size(650, 370);
+            panelDeskTopPanel.Size = new Size(952, 452);
             panelDeskTopPanel.TabIndex = 2;
             // 
             // MainForm
             // 
             AutoScaleDimensions = new SizeF(7F, 17F);
             AutoScaleMode = AutoScaleMode.Font;
-            ClientSize = new Size(800, 450);
+            ClientSize = new Size(1102, 532);
             Controls.Add(panelDeskTopPanel);
             Controls.Add(panelTitleBar);
             Controls.Add(panelMenu);
