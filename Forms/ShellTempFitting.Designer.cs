@@ -28,7 +28,7 @@
         /// </summary>
         private void InitializeComponent()
         {
-            TxtboxNtcnames = new TableLayoutPanel();
+            TabLayoutPanel_ShellTempFit = new TableLayoutPanel();
             TxtboxStfFilesPath = new TextBox();
             TxtboxStfResult = new TextBox();
             txtNtcNames = new TextBox();
@@ -41,125 +41,124 @@
             BtnPictureFrame = new Button();
             BtnPictureBottom = new Button();
             PlotViewResult = new OxyPlot.WindowsForms.PlotView();
-            TxtboxNtcnames.SuspendLayout();
+            checkBoxSaveStfData = new CheckBox();
+            checkBox_SaveCurvePicture = new CheckBox();
+            TabLayoutPanel_ShellTempFit.SuspendLayout();
             SuspendLayout();
             // 
-            // TxtboxNtcnames
+            // TabLayoutPanel_ShellTempFit
             // 
-            TxtboxNtcnames.ColumnCount = 25;
-            TxtboxNtcnames.ColumnStyles.Add(new ColumnStyle(SizeType.Percent, 4F));
-            TxtboxNtcnames.ColumnStyles.Add(new ColumnStyle(SizeType.Percent, 4F));
-            TxtboxNtcnames.ColumnStyles.Add(new ColumnStyle(SizeType.Percent, 4F));
-            TxtboxNtcnames.ColumnStyles.Add(new ColumnStyle(SizeType.Percent, 4F));
-            TxtboxNtcnames.ColumnStyles.Add(new ColumnStyle(SizeType.Percent, 4F));
-            TxtboxNtcnames.ColumnStyles.Add(new ColumnStyle(SizeType.Percent, 4F));
-            TxtboxNtcnames.ColumnStyles.Add(new ColumnStyle(SizeType.Percent, 4F));
-            TxtboxNtcnames.ColumnStyles.Add(new ColumnStyle(SizeType.Percent, 4F));
-            TxtboxNtcnames.ColumnStyles.Add(new ColumnStyle(SizeType.Percent, 4F));
-            TxtboxNtcnames.ColumnStyles.Add(new ColumnStyle(SizeType.Percent, 4F));
-            TxtboxNtcnames.ColumnStyles.Add(new ColumnStyle(SizeType.Percent, 4F));
-            TxtboxNtcnames.ColumnStyles.Add(new ColumnStyle(SizeType.Percent, 4F));
-            TxtboxNtcnames.ColumnStyles.Add(new ColumnStyle(SizeType.Percent, 4F));
-            TxtboxNtcnames.ColumnStyles.Add(new ColumnStyle(SizeType.Percent, 4F));
-            TxtboxNtcnames.ColumnStyles.Add(new ColumnStyle(SizeType.Percent, 4F));
-            TxtboxNtcnames.ColumnStyles.Add(new ColumnStyle(SizeType.Percent, 4F));
-            TxtboxNtcnames.ColumnStyles.Add(new ColumnStyle(SizeType.Percent, 4F));
-            TxtboxNtcnames.ColumnStyles.Add(new ColumnStyle(SizeType.Percent, 4F));
-            TxtboxNtcnames.ColumnStyles.Add(new ColumnStyle(SizeType.Percent, 4F));
-            TxtboxNtcnames.ColumnStyles.Add(new ColumnStyle(SizeType.Percent, 4F));
-            TxtboxNtcnames.ColumnStyles.Add(new ColumnStyle(SizeType.Percent, 4F));
-            TxtboxNtcnames.ColumnStyles.Add(new ColumnStyle(SizeType.Percent, 4F));
-            TxtboxNtcnames.ColumnStyles.Add(new ColumnStyle(SizeType.Percent, 4F));
-            TxtboxNtcnames.ColumnStyles.Add(new ColumnStyle(SizeType.Percent, 4F));
-            TxtboxNtcnames.ColumnStyles.Add(new ColumnStyle(SizeType.Percent, 4F));
-            TxtboxNtcnames.Controls.Add(TxtboxStfFilesPath, 1, 0);
-            TxtboxNtcnames.Controls.Add(TxtboxStfResult, 16, 6);
-            TxtboxNtcnames.Controls.Add(txtNtcNames, 16, 1);
-            TxtboxNtcnames.Controls.Add(BtnStfSelectFiles, 18, 0);
-            TxtboxNtcnames.Controls.Add(txtFrontPoint, 16, 2);
-            TxtboxNtcnames.Controls.Add(txtFramePoint, 16, 3);
-            TxtboxNtcnames.Controls.Add(txtBottomPoint, 16, 4);
-            TxtboxNtcnames.Controls.Add(BtnStfConfirm, 18, 5);
-            TxtboxNtcnames.Controls.Add(BtnPictureFront, 2, 11);
-            TxtboxNtcnames.Controls.Add(BtnPictureFrame, 7, 11);
-            TxtboxNtcnames.Controls.Add(BtnPictureBottom, 12, 11);
-            TxtboxNtcnames.Controls.Add(PlotViewResult, 1, 3);
-            TxtboxNtcnames.Dock = DockStyle.Fill;
-            TxtboxNtcnames.Location = new Point(0, 0);
-            TxtboxNtcnames.Margin = new Padding(4);
-            TxtboxNtcnames.Name = "TxtboxNtcnames";
-            TxtboxNtcnames.RowCount = 12;
-            TxtboxNtcnames.RowStyles.Add(new RowStyle(SizeType.Percent, 8.333332F));
-            TxtboxNtcnames.RowStyles.Add(new RowStyle(SizeType.Percent, 8.333332F));
-            TxtboxNtcnames.RowStyles.Add(new RowStyle(SizeType.Percent, 8.333332F));
-            TxtboxNtcnames.RowStyles.Add(new RowStyle(SizeType.Percent, 8.333332F));
-            TxtboxNtcnames.RowStyles.Add(new RowStyle(SizeType.Percent, 8.333332F));
-            TxtboxNtcnames.RowStyles.Add(new RowStyle(SizeType.Percent, 8.333332F));
-            TxtboxNtcnames.RowStyles.Add(new RowStyle(SizeType.Percent, 8.333332F));
-            TxtboxNtcnames.RowStyles.Add(new RowStyle(SizeType.Percent, 8.333332F));
-            TxtboxNtcnames.RowStyles.Add(new RowStyle(SizeType.Percent, 8.333332F));
-            TxtboxNtcnames.RowStyles.Add(new RowStyle(SizeType.Percent, 8.333332F));
-            TxtboxNtcnames.RowStyles.Add(new RowStyle(SizeType.Percent, 8.333332F));
-            TxtboxNtcnames.RowStyles.Add(new RowStyle(SizeType.Percent, 8.333332F));
-            TxtboxNtcnames.RowStyles.Add(new RowStyle(SizeType.Absolute, 24F));
-            TxtboxNtcnames.RowStyles.Add(new RowStyle(SizeType.Absolute, 24F));
-            TxtboxNtcnames.RowStyles.Add(new RowStyle(SizeType.Absolute, 24F));
-            TxtboxNtcnames.RowStyles.Add(new RowStyle(SizeType.Absolute, 24F));
-            TxtboxNtcnames.RowStyles.Add(new RowStyle(SizeType.Absolute, 24F));
-            TxtboxNtcnames.RowStyles.Add(new RowStyle(SizeType.Absolute, 24F));
-            TxtboxNtcnames.Size = new Size(1179, 632);
-            TxtboxNtcnames.TabIndex = 0;
+            TabLayoutPanel_ShellTempFit.ColumnCount = 25;
+            TabLayoutPanel_ShellTempFit.ColumnStyles.Add(new ColumnStyle(SizeType.Percent, 4F));
+            TabLayoutPanel_ShellTempFit.ColumnStyles.Add(new ColumnStyle(SizeType.Percent, 4F));
+            TabLayoutPanel_ShellTempFit.ColumnStyles.Add(new ColumnStyle(SizeType.Percent, 4F));
+            TabLayoutPanel_ShellTempFit.ColumnStyles.Add(new ColumnStyle(SizeType.Percent, 4F));
+            TabLayoutPanel_ShellTempFit.ColumnStyles.Add(new ColumnStyle(SizeType.Percent, 4F));
+            TabLayoutPanel_ShellTempFit.ColumnStyles.Add(new ColumnStyle(SizeType.Percent, 4F));
+            TabLayoutPanel_ShellTempFit.ColumnStyles.Add(new ColumnStyle(SizeType.Percent, 4F));
+            TabLayoutPanel_ShellTempFit.ColumnStyles.Add(new ColumnStyle(SizeType.Percent, 4F));
+            TabLayoutPanel_ShellTempFit.ColumnStyles.Add(new ColumnStyle(SizeType.Percent, 4F));
+            TabLayoutPanel_ShellTempFit.ColumnStyles.Add(new ColumnStyle(SizeType.Percent, 4F));
+            TabLayoutPanel_ShellTempFit.ColumnStyles.Add(new ColumnStyle(SizeType.Percent, 4F));
+            TabLayoutPanel_ShellTempFit.ColumnStyles.Add(new ColumnStyle(SizeType.Percent, 4F));
+            TabLayoutPanel_ShellTempFit.ColumnStyles.Add(new ColumnStyle(SizeType.Percent, 4F));
+            TabLayoutPanel_ShellTempFit.ColumnStyles.Add(new ColumnStyle(SizeType.Percent, 4F));
+            TabLayoutPanel_ShellTempFit.ColumnStyles.Add(new ColumnStyle(SizeType.Percent, 4F));
+            TabLayoutPanel_ShellTempFit.ColumnStyles.Add(new ColumnStyle(SizeType.Percent, 4F));
+            TabLayoutPanel_ShellTempFit.ColumnStyles.Add(new ColumnStyle(SizeType.Percent, 4F));
+            TabLayoutPanel_ShellTempFit.ColumnStyles.Add(new ColumnStyle(SizeType.Percent, 4F));
+            TabLayoutPanel_ShellTempFit.ColumnStyles.Add(new ColumnStyle(SizeType.Percent, 4F));
+            TabLayoutPanel_ShellTempFit.ColumnStyles.Add(new ColumnStyle(SizeType.Percent, 4F));
+            TabLayoutPanel_ShellTempFit.ColumnStyles.Add(new ColumnStyle(SizeType.Percent, 4F));
+            TabLayoutPanel_ShellTempFit.ColumnStyles.Add(new ColumnStyle(SizeType.Percent, 4F));
+            TabLayoutPanel_ShellTempFit.ColumnStyles.Add(new ColumnStyle(SizeType.Percent, 4F));
+            TabLayoutPanel_ShellTempFit.ColumnStyles.Add(new ColumnStyle(SizeType.Percent, 4F));
+            TabLayoutPanel_ShellTempFit.ColumnStyles.Add(new ColumnStyle(SizeType.Percent, 4F));
+            TabLayoutPanel_ShellTempFit.Controls.Add(TxtboxStfFilesPath, 1, 0);
+            TabLayoutPanel_ShellTempFit.Controls.Add(TxtboxStfResult, 16, 6);
+            TabLayoutPanel_ShellTempFit.Controls.Add(txtNtcNames, 16, 1);
+            TabLayoutPanel_ShellTempFit.Controls.Add(BtnStfSelectFiles, 18, 0);
+            TabLayoutPanel_ShellTempFit.Controls.Add(txtFrontPoint, 16, 2);
+            TabLayoutPanel_ShellTempFit.Controls.Add(txtFramePoint, 16, 3);
+            TabLayoutPanel_ShellTempFit.Controls.Add(txtBottomPoint, 16, 4);
+            TabLayoutPanel_ShellTempFit.Controls.Add(BtnStfConfirm, 18, 5);
+            TabLayoutPanel_ShellTempFit.Controls.Add(BtnPictureFront, 2, 11);
+            TabLayoutPanel_ShellTempFit.Controls.Add(BtnPictureFrame, 7, 11);
+            TabLayoutPanel_ShellTempFit.Controls.Add(BtnPictureBottom, 12, 11);
+            TabLayoutPanel_ShellTempFit.Controls.Add(PlotViewResult, 1, 3);
+            TabLayoutPanel_ShellTempFit.Controls.Add(checkBoxSaveStfData, 16, 11);
+            TabLayoutPanel_ShellTempFit.Controls.Add(checkBox_SaveCurvePicture, 20, 11);
+            TabLayoutPanel_ShellTempFit.Dock = DockStyle.Fill;
+            TabLayoutPanel_ShellTempFit.Location = new Point(0, 0);
+            TabLayoutPanel_ShellTempFit.Name = "TabLayoutPanel_ShellTempFit";
+            TabLayoutPanel_ShellTempFit.RowCount = 12;
+            TabLayoutPanel_ShellTempFit.RowStyles.Add(new RowStyle(SizeType.Percent, 8.333332F));
+            TabLayoutPanel_ShellTempFit.RowStyles.Add(new RowStyle(SizeType.Percent, 8.333332F));
+            TabLayoutPanel_ShellTempFit.RowStyles.Add(new RowStyle(SizeType.Percent, 8.333332F));
+            TabLayoutPanel_ShellTempFit.RowStyles.Add(new RowStyle(SizeType.Percent, 8.333332F));
+            TabLayoutPanel_ShellTempFit.RowStyles.Add(new RowStyle(SizeType.Percent, 8.333332F));
+            TabLayoutPanel_ShellTempFit.RowStyles.Add(new RowStyle(SizeType.Percent, 8.333332F));
+            TabLayoutPanel_ShellTempFit.RowStyles.Add(new RowStyle(SizeType.Percent, 8.333332F));
+            TabLayoutPanel_ShellTempFit.RowStyles.Add(new RowStyle(SizeType.Percent, 8.333332F));
+            TabLayoutPanel_ShellTempFit.RowStyles.Add(new RowStyle(SizeType.Percent, 8.333332F));
+            TabLayoutPanel_ShellTempFit.RowStyles.Add(new RowStyle(SizeType.Percent, 8.333332F));
+            TabLayoutPanel_ShellTempFit.RowStyles.Add(new RowStyle(SizeType.Percent, 8.333332F));
+            TabLayoutPanel_ShellTempFit.RowStyles.Add(new RowStyle(SizeType.Percent, 8.333332F));
+            TabLayoutPanel_ShellTempFit.RowStyles.Add(new RowStyle(SizeType.Absolute, 20F));
+            TabLayoutPanel_ShellTempFit.RowStyles.Add(new RowStyle(SizeType.Absolute, 20F));
+            TabLayoutPanel_ShellTempFit.RowStyles.Add(new RowStyle(SizeType.Absolute, 20F));
+            TabLayoutPanel_ShellTempFit.RowStyles.Add(new RowStyle(SizeType.Absolute, 20F));
+            TabLayoutPanel_ShellTempFit.RowStyles.Add(new RowStyle(SizeType.Absolute, 20F));
+            TabLayoutPanel_ShellTempFit.RowStyles.Add(new RowStyle(SizeType.Absolute, 20F));
+            TabLayoutPanel_ShellTempFit.Size = new Size(917, 537);
+            TabLayoutPanel_ShellTempFit.TabIndex = 0;
             // 
             // TxtboxStfFilesPath
             // 
-            TxtboxNtcnames.SetColumnSpan(TxtboxStfFilesPath, 14);
+            TabLayoutPanel_ShellTempFit.SetColumnSpan(TxtboxStfFilesPath, 14);
             TxtboxStfFilesPath.Dock = DockStyle.Fill;
-            TxtboxStfFilesPath.Location = new Point(51, 4);
-            TxtboxStfFilesPath.Margin = new Padding(4);
+            TxtboxStfFilesPath.Location = new Point(39, 3);
             TxtboxStfFilesPath.Multiline = true;
             TxtboxStfFilesPath.Name = "TxtboxStfFilesPath";
-            TxtboxNtcnames.SetRowSpan(TxtboxStfFilesPath, 2);
+            TabLayoutPanel_ShellTempFit.SetRowSpan(TxtboxStfFilesPath, 2);
             TxtboxStfFilesPath.ScrollBars = ScrollBars.Vertical;
-            TxtboxStfFilesPath.Size = new Size(650, 96);
+            TxtboxStfFilesPath.Size = new Size(498, 82);
             TxtboxStfFilesPath.TabIndex = 0;
             // 
             // TxtboxStfResult
             // 
-            TxtboxNtcnames.SetColumnSpan(TxtboxStfResult, 8);
+            TabLayoutPanel_ShellTempFit.SetColumnSpan(TxtboxStfResult, 8);
             TxtboxStfResult.Dock = DockStyle.Fill;
-            TxtboxStfResult.Location = new Point(756, 316);
-            TxtboxStfResult.Margin = new Padding(4);
+            TxtboxStfResult.Location = new Point(579, 267);
             TxtboxStfResult.Multiline = true;
             TxtboxStfResult.Name = "TxtboxStfResult";
             TxtboxStfResult.ReadOnly = true;
-            TxtboxNtcnames.SetRowSpan(TxtboxStfResult, 5);
+            TabLayoutPanel_ShellTempFit.SetRowSpan(TxtboxStfResult, 5);
             TxtboxStfResult.ScrollBars = ScrollBars.Vertical;
-            TxtboxStfResult.Size = new Size(368, 252);
+            TxtboxStfResult.Size = new Size(282, 214);
             TxtboxStfResult.TabIndex = 2;
             // 
             // txtNtcNames
             // 
-            TxtboxNtcnames.SetColumnSpan(txtNtcNames, 8);
+            TabLayoutPanel_ShellTempFit.SetColumnSpan(txtNtcNames, 8);
             txtNtcNames.Dock = DockStyle.Fill;
-            txtNtcNames.Location = new Point(756, 56);
-            txtNtcNames.Margin = new Padding(4);
+            txtNtcNames.Location = new Point(579, 47);
             txtNtcNames.Multiline = true;
             txtNtcNames.Name = "txtNtcNames";
             txtNtcNames.PlaceholderText = "请输入用到的NTC名称，以空格间隔";
             txtNtcNames.ScrollBars = ScrollBars.Both;
-            txtNtcNames.Size = new Size(368, 44);
+            txtNtcNames.Size = new Size(282, 38);
             txtNtcNames.TabIndex = 1;
             // 
             // BtnStfSelectFiles
             // 
             BtnStfSelectFiles.BackColor = SystemColors.ControlLight;
-            TxtboxNtcnames.SetColumnSpan(BtnStfSelectFiles, 4);
+            TabLayoutPanel_ShellTempFit.SetColumnSpan(BtnStfSelectFiles, 4);
             BtnStfSelectFiles.Dock = DockStyle.Fill;
             BtnStfSelectFiles.FlatStyle = FlatStyle.Flat;
-            BtnStfSelectFiles.Location = new Point(850, 4);
-            BtnStfSelectFiles.Margin = new Padding(4);
+            BtnStfSelectFiles.Location = new Point(651, 3);
             BtnStfSelectFiles.Name = "BtnStfSelectFiles";
-            BtnStfSelectFiles.Size = new Size(180, 44);
+            BtnStfSelectFiles.Size = new Size(138, 38);
             BtnStfSelectFiles.TabIndex = 3;
             BtnStfSelectFiles.Text = "选择文件";
             BtnStfSelectFiles.UseVisualStyleBackColor = false;
@@ -167,50 +166,46 @@
             // 
             // txtFrontPoint
             // 
-            TxtboxNtcnames.SetColumnSpan(txtFrontPoint, 8);
+            TabLayoutPanel_ShellTempFit.SetColumnSpan(txtFrontPoint, 8);
             txtFrontPoint.Dock = DockStyle.Fill;
-            txtFrontPoint.Location = new Point(756, 108);
-            txtFrontPoint.Margin = new Padding(4);
+            txtFrontPoint.Location = new Point(579, 91);
             txtFrontPoint.Multiline = true;
             txtFrontPoint.Name = "txtFrontPoint";
             txtFrontPoint.PlaceholderText = "请输入正面点位，空格间隔";
-            txtFrontPoint.Size = new Size(368, 44);
+            txtFrontPoint.Size = new Size(282, 38);
             txtFrontPoint.TabIndex = 6;
             // 
             // txtFramePoint
             // 
-            TxtboxNtcnames.SetColumnSpan(txtFramePoint, 8);
+            TabLayoutPanel_ShellTempFit.SetColumnSpan(txtFramePoint, 8);
             txtFramePoint.Dock = DockStyle.Fill;
-            txtFramePoint.Location = new Point(756, 160);
-            txtFramePoint.Margin = new Padding(4);
+            txtFramePoint.Location = new Point(579, 135);
             txtFramePoint.Multiline = true;
             txtFramePoint.Name = "txtFramePoint";
             txtFramePoint.PlaceholderText = "请输入侧面点位，空格间隔";
-            txtFramePoint.Size = new Size(368, 44);
+            txtFramePoint.Size = new Size(282, 38);
             txtFramePoint.TabIndex = 7;
             // 
             // txtBottomPoint
             // 
-            TxtboxNtcnames.SetColumnSpan(txtBottomPoint, 8);
+            TabLayoutPanel_ShellTempFit.SetColumnSpan(txtBottomPoint, 8);
             txtBottomPoint.Dock = DockStyle.Fill;
-            txtBottomPoint.Location = new Point(756, 212);
-            txtBottomPoint.Margin = new Padding(4);
+            txtBottomPoint.Location = new Point(579, 179);
             txtBottomPoint.Multiline = true;
             txtBottomPoint.Name = "txtBottomPoint";
             txtBottomPoint.PlaceholderText = "请输入背面点位，空格间隔";
-            txtBottomPoint.Size = new Size(368, 44);
+            txtBottomPoint.Size = new Size(282, 38);
             txtBottomPoint.TabIndex = 8;
             // 
             // BtnStfConfirm
             // 
             BtnStfConfirm.BackColor = SystemColors.ControlLight;
-            TxtboxNtcnames.SetColumnSpan(BtnStfConfirm, 4);
+            TabLayoutPanel_ShellTempFit.SetColumnSpan(BtnStfConfirm, 4);
             BtnStfConfirm.Dock = DockStyle.Fill;
             BtnStfConfirm.FlatStyle = FlatStyle.Flat;
-            BtnStfConfirm.Location = new Point(850, 264);
-            BtnStfConfirm.Margin = new Padding(4);
+            BtnStfConfirm.Location = new Point(651, 223);
             BtnStfConfirm.Name = "BtnStfConfirm";
-            BtnStfConfirm.Size = new Size(180, 44);
+            BtnStfConfirm.Size = new Size(138, 38);
             BtnStfConfirm.TabIndex = 4;
             BtnStfConfirm.Text = "确认";
             BtnStfConfirm.UseVisualStyleBackColor = false;
@@ -218,13 +213,12 @@
             // 
             // BtnPictureFront
             // 
-            TxtboxNtcnames.SetColumnSpan(BtnPictureFront, 3);
+            TabLayoutPanel_ShellTempFit.SetColumnSpan(BtnPictureFront, 3);
             BtnPictureFront.Dock = DockStyle.Fill;
             BtnPictureFront.FlatStyle = FlatStyle.Popup;
-            BtnPictureFront.Location = new Point(98, 576);
-            BtnPictureFront.Margin = new Padding(4);
+            BtnPictureFront.Location = new Point(75, 487);
             BtnPictureFront.Name = "BtnPictureFront";
-            BtnPictureFront.Size = new Size(133, 52);
+            BtnPictureFront.Size = new Size(102, 47);
             BtnPictureFront.TabIndex = 9;
             BtnPictureFront.Text = "正面";
             BtnPictureFront.UseVisualStyleBackColor = true;
@@ -232,13 +226,12 @@
             // 
             // BtnPictureFrame
             // 
-            TxtboxNtcnames.SetColumnSpan(BtnPictureFrame, 3);
+            TabLayoutPanel_ShellTempFit.SetColumnSpan(BtnPictureFrame, 3);
             BtnPictureFrame.Dock = DockStyle.Fill;
             BtnPictureFrame.FlatStyle = FlatStyle.Popup;
-            BtnPictureFrame.Location = new Point(333, 576);
-            BtnPictureFrame.Margin = new Padding(4);
+            BtnPictureFrame.Location = new Point(255, 487);
             BtnPictureFrame.Name = "BtnPictureFrame";
-            BtnPictureFrame.Size = new Size(133, 52);
+            BtnPictureFrame.Size = new Size(102, 47);
             BtnPictureFrame.TabIndex = 10;
             BtnPictureFrame.Text = "侧面";
             BtnPictureFrame.UseVisualStyleBackColor = true;
@@ -246,13 +239,12 @@
             // 
             // BtnPictureBottom
             // 
-            TxtboxNtcnames.SetColumnSpan(BtnPictureBottom, 3);
+            TabLayoutPanel_ShellTempFit.SetColumnSpan(BtnPictureBottom, 3);
             BtnPictureBottom.Dock = DockStyle.Fill;
             BtnPictureBottom.FlatStyle = FlatStyle.Popup;
-            BtnPictureBottom.Location = new Point(568, 576);
-            BtnPictureBottom.Margin = new Padding(4);
+            BtnPictureBottom.Location = new Point(435, 487);
             BtnPictureBottom.Name = "BtnPictureBottom";
-            BtnPictureBottom.Size = new Size(133, 52);
+            BtnPictureBottom.Size = new Size(102, 47);
             BtnPictureBottom.TabIndex = 11;
             BtnPictureBottom.Text = "背面";
             BtnPictureBottom.UseVisualStyleBackColor = true;
@@ -261,37 +253,64 @@
             // PlotViewResult
             // 
             PlotViewResult.BackColor = SystemColors.ActiveBorder;
-            TxtboxNtcnames.SetColumnSpan(PlotViewResult, 14);
+            TabLayoutPanel_ShellTempFit.SetColumnSpan(PlotViewResult, 14);
             PlotViewResult.Dock = DockStyle.Fill;
-            PlotViewResult.Location = new Point(50, 159);
+            PlotViewResult.Location = new Point(38, 135);
+            PlotViewResult.Margin = new Padding(2, 3, 2, 3);
             PlotViewResult.Name = "PlotViewResult";
             PlotViewResult.PanCursor = Cursors.Hand;
-            TxtboxNtcnames.SetRowSpan(PlotViewResult, 7);
-            PlotViewResult.Size = new Size(652, 358);
+            TabLayoutPanel_ShellTempFit.SetRowSpan(PlotViewResult, 7);
+            PlotViewResult.Size = new Size(500, 302);
             PlotViewResult.TabIndex = 12;
             PlotViewResult.Text = "预测值 VS 实测值";
             PlotViewResult.ZoomHorizontalCursor = Cursors.SizeWE;
             PlotViewResult.ZoomRectangleCursor = Cursors.SizeNWSE;
             PlotViewResult.ZoomVerticalCursor = Cursors.SizeNS;
             // 
+            // checkBoxSaveStfData
+            // 
+            checkBoxSaveStfData.AutoSize = true;
+            TabLayoutPanel_ShellTempFit.SetColumnSpan(checkBoxSaveStfData, 4);
+            checkBoxSaveStfData.Dock = DockStyle.Fill;
+            checkBoxSaveStfData.FlatStyle = FlatStyle.Popup;
+            checkBoxSaveStfData.Location = new Point(579, 487);
+            checkBoxSaveStfData.Name = "checkBoxSaveStfData";
+            checkBoxSaveStfData.Size = new Size(138, 47);
+            checkBoxSaveStfData.TabIndex = 13;
+            checkBoxSaveStfData.Text = "保存整合后的数据";
+            checkBoxSaveStfData.TextAlign = ContentAlignment.MiddleCenter;
+            checkBoxSaveStfData.UseVisualStyleBackColor = true;
+            // 
+            // checkBox_SaveCurvePicture
+            // 
+            checkBox_SaveCurvePicture.AutoSize = true;
+            TabLayoutPanel_ShellTempFit.SetColumnSpan(checkBox_SaveCurvePicture, 4);
+            checkBox_SaveCurvePicture.Dock = DockStyle.Fill;
+            checkBox_SaveCurvePicture.FlatStyle = FlatStyle.Flat;
+            checkBox_SaveCurvePicture.Location = new Point(723, 487);
+            checkBox_SaveCurvePicture.Name = "checkBox_SaveCurvePicture";
+            checkBox_SaveCurvePicture.Size = new Size(138, 47);
+            checkBox_SaveCurvePicture.TabIndex = 14;
+            checkBox_SaveCurvePicture.Text = "保存图片";
+            checkBox_SaveCurvePicture.UseVisualStyleBackColor = true;
+            // 
             // ShellTempFitting
             // 
-            AutoScaleDimensions = new SizeF(9F, 20F);
+            AutoScaleDimensions = new SizeF(7F, 17F);
             AutoScaleMode = AutoScaleMode.Font;
-            ClientSize = new Size(1179, 632);
-            Controls.Add(TxtboxNtcnames);
-            Margin = new Padding(4);
+            ClientSize = new Size(917, 537);
+            Controls.Add(TabLayoutPanel_ShellTempFit);
             Name = "ShellTempFitting";
             Text = "ShellTempFitting";
             Load += ShellTempFitting_Load;
-            TxtboxNtcnames.ResumeLayout(false);
-            TxtboxNtcnames.PerformLayout();
+            TabLayoutPanel_ShellTempFit.ResumeLayout(false);
+            TabLayoutPanel_ShellTempFit.PerformLayout();
             ResumeLayout(false);
         }
 
         #endregion
 
-        private TableLayoutPanel TxtboxNtcnames;
+        private TableLayoutPanel TabLayoutPanel_ShellTempFit;
         private TextBox TxtboxStfResult;
         private TextBox TxtboxStfFilesPath;
         private TextBox txtNtcNames;
@@ -304,5 +323,7 @@
         private Button BtnPictureFrame;
         private Button BtnPictureBottom;
         private OxyPlot.WindowsForms.PlotView PlotViewResult;
+        private CheckBox checkBoxSaveStfData;
+        private CheckBox checkBox_SaveCurvePicture;
     }
 }

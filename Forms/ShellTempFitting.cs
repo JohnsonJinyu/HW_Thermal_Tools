@@ -18,6 +18,7 @@ using System.Formats.Asn1;
 using System.Globalization;
 using System.Text;
 using System.Windows.Forms;
+using System.Xml.Linq;
 
 
 namespace HW_Thermal_Tools.Forms
@@ -25,6 +26,9 @@ namespace HW_Thermal_Tools.Forms
     public partial class ShellTempFitting : Form
     {
         //files
+        //创建数据预处理后得到的dataTable
+        private List<System.Data.DataTable> DataTablesList;
+
         //创建三个不同的plotModel对象，用于显示最后的对比曲线
         private PlotModel plotModel_front;
         private PlotModel plotModel_frame;
@@ -43,6 +47,9 @@ namespace HW_Thermal_Tools.Forms
 
             plotModelIndex = 0;
 
+            //初始化DataTableList
+            DataTablesList = new List<System.Data.DataTable>();
+
 
         }
 
@@ -53,16 +60,31 @@ namespace HW_Thermal_Tools.Forms
 
         private void LoadTheme()
         {
-            foreach (System.Windows.Forms.Control btns in this.Controls)
+            //由于button放在panel容易中，无法通过这种方式获取button
+            /*
+             foreach (System.Windows.Forms.Control btns in this.Controls)
+             {
+                 if (btns.GetType() == typeof(System.Windows.Forms.Button))
+                 {
+                     System.Windows.Forms.Button btn = (System.Windows.Forms.Button)btns;
+                     btn.BackColor = ThemeColor.PrimaryColor;
+                     btn.ForeColor = Color.White;
+                     btn.FlatAppearance.BorderColor = ThemeColor.SecondaryColor;
+                 }
+             }
+             */
+            //通过这种方式获取
+            foreach (System.Windows.Forms.Control control in TabLayoutPanel_ShellTempFit.Controls)
             {
-                if (btns.GetType() == typeof(System.Windows.Forms.Button))
+                if (control is System.Windows.Forms.Button)
                 {
-                    System.Windows.Forms.Button btn = (System.Windows.Forms.Button)btns;
+                    System.Windows.Forms.Button btn = (System.Windows.Forms.Button)control;
                     btn.BackColor = ThemeColor.PrimaryColor;
                     btn.ForeColor = Color.White;
                     btn.FlatAppearance.BorderColor = ThemeColor.SecondaryColor;
                 }
             }
+
         }
 
         private void BtnStfSelectFiles_Click(object sender, EventArgs e)
@@ -85,7 +107,138 @@ namespace HW_Thermal_Tools.Forms
 
         private void BtnStfConfirm_Click(object sender, EventArgs e)
         {
+            //数据前处理
             DataPreProcess();
+
+            //用户输入内容检查
+            if (CheckUserInput() == false)
+            {
+                return;
+            }
+
+            //计算
+            Calculator(DataTablesList);
+            
+            //保存数据
+            if (checkBoxSaveStfData.CheckState == CheckState.Checked)
+            {
+                SaveDataToExcel(DataTablesList);
+            }
+
+            //保存图片
+            if (checkBox_SaveCurvePicture.CheckState == CheckState.Checked)
+            {
+                string dir = "";
+                FolderBrowserDialog dialog = new FolderBrowserDialog();
+                //设置diaglog的title
+                dialog.Description = "请选择保存图片的路径";
+                if (dialog.ShowDialog() == DialogResult.OK)
+                {
+                    dir = dialog.SelectedPath;
+                }
+                ExportPng(plotModel_front, "Front", dir);
+                ExportPng(plotModel_frame, "Frame", dir);
+                ExportPng(plotModel_bottom, "Bottom", dir);
+            }
+
+        }
+
+        private void SaveDataToExcel(List<System.Data.DataTable> dataTablesList)
+        {
+            SaveFileDialog saveDialog = new SaveFileDialog();
+            //设置保存文件的title
+            saveDialog.Title = "请选择保存数据的路径";
+            saveDialog.Filter = "Excel Files|*.xlsx";
+            if (saveDialog.ShowDialog() == DialogResult.OK)
+            {
+                string fileName = saveDialog.FileName;
+                using (ExcelPackage excelPackage = new ExcelPackage())
+                {
+                    string[] worksheetName = new string[] { "NTC数据", "热电偶数据" };
+                    int i = 0;
+                    foreach (System.Data.DataTable table in dataTablesList)
+                    {
+                        ExcelWorksheet worksheet = excelPackage.Workbook.Worksheets.Add(worksheetName[i]);
+                        worksheet.Cells["A1"].LoadFromDataTable(table, true);
+
+                        // 设置标题行字体加粗
+                        worksheet.Row(1).Style.Font.Bold = true;
+
+                        // 设置标题行背景色 
+                        worksheet.Row(1).Style.Fill.PatternType = ExcelFillStyle.Solid;
+                        worksheet.Row(1).Style.Fill.BackgroundColor.SetColor(Color.LightBlue);
+
+                        // 设置数据行居中
+                        worksheet.Cells[2, 1, table.Rows.Count + 1, table.Columns.Count].Style.HorizontalAlignment = ExcelHorizontalAlignment.Center;
+
+                        //设置数据行 单元格格式为常规
+                        worksheet.Cells[2, 1, worksheet.Dimension.End.Row, worksheet.Dimension.End.Column].Style.Numberformat.Format = "General";
+                        i++;
+                    }
+
+                    FileStream stream = File.Create(fileName);
+                    excelPackage.SaveAs(stream);
+                    stream.Close();
+                }
+                MessageBox.Show("保存成功");
+            }
+        }
+
+        //封装一个将PlotModel导出图片的方法
+        public void ExportPng(PlotModel plotModel, string filename, string dir)
+        {
+            string path = Path.Combine(dir, filename + ".png");
+
+            // 导出逻辑...
+            var pngExporter = new PngExporter { Width = 3840, Height = 2160 };
+            using (Stream stream = File.Create(path))
+            {
+                pngExporter.Export(plotModel, stream);
+            }
+
+        }
+
+        private bool CheckUserInput()
+        {
+            if (txtNtcNames.Text == "")
+            {
+                MessageBox.Show("请输入NTC的名称!", "Warning", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                return false;
+            }
+            if (txtFrontPoint.Text == "" || txtFramePoint.Text == "" || txtBottomPoint.Text == "")
+            {
+                MessageBox.Show("请输入用到的点位", "Warning", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                return false;
+            }
+            string[] front_p = txtFrontPoint.Text.Split(new string[] { " " }, StringSplitOptions.RemoveEmptyEntries);
+            string[] frame_p = txtFramePoint.Text.Split(new string[] { " " }, StringSplitOptions.RemoveEmptyEntries);
+            string[] bottom_p = txtBottomPoint.Text.Split(new string[] { " " }, StringSplitOptions.RemoveEmptyEntries);
+            string[] ponit = new string[] { "1", "2", "3", "4", "5", "6", "7", "8", "9", "10" };
+
+            //使用any方法判断用户输入的点位是否在1-10之间
+            if (front_p.Any(x => !ponit.Contains(x)) || frame_p.Any(x => !ponit.Contains(x)) || bottom_p.Any(x => !ponit.Contains(x)))
+            {
+                MessageBox.Show("请输入1-10之间的点位", "Warning", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                return false;
+            }
+
+            string[] ntcNames = DataTablesList[0].Columns.Cast<DataColumn>().Select(x => x.ColumnName).ToArray();
+            /*
+             DataTablesList[0] 取出一个DataTable类型的列表中的第一个DataTable
+            1.Columns 获得这个DataTable的列集合(DataColumnCollection类型)
+            2.Cast<DataColumn>() 将列集合强制转换为DataColumn类型的可枚举对象
+            3.Select(x => x.ColumnName) 对每个DataColumn选出其列名(ColumnName属性)
+            4.ToArray() 将选择出的列名转换为字符串数组
+            最后把这个字符串数组赋值给ntcNames变量
+            所以这句代码使用了LINQ的方法,将一个DataTable的列名称提取出来存到一个字符串数组中,便于后续使用和处理。
+             */
+            if (txtNtcNames.Text.Split(new string[] { " " }, StringSplitOptions.RemoveEmptyEntries).Any(x => !ntcNames.Contains(x)))
+            {
+                MessageBox.Show("请输入正确的NTC名称", "Warning", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                return false;
+            }
+            else
+                return true;
         }
 
 
@@ -99,7 +252,7 @@ namespace HW_Thermal_Tools.Forms
             List<string> CsvFilesList = new List<string>();
             List<string> ExcelFilesList = new List<string>();
             //定义一个用于接收预处理csv文件和excel文件结果DataTable的lsit
-            List<System.Data.DataTable> DataTablesList = new List<System.Data.DataTable>();
+            //List<System.Data.DataTable> DataTablesList = new List<System.Data.DataTable>();
             foreach (string fileName in fileNames)
             {
                 if (fileName.EndsWith(".csv"))
@@ -113,7 +266,7 @@ namespace HW_Thermal_Tools.Forms
             }
 
             DataTablesList = MatchData(CsvFilesList, ExcelFilesList);
-            Calculator(DataTablesList);
+
 
         }
 
@@ -441,10 +594,7 @@ namespace HW_Thermal_Tools.Forms
 
         }
 
-        private void TxtboxNtcnames_Paint(object sender, PaintEventArgs e)
-        {
 
-        }
 
         private void Calculator(List<System.Data.DataTable> dataTablesList)
         {
@@ -914,6 +1064,9 @@ namespace HW_Thermal_Tools.Forms
                 plotModelIndex = 3;
             }
         }
+
+
+
     }
 
 }

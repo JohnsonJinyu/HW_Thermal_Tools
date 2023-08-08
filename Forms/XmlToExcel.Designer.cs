@@ -28,51 +28,51 @@
         /// </summary>
         private void InitializeComponent()
         {
-            tableLayoutPanel1 = new TableLayoutPanel();
+            TabLayoutPanel_XmlToExcel = new TableLayoutPanel();
             BtnXmlToExcelFile = new Button();
             BtnSelectConfigFile = new Button();
             TxtXmlFilePath = new TextBox();
             TxtConfigFile = new TextBox();
             BtnSelectXmlFile = new Button();
-            tableLayoutPanel1.SuspendLayout();
+            TabLayoutPanel_XmlToExcel.SuspendLayout();
             SuspendLayout();
             // 
-            // tableLayoutPanel1
+            // TabLayoutPanel_XmlToExcel
             // 
-            tableLayoutPanel1.ColumnCount = 8;
-            tableLayoutPanel1.ColumnStyles.Add(new ColumnStyle(SizeType.Percent, 12.5F));
-            tableLayoutPanel1.ColumnStyles.Add(new ColumnStyle(SizeType.Percent, 12.5F));
-            tableLayoutPanel1.ColumnStyles.Add(new ColumnStyle(SizeType.Percent, 12.5F));
-            tableLayoutPanel1.ColumnStyles.Add(new ColumnStyle(SizeType.Percent, 12.5F));
-            tableLayoutPanel1.ColumnStyles.Add(new ColumnStyle(SizeType.Percent, 12.5F));
-            tableLayoutPanel1.ColumnStyles.Add(new ColumnStyle(SizeType.Percent, 12.5F));
-            tableLayoutPanel1.ColumnStyles.Add(new ColumnStyle(SizeType.Percent, 12.5F));
-            tableLayoutPanel1.ColumnStyles.Add(new ColumnStyle(SizeType.Percent, 12.5F));
-            tableLayoutPanel1.Controls.Add(BtnXmlToExcelFile, 3, 5);
-            tableLayoutPanel1.Controls.Add(BtnSelectConfigFile, 6, 3);
-            tableLayoutPanel1.Controls.Add(TxtXmlFilePath, 0, 1);
-            tableLayoutPanel1.Controls.Add(TxtConfigFile, 0, 3);
-            tableLayoutPanel1.Controls.Add(BtnSelectXmlFile, 6, 1);
-            tableLayoutPanel1.Dock = DockStyle.Fill;
-            tableLayoutPanel1.Location = new Point(0, 0);
-            tableLayoutPanel1.Name = "tableLayoutPanel1";
-            tableLayoutPanel1.RowCount = 8;
-            tableLayoutPanel1.RowStyles.Add(new RowStyle(SizeType.Percent, 12.5F));
-            tableLayoutPanel1.RowStyles.Add(new RowStyle(SizeType.Percent, 12.5F));
-            tableLayoutPanel1.RowStyles.Add(new RowStyle(SizeType.Percent, 12.5F));
-            tableLayoutPanel1.RowStyles.Add(new RowStyle(SizeType.Percent, 12.5F));
-            tableLayoutPanel1.RowStyles.Add(new RowStyle(SizeType.Percent, 12.5F));
-            tableLayoutPanel1.RowStyles.Add(new RowStyle(SizeType.Percent, 12.5F));
-            tableLayoutPanel1.RowStyles.Add(new RowStyle(SizeType.Percent, 12.5F));
-            tableLayoutPanel1.RowStyles.Add(new RowStyle(SizeType.Percent, 12.5F));
-            tableLayoutPanel1.RowStyles.Add(new RowStyle(SizeType.Absolute, 20F));
-            tableLayoutPanel1.Size = new Size(800, 450);
-            tableLayoutPanel1.TabIndex = 0;
+            TabLayoutPanel_XmlToExcel.ColumnCount = 8;
+            TabLayoutPanel_XmlToExcel.ColumnStyles.Add(new ColumnStyle(SizeType.Percent, 12.5F));
+            TabLayoutPanel_XmlToExcel.ColumnStyles.Add(new ColumnStyle(SizeType.Percent, 12.5F));
+            TabLayoutPanel_XmlToExcel.ColumnStyles.Add(new ColumnStyle(SizeType.Percent, 12.5F));
+            TabLayoutPanel_XmlToExcel.ColumnStyles.Add(new ColumnStyle(SizeType.Percent, 12.5F));
+            TabLayoutPanel_XmlToExcel.ColumnStyles.Add(new ColumnStyle(SizeType.Percent, 12.5F));
+            TabLayoutPanel_XmlToExcel.ColumnStyles.Add(new ColumnStyle(SizeType.Percent, 12.5F));
+            TabLayoutPanel_XmlToExcel.ColumnStyles.Add(new ColumnStyle(SizeType.Percent, 12.5F));
+            TabLayoutPanel_XmlToExcel.ColumnStyles.Add(new ColumnStyle(SizeType.Percent, 12.5F));
+            TabLayoutPanel_XmlToExcel.Controls.Add(BtnXmlToExcelFile, 3, 5);
+            TabLayoutPanel_XmlToExcel.Controls.Add(BtnSelectConfigFile, 6, 3);
+            TabLayoutPanel_XmlToExcel.Controls.Add(TxtXmlFilePath, 0, 1);
+            TabLayoutPanel_XmlToExcel.Controls.Add(TxtConfigFile, 0, 3);
+            TabLayoutPanel_XmlToExcel.Controls.Add(BtnSelectXmlFile, 6, 1);
+            TabLayoutPanel_XmlToExcel.Dock = DockStyle.Fill;
+            TabLayoutPanel_XmlToExcel.Location = new Point(0, 0);
+            TabLayoutPanel_XmlToExcel.Name = "TabLayoutPanel_XmlToExcel";
+            TabLayoutPanel_XmlToExcel.RowCount = 8;
+            TabLayoutPanel_XmlToExcel.RowStyles.Add(new RowStyle(SizeType.Percent, 12.5F));
+            TabLayoutPanel_XmlToExcel.RowStyles.Add(new RowStyle(SizeType.Percent, 12.5F));
+            TabLayoutPanel_XmlToExcel.RowStyles.Add(new RowStyle(SizeType.Percent, 12.5F));
+            TabLayoutPanel_XmlToExcel.RowStyles.Add(new RowStyle(SizeType.Percent, 12.5F));
+            TabLayoutPanel_XmlToExcel.RowStyles.Add(new RowStyle(SizeType.Percent, 12.5F));
+            TabLayoutPanel_XmlToExcel.RowStyles.Add(new RowStyle(SizeType.Percent, 12.5F));
+            TabLayoutPanel_XmlToExcel.RowStyles.Add(new RowStyle(SizeType.Percent, 12.5F));
+            TabLayoutPanel_XmlToExcel.RowStyles.Add(new RowStyle(SizeType.Percent, 12.5F));
+            TabLayoutPanel_XmlToExcel.RowStyles.Add(new RowStyle(SizeType.Absolute, 20F));
+            TabLayoutPanel_XmlToExcel.Size = new Size(800, 450);
+            TabLayoutPanel_XmlToExcel.TabIndex = 0;
             // 
             // BtnXmlToExcelFile
             // 
             BtnXmlToExcelFile.BackColor = SystemColors.ControlLight;
-            tableLayoutPanel1.SetColumnSpan(BtnXmlToExcelFile, 2);
+            TabLayoutPanel_XmlToExcel.SetColumnSpan(BtnXmlToExcelFile, 2);
             BtnXmlToExcelFile.Dock = DockStyle.Fill;
             BtnXmlToExcelFile.FlatStyle = FlatStyle.Flat;
             BtnXmlToExcelFile.Location = new Point(303, 283);
@@ -86,7 +86,7 @@
             // BtnSelectConfigFile
             // 
             BtnSelectConfigFile.BackColor = SystemColors.ControlLight;
-            tableLayoutPanel1.SetColumnSpan(BtnSelectConfigFile, 2);
+            TabLayoutPanel_XmlToExcel.SetColumnSpan(BtnSelectConfigFile, 2);
             BtnSelectConfigFile.Dock = DockStyle.Fill;
             BtnSelectConfigFile.FlatStyle = FlatStyle.Flat;
             BtnSelectConfigFile.Location = new Point(603, 171);
@@ -99,7 +99,7 @@
             // 
             // TxtXmlFilePath
             // 
-            tableLayoutPanel1.SetColumnSpan(TxtXmlFilePath, 6);
+            TabLayoutPanel_XmlToExcel.SetColumnSpan(TxtXmlFilePath, 6);
             TxtXmlFilePath.Dock = DockStyle.Fill;
             TxtXmlFilePath.Location = new Point(3, 59);
             TxtXmlFilePath.Multiline = true;
@@ -109,7 +109,7 @@
             // 
             // TxtConfigFile
             // 
-            tableLayoutPanel1.SetColumnSpan(TxtConfigFile, 6);
+            TabLayoutPanel_XmlToExcel.SetColumnSpan(TxtConfigFile, 6);
             TxtConfigFile.Dock = DockStyle.Fill;
             TxtConfigFile.Location = new Point(3, 171);
             TxtConfigFile.Multiline = true;
@@ -120,7 +120,7 @@
             // BtnSelectXmlFile
             // 
             BtnSelectXmlFile.BackColor = SystemColors.ControlLight;
-            tableLayoutPanel1.SetColumnSpan(BtnSelectXmlFile, 2);
+            TabLayoutPanel_XmlToExcel.SetColumnSpan(BtnSelectXmlFile, 2);
             BtnSelectXmlFile.Dock = DockStyle.Fill;
             BtnSelectXmlFile.FlatStyle = FlatStyle.Flat;
             BtnSelectXmlFile.Location = new Point(603, 59);
@@ -136,18 +136,18 @@
             AutoScaleDimensions = new SizeF(7F, 17F);
             AutoScaleMode = AutoScaleMode.Font;
             ClientSize = new Size(800, 450);
-            Controls.Add(tableLayoutPanel1);
+            Controls.Add(TabLayoutPanel_XmlToExcel);
             Name = "XmlToExcel";
             Text = "XmlToExcel";
             Load += XmlToExcel_Load;
-            tableLayoutPanel1.ResumeLayout(false);
-            tableLayoutPanel1.PerformLayout();
+            TabLayoutPanel_XmlToExcel.ResumeLayout(false);
+            TabLayoutPanel_XmlToExcel.PerformLayout();
             ResumeLayout(false);
         }
 
         #endregion
 
-        private TableLayoutPanel tableLayoutPanel1;
+        private TableLayoutPanel TabLayoutPanel_XmlToExcel;
         private TextBox TxtXmlFilePath;
         private Button BtnXmlToExcelFile;
         private Button BtnSelectConfigFile;
