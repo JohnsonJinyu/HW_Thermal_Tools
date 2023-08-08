@@ -44,16 +44,31 @@ namespace HW_Thermal_Tools.Forms
 
         private void LoadTheme()
         {
-            foreach (Control btns in this.Controls)
+            //由于button放在panel容易中，无法通过这种方式获取button
+            /*
+             foreach (System.Windows.Forms.Control btns in this.Controls)
+             {
+                 if (btns.GetType() == typeof(System.Windows.Forms.Button))
+                 {
+                     System.Windows.Forms.Button btn = (System.Windows.Forms.Button)btns;
+                     btn.BackColor = ThemeColor.PrimaryColor;
+                     btn.ForeColor = Color.White;
+                     btn.FlatAppearance.BorderColor = ThemeColor.SecondaryColor;
+                 }
+             }
+             */
+            //通过这种方式获取
+            foreach (System.Windows.Forms.Control control in TabLayoutPanel_XmlToExcel.Controls)
             {
-                if (btns.GetType() == typeof(System.Windows.Forms.Button))
+                if (control is System.Windows.Forms.Button)
                 {
-                    System.Windows.Forms.Button btn = (System.Windows.Forms.Button)btns;
+                    System.Windows.Forms.Button btn = (System.Windows.Forms.Button)control;
                     btn.BackColor = ThemeColor.PrimaryColor;
                     btn.ForeColor = Color.White;
                     btn.FlatAppearance.BorderColor = ThemeColor.SecondaryColor;
                 }
             }
+
         }
 
         private void BtnSelectXmlFile_Click(object sender, EventArgs e)
@@ -136,7 +151,7 @@ namespace HW_Thermal_Tools.Forms
                 workSheet.Row(1).Style.Font.Bold = true;
                 workSheet.Row(1).Style.HorizontalAlignment = ExcelHorizontalAlignment.Center;
 
-                
+
 
                 //遍历第一列中的内容，将内容相同的单元格合并
                 int fromRow = 2; //起始行索引
@@ -237,7 +252,7 @@ namespace HW_Thermal_Tools.Forms
                 获取名称为“ 充电电流”的worksheet页，将第一行第二个单元格的内容插入到ExcelTitleList的“charge”元素后面；
             */
 
-            using (ExcelPackage ep = new ExcelPackage(new FileInfo(path))) 
+            using (ExcelPackage ep = new ExcelPackage(new FileInfo(path)))
             {
                 ExcelWorksheets sheets = ep.Workbook.Worksheets;
                 foreach (ExcelWorksheet sheet in sheets)
@@ -265,8 +280,8 @@ namespace HW_Thermal_Tools.Forms
                     }
                 }
             }
-                
-            
+
+
 
             //将ExcelTitleList打印出来
             foreach (string str in ExcelTitleList)
@@ -311,8 +326,8 @@ namespace HW_Thermal_Tools.Forms
                     //将Excel2Dict添加到Excel2Dict中；
                     Excel2Dict.Add(sheetName, sheetDict);
                 }
-                
-            
+
+
             }
         }
 

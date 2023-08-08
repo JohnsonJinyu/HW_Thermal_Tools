@@ -92,6 +92,9 @@ namespace HW_Thermal_Tools
         private void MainForm_Load(object sender, EventArgs e)
         {
 
+            //设置使用说明的相关格式
+            richTextBoxIntroduction.ReadOnly = true;
+            richTextBoxIntroduction.SelectedText = "使用说明：\n";
         }
 
         private void BtnForm1_Click(object sender, EventArgs e)
@@ -107,6 +110,31 @@ namespace HW_Thermal_Tools
         private void panelLogo_Paint(object sender, PaintEventArgs e)
         {
 
+        }
+
+        private void richTextBoxIntroduction_TextChanged(object sender, EventArgs e)
+        {
+
+        }
+
+        private void BtnBackHome_Click(object sender, EventArgs e)
+        {
+
+            ShowMainForm(sender);
+
+
+        }
+
+        public void ShowMainForm(object btnSender)
+        {
+            if (activeForm != null)
+            {
+                activeForm.Close();
+            }
+            ActivateButton(btnSender);
+            this.Show();
+            this.BringToFront();
+            lblTitle.Text = "主页";
         }
     }
 }
