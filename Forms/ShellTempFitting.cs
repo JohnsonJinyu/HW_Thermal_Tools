@@ -1,24 +1,13 @@
-﻿using CsvHelper;
-using MathNet.Numerics;
+﻿using MathNet.Numerics;
 using MathNet.Numerics.LinearAlgebra;
 using MathNet.Numerics.LinearRegression;
-using Microsoft.Office.Interop.Excel;
-using NPOI.SS.Formula.Functions;
-using NPOI.SS.UserModel;
 using OfficeOpenXml;
 using OfficeOpenXml.Style;
 using OxyPlot;
 using OxyPlot.Series;
 using OxyPlot.WindowsForms;
-using SixLabors.ImageSharp.ColorSpaces;
-using System;
 using System.Data;
-using System.Drawing;
-using System.Formats.Asn1;
 using System.Globalization;
-using System.Text;
-using System.Windows.Forms;
-using System.Xml.Linq;
 
 
 namespace HW_Thermal_Tools.Forms
@@ -27,7 +16,7 @@ namespace HW_Thermal_Tools.Forms
     {
         //files
         //创建数据预处理后得到的dataTable
-        private List<System.Data.DataTable> DataTablesList;
+        private List<DataTable> DataTablesList;
 
         //创建三个不同的plotModel对象，用于显示最后的对比曲线
         private PlotModel plotModel_front;

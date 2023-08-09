@@ -117,16 +117,4 @@
   <resheader name="writer">
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
-  <data name="richTextBoxIntroduction.Text" xml:space="preserve">
-    <value>使用说明
-XML To Excel(OPPO温控文件专用)：
-1、将配套的温控配置表（Excel）根据项目设置；
-2、选择温控XML文件和配置表Excel文件，确认即可转换完成。
-
-壳温拟合：
-1、hypermonitor文件与GP10导出的Excel文件（.XLSX格式）文件名保持一致；
-2、hypermonitor文件不需要前处理；
-3、GP10文件将时间以及用到的十个通道的数据提取出来，标题为Time、CH0001、CH0002——CH0010；
-4、两个文件注意末尾不要有多余数据即可。</value>
-  </data>
 </root>
