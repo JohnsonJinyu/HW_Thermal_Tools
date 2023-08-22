@@ -115,6 +115,7 @@
             // 
             // TxtboxStfFilesPath
             // 
+            TxtboxStfFilesPath.AllowDrop = true;
             TabLayoutPanel_ShellTempFit.SetColumnSpan(TxtboxStfFilesPath, 14);
             TxtboxStfFilesPath.Dock = DockStyle.Fill;
             TxtboxStfFilesPath.Location = new Point(39, 3);
@@ -124,6 +125,8 @@
             TxtboxStfFilesPath.ScrollBars = ScrollBars.Vertical;
             TxtboxStfFilesPath.Size = new Size(498, 82);
             TxtboxStfFilesPath.TabIndex = 0;
+            TxtboxStfFilesPath.DragDrop += TxtboxStfFilesPath_DragDrop;
+            TxtboxStfFilesPath.DragEnter += TxtboxStfFilesPath_DragEnter;
             // 
             // TxtboxStfResult
             // 
@@ -136,7 +139,7 @@
             TabLayoutPanel_ShellTempFit.SetRowSpan(TxtboxStfResult, 5);
             TxtboxStfResult.ScrollBars = ScrollBars.Vertical;
             TxtboxStfResult.Size = new Size(282, 214);
-            TxtboxStfResult.TabIndex = 2;
+            TxtboxStfResult.TabIndex = 13;
             // 
             // txtNtcNames
             // 
@@ -148,7 +151,7 @@
             txtNtcNames.PlaceholderText = "请输入用到的NTC名称，以空格间隔";
             txtNtcNames.ScrollBars = ScrollBars.Both;
             txtNtcNames.Size = new Size(282, 38);
-            txtNtcNames.TabIndex = 1;
+            txtNtcNames.TabIndex = 2;
             // 
             // BtnStfSelectFiles
             // 
@@ -159,7 +162,7 @@
             BtnStfSelectFiles.Location = new Point(651, 3);
             BtnStfSelectFiles.Name = "BtnStfSelectFiles";
             BtnStfSelectFiles.Size = new Size(138, 38);
-            BtnStfSelectFiles.TabIndex = 3;
+            BtnStfSelectFiles.TabIndex = 1;
             BtnStfSelectFiles.Text = "选择文件";
             BtnStfSelectFiles.UseVisualStyleBackColor = false;
             BtnStfSelectFiles.Click += BtnStfSelectFiles_Click;
@@ -171,9 +174,9 @@
             txtFrontPoint.Location = new Point(579, 91);
             txtFrontPoint.Multiline = true;
             txtFrontPoint.Name = "txtFrontPoint";
-            txtFrontPoint.PlaceholderText = "请输入正面点位，空格间隔";
+            txtFrontPoint.PlaceholderText = "请输入正面点位（1，2，3~），空格间隔";
             txtFrontPoint.Size = new Size(282, 38);
-            txtFrontPoint.TabIndex = 6;
+            txtFrontPoint.TabIndex = 3;
             // 
             // txtFramePoint
             // 
@@ -182,9 +185,9 @@
             txtFramePoint.Location = new Point(579, 135);
             txtFramePoint.Multiline = true;
             txtFramePoint.Name = "txtFramePoint";
-            txtFramePoint.PlaceholderText = "请输入侧面点位，空格间隔";
+            txtFramePoint.PlaceholderText = "请输入侧面点位（1，2，3~），空格间隔";
             txtFramePoint.Size = new Size(282, 38);
-            txtFramePoint.TabIndex = 7;
+            txtFramePoint.TabIndex = 4;
             // 
             // txtBottomPoint
             // 
@@ -193,9 +196,9 @@
             txtBottomPoint.Location = new Point(579, 179);
             txtBottomPoint.Multiline = true;
             txtBottomPoint.Name = "txtBottomPoint";
-            txtBottomPoint.PlaceholderText = "请输入背面点位，空格间隔";
+            txtBottomPoint.PlaceholderText = "请输入背面点位（1，2，3~），空格间隔";
             txtBottomPoint.Size = new Size(282, 38);
-            txtBottomPoint.TabIndex = 8;
+            txtBottomPoint.TabIndex = 5;
             // 
             // BtnStfConfirm
             // 
@@ -206,7 +209,7 @@
             BtnStfConfirm.Location = new Point(651, 223);
             BtnStfConfirm.Name = "BtnStfConfirm";
             BtnStfConfirm.Size = new Size(138, 38);
-            BtnStfConfirm.TabIndex = 4;
+            BtnStfConfirm.TabIndex = 6;
             BtnStfConfirm.Text = "确认";
             BtnStfConfirm.UseVisualStyleBackColor = false;
             BtnStfConfirm.Click += BtnStfConfirm_Click;
@@ -219,7 +222,7 @@
             BtnPictureFront.Location = new Point(75, 487);
             BtnPictureFront.Name = "BtnPictureFront";
             BtnPictureFront.Size = new Size(102, 47);
-            BtnPictureFront.TabIndex = 9;
+            BtnPictureFront.TabIndex = 8;
             BtnPictureFront.Text = "正面";
             BtnPictureFront.UseVisualStyleBackColor = true;
             BtnPictureFront.Click += BtnPictureFront_Click;
@@ -232,7 +235,7 @@
             BtnPictureFrame.Location = new Point(255, 487);
             BtnPictureFrame.Name = "BtnPictureFrame";
             BtnPictureFrame.Size = new Size(102, 47);
-            BtnPictureFrame.TabIndex = 10;
+            BtnPictureFrame.TabIndex = 9;
             BtnPictureFrame.Text = "侧面";
             BtnPictureFrame.UseVisualStyleBackColor = true;
             BtnPictureFrame.Click += BtnPictureFrame_Click;
@@ -245,7 +248,7 @@
             BtnPictureBottom.Location = new Point(435, 487);
             BtnPictureBottom.Name = "BtnPictureBottom";
             BtnPictureBottom.Size = new Size(102, 47);
-            BtnPictureBottom.TabIndex = 11;
+            BtnPictureBottom.TabIndex = 10;
             BtnPictureBottom.Text = "背面";
             BtnPictureBottom.UseVisualStyleBackColor = true;
             BtnPictureBottom.Click += BtnPictureBottom_Click;
@@ -276,7 +279,7 @@
             checkBoxSaveStfData.Location = new Point(579, 487);
             checkBoxSaveStfData.Name = "checkBoxSaveStfData";
             checkBoxSaveStfData.Size = new Size(138, 47);
-            checkBoxSaveStfData.TabIndex = 13;
+            checkBoxSaveStfData.TabIndex = 6;
             checkBoxSaveStfData.Text = "保存整合后的数据";
             checkBoxSaveStfData.TextAlign = ContentAlignment.MiddleCenter;
             checkBoxSaveStfData.UseVisualStyleBackColor = true;
@@ -290,12 +293,13 @@
             checkBox_SaveCurvePicture.Location = new Point(723, 487);
             checkBox_SaveCurvePicture.Name = "checkBox_SaveCurvePicture";
             checkBox_SaveCurvePicture.Size = new Size(138, 47);
-            checkBox_SaveCurvePicture.TabIndex = 14;
+            checkBox_SaveCurvePicture.TabIndex = 7;
             checkBox_SaveCurvePicture.Text = "保存图片";
             checkBox_SaveCurvePicture.UseVisualStyleBackColor = true;
             // 
             // ShellTempFitting
             // 
+            AllowDrop = true;
             AutoScaleDimensions = new SizeF(7F, 17F);
             AutoScaleMode = AutoScaleMode.Font;
             ClientSize = new Size(917, 537);

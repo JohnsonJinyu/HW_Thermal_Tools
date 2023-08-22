@@ -107,7 +107,7 @@ namespace HW_Thermal_Tools.Forms
 
             //计算
             Calculator(DataTablesList);
-            
+
             //保存数据
             if (checkBoxSaveStfData.CheckState == CheckState.Checked)
             {
@@ -826,15 +826,15 @@ namespace HW_Thermal_Tools.Forms
             string bottom_equation = bottom_intercept.ToString("f4");
             for (int i = 0; i < front_slope.Length; i++)
             {
-                front_equation += (front_slope[i] > 0 ? "+" : "") + (front_slope[i] * 100).ToString("f4") + "*" + NtcName[i];
+                front_equation += (front_slope[i] > 0 ? "+" : "") + (front_slope[i]).ToString("f4") + "*" + NtcName[i];
             }
             for (int i = 0; i < frame_slope.Length; i++)
             {
-                frame_equation += (frame_slope[i] > 0 ? "+" : "") + (frame_slope[i] * 100).ToString("f4") + "*" + NtcName[i];
+                frame_equation += (frame_slope[i] > 0 ? "+" : "") + (frame_slope[i]).ToString("f4") + "*" + NtcName[i];
             }
             for (int i = 0; i < bottom_slope.Length; i++)
             {
-                bottom_equation += (bottom_slope[i] > 0 ? "+" : "") + (bottom_slope[i] * 100).ToString("f4") + "*" + NtcName[i];
+                bottom_equation += (bottom_slope[i] > 0 ? "+" : "") + (bottom_slope[i]).ToString("f4") + "*" + NtcName[i];
             }
 
             //计算预测值
@@ -860,34 +860,34 @@ namespace HW_Thermal_Tools.Forms
             double bottom_r2 = GoodnessOfFit.RSquared(Y_Bottom_List, bottom_predict);
 
             //在TxtboxStfResult依次显示截距、斜率、回归方程、R2
-            TxtboxStfResult.Text = "Front:\r\n";
-            TxtboxStfResult.Text += "Intercept:" + front_intercept.ToString("f4") + "\r\n";
+            TxtboxStfResult.Text = "正面:\r\n";
+            TxtboxStfResult.Text += "截距:" + front_intercept.ToString("f4") + "\r\n";
             for (int i = 0; i < front_slope.Length; i++)
             {
-                TxtboxStfResult.Text += "Slope" + (i + 1).ToString() + ":" + front_slope[i].ToString("f4") + "\r\n";
+                TxtboxStfResult.Text += "系数" + (i + 1).ToString() + ":" + front_slope[i].ToString("f4") + "\r\n";
             }
-            TxtboxStfResult.Text += "Equation:" + front_equation + "\r\n";
-            TxtboxStfResult.Text += "R2:" + front_r2.ToString("f4") + "\r\n";
+            TxtboxStfResult.Text += "预测值计算公式:" + front_equation + "\r\n";
+            TxtboxStfResult.Text += "R²:" + front_r2.ToString("f4") + "\r\n";
             TxtboxStfResult.Text += "\r\n";
 
-            TxtboxStfResult.Text += "Frame:\r\n";
-            TxtboxStfResult.Text += "Intercept:" + frame_intercept.ToString("f4") + "\r\n";
+            TxtboxStfResult.Text += "侧面:\r\n";
+            TxtboxStfResult.Text += "截距:" + frame_intercept.ToString("f4") + "\r\n";
             for (int i = 0; i < frame_slope.Length; i++)
             {
-                TxtboxStfResult.Text += "Slope" + (i + 1).ToString() + ":" + frame_slope[i].ToString("f4") + "\r\n";
+                TxtboxStfResult.Text += "系数" + (i + 1).ToString() + ":" + frame_slope[i].ToString("f4") + "\r\n";
             }
-            TxtboxStfResult.Text += "Equation:" + frame_equation + "\r\n";
-            TxtboxStfResult.Text += "R2:" + frame_r2.ToString("f4") + "\r\n";
+            TxtboxStfResult.Text += "预测值计算公式:" + frame_equation + "\r\n";
+            TxtboxStfResult.Text += "R²:" + frame_r2.ToString("f4") + "\r\n";
             TxtboxStfResult.Text += "\r\n";
 
-            TxtboxStfResult.Text += "Bottom:\r\n";
-            TxtboxStfResult.Text += "Intercept:" + bottom_intercept.ToString("f4") + "\r\n";
+            TxtboxStfResult.Text += "背面:\r\n";
+            TxtboxStfResult.Text += "截距:" + bottom_intercept.ToString("f4") + "\r\n";
             for (int i = 0; i < bottom_slope.Length; i++)
             {
-                TxtboxStfResult.Text += "Slope" + (i + 1).ToString() + ":" + bottom_slope[i].ToString("f4") + "\r\n";
+                TxtboxStfResult.Text += "系数" + (i + 1).ToString() + ":" + bottom_slope[i].ToString("f4") + "\r\n";
             }
-            TxtboxStfResult.Text += "Equation:" + bottom_equation + "\r\n";
-            TxtboxStfResult.Text += "R2:" + bottom_r2.ToString("f4") + "\r\n";
+            TxtboxStfResult.Text += "预测值计算公式:" + bottom_equation + "\r\n";
+            TxtboxStfResult.Text += "R²:" + bottom_r2.ToString("f4") + "\r\n";
 
 
             //创建 Chart 对象,设置类型为曲线图
@@ -1054,8 +1054,31 @@ namespace HW_Thermal_Tools.Forms
             }
         }
 
+        private void TxtboxStfFilesPath_DragDrop(object sender, DragEventArgs e)
+        {
+            string[] files = (string[])e.Data.GetData(DataFormats.FileDrop);
 
+            string allFilesPath = "";
 
+            foreach (string file in files)
+            {
+                allFilesPath += file + "\r\n";
+            }
+
+            TxtboxStfFilesPath.Text = allFilesPath;
+        }
+
+        private void TxtboxStfFilesPath_DragEnter(object sender, DragEventArgs e)
+        {
+            if (e.Data.GetDataPresent(DataFormats.FileDrop))
+            {
+                e.Effect = DragDropEffects.Copy;
+            }
+            else
+            {
+                e.Effect = DragDropEffects.None;
+            }
+        }
     }
 
 }
