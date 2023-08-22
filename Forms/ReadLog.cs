@@ -3,6 +3,7 @@ using LicenseContext = OfficeOpenXml.LicenseContext;
 using System.Data;
 using System.Text;
 using System.Text.RegularExpressions;
+using System.IO;
 
 namespace HW_Thermal_Tools.Forms
 {

@@ -6,6 +6,8 @@
     <Nullable>enable</Nullable>
     <UseWindowsForms>true</UseWindowsForms>
     <ImplicitUsings>enable</ImplicitUsings>
+    <UseWPF>False</UseWPF>
+    <StartupObject>HW_Thermal_Tools.Program</StartupObject>
     <ApplicationIcon>toolbox.ico</ApplicationIcon>
   </PropertyGroup>
 
