@@ -40,6 +40,7 @@
             lblTitle = new Label();
             panelDeskTopPanel = new Panel();
             richTextBoxIntroduction = new RichTextBox();
+            btnForm4 = new Button();
             panelMenu.SuspendLayout();
             panelLogo.SuspendLayout();
             panelTitleBar.SuspendLayout();
@@ -49,6 +50,7 @@
             // panelMenu
             // 
             panelMenu.BackColor = Color.FromArgb(51, 51, 76);
+            panelMenu.Controls.Add(btnForm4);
             panelMenu.Controls.Add(BtnForm3);
             panelMenu.Controls.Add(BtnBackHome);
             panelMenu.Controls.Add(BtnForm2);
@@ -177,6 +179,19 @@
             richTextBoxIntroduction.Text = resources.GetString("richTextBoxIntroduction.Text");
             richTextBoxIntroduction.TextChanged += richTextBoxIntroduction_TextChanged;
             // 
+            // btnForm4
+            // 
+            btnForm4.Dock = DockStyle.Top;
+            btnForm4.FlatStyle = FlatStyle.Flat;
+            btnForm4.Font = new Font("Microsoft YaHei UI", 10F, FontStyle.Bold, GraphicsUnit.Point);
+            btnForm4.Location = new Point(0, 194);
+            btnForm4.Name = "btnForm4";
+            btnForm4.Size = new Size(150, 38);
+            btnForm4.TabIndex = 5;
+            btnForm4.Text = "keithley2306";
+            btnForm4.UseVisualStyleBackColor = true;
+            btnForm4.Click += btnForm4_Click;
+            // 
             // MainForm
             // 
             AllowDrop = true;
@@ -211,5 +226,6 @@
         private RichTextBox richTextBoxIntroduction;
         private Button BtnBackHome;
         private Button BtnForm3;
+        private Button btnForm4;
     }
 }
