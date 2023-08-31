@@ -171,6 +171,7 @@
             richTextBoxIntroduction.Dock = DockStyle.Fill;
             richTextBoxIntroduction.Location = new Point(0, 0);
             richTextBoxIntroduction.Name = "richTextBoxIntroduction";
+            richTextBoxIntroduction.ReadOnly = true;
             richTextBoxIntroduction.Size = new Size(948, 496);
             richTextBoxIntroduction.TabIndex = 0;
             richTextBoxIntroduction.Text = resources.GetString("richTextBoxIntroduction.Text");

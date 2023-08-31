@@ -127,6 +127,10 @@ XML To Excel(OPPO温控文件专用)：
 1、hypermonitor文件与GP10导出的Excel文件（.XLSX格式）文件名保持一致；
 2、hypermonitor文件不需要前处理；
 3、GP10文件将时间以及用到的十个通道的数据提取出来，标题为Time、CH0001、CH0002——CH0010；
-4、两个文件注意末尾不要有多余数据即可。</value>
+4、两个文件注意末尾不要有多余数据即可。
+
+ReadLog:
+1、关键词不要带 “：”
+2、不同项目Log文件可能不同，有问题及时反馈。</value>
   </data>
 </root>
