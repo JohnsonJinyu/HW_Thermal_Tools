@@ -74,216 +74,235 @@ namespace HW_Thermal_Tools.Forms
             // 
             // statusStrip1
             // 
-            statusStrip1.ImageScalingSize = new Size(20, 20);
-            statusStrip1.Items.AddRange(new ToolStripItem[] { toolStripStatusLabel1 });
-            statusStrip1.Location = new Point(0, 721);
+<<<<<<<<< Temporary merge branch 1
+            statusStrip1.Items.AddRange(new ToolStripItem[] { DevicesConnetStatuLabel });
+            statusStrip1.Location = new Point(0, 429);
             statusStrip1.Name = "statusStrip1";
-            statusStrip1.Size = new Size(1259, 26);
-            statusStrip1.TabIndex = 2;
+            statusStrip1.Size = new Size(974, 22);
+            statusStrip1.TabIndex = 0;
             statusStrip1.Text = "statusStrip1";
             // 
-            // toolStripStatusLabel1
+            // DevicesConnetStatuLabel
             // 
-            toolStripStatusLabel1.Name = "toolStripStatusLabel1";
-            toolStripStatusLabel1.Size = new Size(167, 20);
-            toolStripStatusLabel1.Text = "toolStripStatusLabel1";
+            DevicesConnetStatuLabel.Name = "DevicesConnetStatuLabel";
+            DevicesConnetStatuLabel.Size = new Size(68, 17);
+            DevicesConnetStatuLabel.Text = "设备已连接";
             // 
-            // TabPanel_Control
+            // RadioButton_PowerText_Model
             // 
-            TabPanel_Control.AutoSizeMode = AutoSizeMode.GrowAndShrink;
-            TabPanel_Control.Columns.AddRange(new DevExpress.Utils.Layout.TablePanelColumn[] { new DevExpress.Utils.Layout.TablePanelColumn(DevExpress.Utils.Layout.TablePanelEntityStyle.Relative, 37.2F), new DevExpress.Utils.Layout.TablePanelColumn(DevExpress.Utils.Layout.TablePanelEntityStyle.Relative, 32.04F), new DevExpress.Utils.Layout.TablePanelColumn(DevExpress.Utils.Layout.TablePanelEntityStyle.Relative, 40.76F) });
-            TabPanel_Control.Controls.Add(Btn_Clear);
-            TabPanel_Control.Controls.Add(Btn_Save);
-            TabPanel_Control.Controls.Add(Btn_Stop);
-            TabPanel_Control.Controls.Add(Btn_Pause);
-            TabPanel_Control.Controls.Add(Btn_Start);
-            TabPanel_Control.Controls.Add(DataUpdate_GridView);
-            TabPanel_Control.Controls.Add(comboBox1);
-            TabPanel_Control.Controls.Add(RadioButton_Charge_Test);
-            TabPanel_Control.Controls.Add(RadioButton_Power_Test);
-            TabPanel_Control.Controls.Add(Btn_RecheckDevice);
-            TabPanel_Control.Controls.Add(Btn_Power_On);
-            TabPanel_Control.Controls.Add(Btn_Power_Off);
-            TabPanel_Control.Dock = DockStyle.Right;
-            TabPanel_Control.Location = new Point(834, 0);
-            TabPanel_Control.Name = "TabPanel_Control";
-            TabPanel_Control.Rows.AddRange(new DevExpress.Utils.Layout.TablePanelRow[] { new DevExpress.Utils.Layout.TablePanelRow(DevExpress.Utils.Layout.TablePanelEntityStyle.Absolute, 42.7999878F), new DevExpress.Utils.Layout.TablePanelRow(DevExpress.Utils.Layout.TablePanelEntityStyle.Absolute, 45.9999924F), new DevExpress.Utils.Layout.TablePanelRow(DevExpress.Utils.Layout.TablePanelEntityStyle.Absolute, 209.2003F), new DevExpress.Utils.Layout.TablePanelRow(DevExpress.Utils.Layout.TablePanelEntityStyle.Absolute, 85.99994F), new DevExpress.Utils.Layout.TablePanelRow(DevExpress.Utils.Layout.TablePanelEntityStyle.Absolute, 186.000259F), new DevExpress.Utils.Layout.TablePanelRow(DevExpress.Utils.Layout.TablePanelEntityStyle.Absolute, 76.40002F), new DevExpress.Utils.Layout.TablePanelRow(DevExpress.Utils.Layout.TablePanelEntityStyle.Relative, 26F) });
-            TabPanel_Control.Size = new Size(425, 721);
-            TabPanel_Control.TabIndex = 3;
-            TabPanel_Control.UseSkinIndents = true;
+            RadioButton_PowerText_Model.AutoSize = true;
+            RadioButton_PowerText_Model.Dock = DockStyle.Fill;
+            RadioButton_PowerText_Model.Location = new Point(3, 44);
+            RadioButton_PowerText_Model.Name = "RadioButton_PowerText_Model";
+            RadioButton_PowerText_Model.Size = new Size(97, 23);
+            RadioButton_PowerText_Model.TabIndex = 2;
+            RadioButton_PowerText_Model.TabStop = true;
+            RadioButton_PowerText_Model.Text = "功耗测试";
+            RadioButton_PowerText_Model.UseVisualStyleBackColor = true;
             // 
-            // Btn_Clear
+            // RadioButton_Charge_Model
             // 
-            TabPanel_Control.SetColumn(Btn_Clear, 1);
-            Btn_Clear.Dock = DockStyle.Fill;
-            Btn_Clear.Location = new Point(150, 660);
-            Btn_Clear.Name = "Btn_Clear";
-            TabPanel_Control.SetRow(Btn_Clear, 6);
-            Btn_Clear.Size = new Size(112, 46);
-            Btn_Clear.TabIndex = 11;
-            Btn_Clear.Text = "清除数据";
-            Btn_Clear.UseVisualStyleBackColor = true;
+            RadioButton_Charge_Model.AutoSize = true;
+            RadioButton_Charge_Model.Dock = DockStyle.Fill;
+            RadioButton_Charge_Model.Location = new Point(3, 166);
+            RadioButton_Charge_Model.Name = "RadioButton_Charge_Model";
+            RadioButton_Charge_Model.Size = new Size(97, 24);
+            RadioButton_Charge_Model.TabIndex = 3;
+            RadioButton_Charge_Model.TabStop = true;
+            RadioButton_Charge_Model.Text = "充电测试";
+            RadioButton_Charge_Model.UseVisualStyleBackColor = true;
+            // 
+            // Btn_Power_Off
+            // 
+            Btn_Power_Off.Dock = DockStyle.Fill;
+            Btn_Power_Off.Location = new Point(3, 3);
+            Btn_Power_Off.Name = "Btn_Power_Off";
+            Btn_Power_Off.Size = new Size(97, 35);
+            Btn_Power_Off.TabIndex = 4;
+            Btn_Power_Off.Text = "Power_Off";
+            Btn_Power_Off.UseVisualStyleBackColor = true;
+            // 
+            // Btn_Power_On
+            // 
+            Btn_Power_On.Dock = DockStyle.Fill;
+            Btn_Power_On.Location = new Point(106, 3);
+            Btn_Power_On.Name = "Btn_Power_On";
+            Btn_Power_On.Size = new Size(95, 35);
+            Btn_Power_On.TabIndex = 5;
+            Btn_Power_On.Text = "Power On";
+            Btn_Power_On.UseVisualStyleBackColor = true;
+            // 
+            // DataGridView_CurrentInput
+            // 
+            DataGridView_CurrentInput.CellBorderStyle = DataGridViewCellBorderStyle.Sunken;
+            dataGridViewCellStyle1.Alignment = DataGridViewContentAlignment.MiddleLeft;
+            dataGridViewCellStyle1.BackColor = SystemColors.Control;
+            dataGridViewCellStyle1.Font = new Font("Microsoft YaHei UI", 7F, FontStyle.Bold, GraphicsUnit.Point);
+            dataGridViewCellStyle1.ForeColor = SystemColors.WindowText;
+            dataGridViewCellStyle1.SelectionBackColor = SystemColors.Highlight;
+            dataGridViewCellStyle1.SelectionForeColor = SystemColors.HighlightText;
+            dataGridViewCellStyle1.WrapMode = DataGridViewTriState.True;
+            DataGridView_CurrentInput.ColumnHeadersDefaultCellStyle = dataGridViewCellStyle1;
+            DataGridView_CurrentInput.ColumnHeadersHeightSizeMode = DataGridViewColumnHeadersHeightSizeMode.AutoSize;
+            DataGridView_CurrentInput.Columns.AddRange(new DataGridViewColumn[] { Current, Voltage, Time });
+            tableLayoutPanel_Control.SetColumnSpan(DataGridView_CurrentInput, 3);
+            dataGridViewCellStyle2.Alignment = DataGridViewContentAlignment.MiddleLeft;
+            dataGridViewCellStyle2.BackColor = SystemColors.Window;
+            dataGridViewCellStyle2.Font = new Font("Microsoft YaHei UI", 7F, FontStyle.Regular, GraphicsUnit.Point);
+            dataGridViewCellStyle2.ForeColor = SystemColors.ControlText;
+            dataGridViewCellStyle2.SelectionBackColor = SystemColors.Highlight;
+            dataGridViewCellStyle2.SelectionForeColor = SystemColors.HighlightText;
+            dataGridViewCellStyle2.WrapMode = DataGridViewTriState.True;
+            DataGridView_CurrentInput.DefaultCellStyle = dataGridViewCellStyle2;
+            DataGridView_CurrentInput.Location = new Point(3, 196);
+            DataGridView_CurrentInput.Name = "DataGridView_CurrentInput";
+            DataGridView_CurrentInput.RowTemplate.Height = 25;
+            DataGridView_CurrentInput.Size = new Size(295, 163);
+            DataGridView_CurrentInput.TabIndex = 7;
+            DataGridView_CurrentInput.CellContentClick += dataGridView1_CellContentClick;
+            // 
+            // Current
+            // 
+            Current.HeaderText = "Current（A）";
+            Current.Name = "Current";
+            // 
+            // Voltage
+            // 
+            Voltage.HeaderText = "Voltage（V）";
+            Voltage.Name = "Voltage";
+            // 
+            // Time
+            // 
+            Time.HeaderText = "Time(s)";
+            Time.Name = "Time";
+            // 
+            // Btn_Check_Device
+            // 
+            Btn_Check_Device.Dock = DockStyle.Fill;
+            Btn_Check_Device.Location = new Point(207, 3);
+            Btn_Check_Device.Name = "Btn_Check_Device";
+            Btn_Check_Device.Size = new Size(91, 35);
+            Btn_Check_Device.TabIndex = 9;
+            Btn_Check_Device.Text = "检查设备连接状态";
+            Btn_Check_Device.UseVisualStyleBackColor = true;
             // 
             // Btn_Save
             // 
-            TabPanel_Control.SetColumn(Btn_Save, 0);
             Btn_Save.Dock = DockStyle.Fill;
-            Btn_Save.Location = new Point(15, 660);
+            Btn_Save.Location = new Point(3, 400);
             Btn_Save.Name = "Btn_Save";
-            TabPanel_Control.SetRow(Btn_Save, 6);
-            Btn_Save.Size = new Size(131, 46);
+            Btn_Save.Size = new Size(97, 26);
             Btn_Save.TabIndex = 10;
             Btn_Save.Text = "保存";
             Btn_Save.UseVisualStyleBackColor = true;
             // 
-            // Btn_Stop
+            // tableLayoutPanel_Control
             // 
-            TabPanel_Control.SetColumn(Btn_Stop, 2);
-            Btn_Stop.Dock = DockStyle.Fill;
-            Btn_Stop.Location = new Point(266, 584);
-            Btn_Stop.Name = "Btn_Stop";
-            TabPanel_Control.SetRow(Btn_Stop, 5);
-            Btn_Stop.Size = new Size(144, 72);
-            Btn_Stop.TabIndex = 9;
-            Btn_Stop.Text = "停止";
-            Btn_Stop.UseVisualStyleBackColor = true;
-            // 
-            // Btn_Pause
-            // 
-            TabPanel_Control.SetColumn(Btn_Pause, 1);
-            Btn_Pause.Dock = DockStyle.Fill;
-            Btn_Pause.Location = new Point(150, 584);
-            Btn_Pause.Name = "Btn_Pause";
-            TabPanel_Control.SetRow(Btn_Pause, 5);
-            Btn_Pause.Size = new Size(112, 72);
-            Btn_Pause.TabIndex = 8;
-            Btn_Pause.Text = "暂停 / 继续";
-            Btn_Pause.UseVisualStyleBackColor = true;
-            // 
-            // Btn_Start
-            // 
-            TabPanel_Control.SetColumn(Btn_Start, 0);
-            Btn_Start.Dock = DockStyle.Fill;
-            Btn_Start.Location = new Point(15, 584);
-            Btn_Start.Name = "Btn_Start";
-            TabPanel_Control.SetRow(Btn_Start, 5);
-            Btn_Start.Size = new Size(131, 72);
-            Btn_Start.TabIndex = 7;
-            Btn_Start.Text = "开始";
-            Btn_Start.UseVisualStyleBackColor = true;
-            // 
-            // DataUpdate_GridView
-            // 
-            TabPanel_Control.SetColumn(DataUpdate_GridView, 0);
-            DataUpdate_GridView.ColumnHeadersHeightSizeMode = DataGridViewColumnHeadersHeightSizeMode.AutoSize;
-            DataUpdate_GridView.Columns.AddRange(new DataGridViewColumn[] { Item_Data, CurrentData, Max_Data, Min_Data, Ave_Data });
-            TabPanel_Control.SetColumnSpan(DataUpdate_GridView, 3);
-            DataUpdate_GridView.Dock = DockStyle.Fill;
-            DataUpdate_GridView.Location = new Point(15, 103);
-            DataUpdate_GridView.Name = "DataUpdate_GridView";
-            DataUpdate_GridView.ReadOnly = true;
-            DataUpdate_GridView.RightToLeft = RightToLeft.No;
-            TabPanel_Control.SetRow(DataUpdate_GridView, 2);
-            DataUpdate_GridView.RowHeadersVisible = false;
-            DataUpdate_GridView.RowHeadersWidth = 35;
-            DataUpdate_GridView.RowTemplate.Height = 29;
-            DataUpdate_GridView.RowTemplate.ReadOnly = true;
-            DataUpdate_GridView.Size = new Size(395, 205);
-            DataUpdate_GridView.TabIndex = 6;
-            DataUpdate_GridView.CellContentClick += dataGridView1_CellContentClick;
-            // 
-            // Item_Data
-            // 
-            Item_Data.HeaderText = "Item";
-            Item_Data.MinimumWidth = 6;
-            Item_Data.Name = "Item_Data";
-            Item_Data.ReadOnly = true;
-            Item_Data.Width = 80;
-            // 
-            // CurrentData
-            // 
-            CurrentData.HeaderText = "实时";
-            CurrentData.MinimumWidth = 6;
-            CurrentData.Name = "CurrentData";
-            CurrentData.ReadOnly = true;
-            CurrentData.Width = 80;
-            // 
-            // Max_Data
-            // 
-            Max_Data.HeaderText = "最大";
-            Max_Data.MinimumWidth = 6;
-            Max_Data.Name = "Max_Data";
-            Max_Data.ReadOnly = true;
-            Max_Data.Width = 80;
-            // 
-            // Min_Data
-            // 
-            Min_Data.HeaderText = "最小";
-            Min_Data.MinimumWidth = 6;
-            Min_Data.Name = "Min_Data";
-            Min_Data.ReadOnly = true;
-            Min_Data.Width = 80;
-            // 
-            // Ave_Data
-            // 
-            Ave_Data.HeaderText = "平均";
-            Ave_Data.MinimumWidth = 6;
-            Ave_Data.Name = "Ave_Data";
-            Ave_Data.ReadOnly = true;
-            Ave_Data.Width = 80;
+            tableLayoutPanel_Control.ColumnCount = 3;
+            tableLayoutPanel_Control.ColumnStyles.Add(new ColumnStyle(SizeType.Percent, 50.4901962F));
+            tableLayoutPanel_Control.ColumnStyles.Add(new ColumnStyle(SizeType.Percent, 49.5098038F));
+            tableLayoutPanel_Control.ColumnStyles.Add(new ColumnStyle(SizeType.Absolute, 97F));
+            tableLayoutPanel_Control.Controls.Add(Btn_Power_Off, 0, 0);
+            tableLayoutPanel_Control.Controls.Add(Btn_Power_On, 1, 0);
+            tableLayoutPanel_Control.Controls.Add(Btn_Save, 0, 6);
+            tableLayoutPanel_Control.Controls.Add(Btn_Check_Device, 2, 0);
+            tableLayoutPanel_Control.Controls.Add(RadioButton_PowerText_Model, 0, 1);
+            tableLayoutPanel_Control.Controls.Add(comboBox1, 1, 1);
+            tableLayoutPanel_Control.Controls.Add(TextBox_PowerText_Result, 0, 2);
+            tableLayoutPanel_Control.Controls.Add(RadioButton_Charge_Model, 0, 3);
+            tableLayoutPanel_Control.Controls.Add(DataGridView_CurrentInput, 0, 4);
+            tableLayoutPanel_Control.Controls.Add(Btn_Start_Text, 0, 5);
+            tableLayoutPanel_Control.Controls.Add(Btn_Stop_Text, 2, 5);
+            tableLayoutPanel_Control.Controls.Add(Btn_Pause_Continue, 1, 5);
+            tableLayoutPanel_Control.Dock = DockStyle.Right;
+            tableLayoutPanel_Control.Location = new Point(673, 0);
+            tableLayoutPanel_Control.Name = "tableLayoutPanel_Control";
+            tableLayoutPanel_Control.RowCount = 7;
+            tableLayoutPanel_Control.RowStyles.Add(new RowStyle(SizeType.Percent, 58.3333321F));
+            tableLayoutPanel_Control.RowStyles.Add(new RowStyle(SizeType.Percent, 41.6666679F));
+            tableLayoutPanel_Control.RowStyles.Add(new RowStyle(SizeType.Absolute, 93F));
+            tableLayoutPanel_Control.RowStyles.Add(new RowStyle(SizeType.Absolute, 30F));
+            tableLayoutPanel_Control.RowStyles.Add(new RowStyle(SizeType.Absolute, 169F));
+            tableLayoutPanel_Control.RowStyles.Add(new RowStyle(SizeType.Absolute, 35F));
+            tableLayoutPanel_Control.RowStyles.Add(new RowStyle(SizeType.Absolute, 31F));
+            tableLayoutPanel_Control.RowStyles.Add(new RowStyle(SizeType.Absolute, 20F));
+            tableLayoutPanel_Control.Size = new Size(301, 429);
+            tableLayoutPanel_Control.TabIndex = 11;
             // 
             // comboBox1
             // 
-            TabPanel_Control.SetColumn(comboBox1, 1);
+            tableLayoutPanel_Control.SetColumnSpan(comboBox1, 2);
+            comboBox1.Dock = DockStyle.Fill;
             comboBox1.FormattingEnabled = true;
-            comboBox1.ItemHeight = 18;
-            comboBox1.Items.AddRange(new object[] { "3.5", "3.7", "3.9", "4.0", "4.2" });
-            comboBox1.Location = new Point(150, 64);
+            comboBox1.Items.AddRange(new object[] { "3.5 V", "3.7 V", "4.0 V", "4.2 V" });
+            comboBox1.Location = new Point(106, 44);
             comboBox1.Name = "comboBox1";
-            TabPanel_Control.SetRow(comboBox1, 1);
-            comboBox1.Size = new Size(112, 26);
-            comboBox1.TabIndex = 5;
-            comboBox1.Text = "4.0";
+            comboBox1.Size = new Size(192, 25);
+            comboBox1.TabIndex = 11;
             // 
-            // RadioButton_Charge_Test
+            // TextBox_PowerText_Result
             // 
-            RadioButton_Charge_Test.AutoSize = true;
-            TabPanel_Control.SetColumn(RadioButton_Charge_Test, 0);
-            TabPanel_Control.SetColumnSpan(RadioButton_Charge_Test, 2);
-            RadioButton_Charge_Test.Location = new Point(15, 342);
-            RadioButton_Charge_Test.Name = "RadioButton_Charge_Test";
-            TabPanel_Control.SetRow(RadioButton_Charge_Test, 3);
-            RadioButton_Charge_Test.Size = new Size(89, 22);
-            RadioButton_Charge_Test.TabIndex = 4;
-            RadioButton_Charge_Test.TabStop = true;
-            RadioButton_Charge_Test.Text = "充电测试";
-            RadioButton_Charge_Test.UseVisualStyleBackColor = true;
+            tableLayoutPanel_Control.SetColumnSpan(TextBox_PowerText_Result, 3);
+            TextBox_PowerText_Result.Dock = DockStyle.Fill;
+            TextBox_PowerText_Result.Location = new Point(3, 73);
+            TextBox_PowerText_Result.Multiline = true;
+            TextBox_PowerText_Result.Name = "TextBox_PowerText_Result";
+            TextBox_PowerText_Result.Size = new Size(295, 87);
+            TextBox_PowerText_Result.TabIndex = 12;
             // 
-            // RadioButton_Power_Test
+            // Btn_Start_Text
             // 
-            RadioButton_Power_Test.AutoSize = true;
-            TabPanel_Control.SetColumn(RadioButton_Power_Test, 0);
-            RadioButton_Power_Test.Dock = DockStyle.Fill;
-            RadioButton_Power_Test.Location = new Point(15, 57);
-            RadioButton_Power_Test.Name = "RadioButton_Power_Test";
-            TabPanel_Control.SetRow(RadioButton_Power_Test, 1);
-            RadioButton_Power_Test.Size = new Size(131, 42);
-            RadioButton_Power_Test.TabIndex = 3;
-            RadioButton_Power_Test.TabStop = true;
-            RadioButton_Power_Test.Text = "功耗测试";
-            RadioButton_Power_Test.UseVisualStyleBackColor = true;
+            Btn_Start_Text.Dock = DockStyle.Fill;
+            Btn_Start_Text.Location = new Point(3, 365);
+            Btn_Start_Text.Name = "Btn_Start_Text";
+            Btn_Start_Text.Size = new Size(97, 29);
+            Btn_Start_Text.TabIndex = 13;
+            Btn_Start_Text.Text = "开始";
+            Btn_Start_Text.UseVisualStyleBackColor = true;
             // 
-            // Btn_RecheckDevice
+            // Btn_Stop_Text
             // 
-            TabPanel_Control.SetColumn(Btn_RecheckDevice, 2);
-            Btn_RecheckDevice.Dock = DockStyle.Fill;
-            Btn_RecheckDevice.Location = new Point(266, 14);
-            Btn_RecheckDevice.Name = "Btn_RecheckDevice";
-            TabPanel_Control.SetRow(Btn_RecheckDevice, 0);
-            Btn_RecheckDevice.Size = new Size(144, 39);
-            Btn_RecheckDevice.TabIndex = 2;
-            Btn_RecheckDevice.Text = "检查设备连接";
-            Btn_RecheckDevice.UseVisualStyleBackColor = true;
+            Btn_Stop_Text.Dock = DockStyle.Fill;
+            Btn_Stop_Text.Location = new Point(207, 365);
+            Btn_Stop_Text.Name = "Btn_Stop_Text";
+            Btn_Stop_Text.Size = new Size(91, 29);
+            Btn_Stop_Text.TabIndex = 14;
+            Btn_Stop_Text.Text = "停止";
+            Btn_Stop_Text.UseVisualStyleBackColor = true;
+            // 
+            // Btn_Pause_Continue
+            // 
+            Btn_Pause_Continue.Dock = DockStyle.Fill;
+            Btn_Pause_Continue.Location = new Point(106, 365);
+            Btn_Pause_Continue.Name = "Btn_Pause_Continue";
+            Btn_Pause_Continue.Size = new Size(95, 29);
+            Btn_Pause_Continue.TabIndex = 15;
+            Btn_Pause_Continue.Text = "暂停 / 继续";
+            Btn_Pause_Continue.UseVisualStyleBackColor = true;
+            // 
+            // panel1
+            // 
+            panel1.Dock = DockStyle.Fill;
+            panel1.Location = new Point(0, 0);
+            panel1.Name = "panel1";
+            panel1.Size = new Size(673, 429);
+            panel1.TabIndex = 12;
+            // 
+            // keithley2306
+            // 
+            AutoScaleDimensions = new SizeF(7F, 17F);
+            AutoScaleMode = AutoScaleMode.Font;
+            ClientSize = new Size(974, 451);
+            Controls.Add(panel1);
+            Controls.Add(tableLayoutPanel_Control);
+=========
+            statusStrip1.ImageScalingSize = new Size(20, 20);
+            statusStrip1.Items.AddRange(new ToolStripItem[] { DeviceConnectStatusLabel, toolStripProgressBar1 });
+            statusStrip1.Location = new Point(0, 586);
+            statusStrip1.Name = "statusStrip1";
+            statusStrip1.Size = new Size(1005, 26);
+            statusStrip1.TabIndex = 0;
+            statusStrip1.Text = "statusStrip1";
             // 
             // Btn_Power_On
             // 
@@ -341,51 +360,48 @@ namespace HW_Thermal_Tools.Forms
             // 
             AutoScaleDimensions = new SizeF(8F, 18F);
             AutoScaleMode = AutoScaleMode.Font;
-            ClientSize = new Size(1259, 747);
-            Controls.Add(chartControl1);
-            Controls.Add(TabPanel_Control);
+            ClientSize = new Size(1005, 612);
+>>>>>>>>> Temporary merge branch 2
             Controls.Add(statusStrip1);
             Name = "keithley2306";
             Text = "keithley2306";
             statusStrip1.ResumeLayout(false);
             statusStrip1.PerformLayout();
-            ((System.ComponentModel.ISupportInitialize)TabPanel_Control).EndInit();
-            TabPanel_Control.ResumeLayout(false);
-            TabPanel_Control.PerformLayout();
-            ((System.ComponentModel.ISupportInitialize)DataUpdate_GridView).EndInit();
-            ((System.ComponentModel.ISupportInitialize)swiftPlotDiagram2).EndInit();
-            ((System.ComponentModel.ISupportInitialize)swiftPlotSeriesView4).EndInit();
-            ((System.ComponentModel.ISupportInitialize)series4).EndInit();
-            ((System.ComponentModel.ISupportInitialize)swiftPlotSeriesView5).EndInit();
-            ((System.ComponentModel.ISupportInitialize)series5).EndInit();
-            ((System.ComponentModel.ISupportInitialize)swiftPlotSeriesView6).EndInit();
-            ((System.ComponentModel.ISupportInitialize)series6).EndInit();
-            ((System.ComponentModel.ISupportInitialize)chartControl1).EndInit();
+<<<<<<<<< Temporary merge branch 1
+            ((System.ComponentModel.ISupportInitialize)DataGridView_CurrentInput).EndInit();
+            tableLayoutPanel_Control.ResumeLayout(false);
+            tableLayoutPanel_Control.PerformLayout();
+=========
+>>>>>>>>> Temporary merge branch 2
             ResumeLayout(false);
             PerformLayout();
         }
 
         #endregion
         private StatusStrip statusStrip1;
-        private ToolStripStatusLabel toolStripStatusLabel1;
-        private DevExpress.Utils.Layout.TablePanel TabPanel_Control;
-        private Button Btn_RecheckDevice;
-        private Button Btn_Power_On;
+<<<<<<<<< Temporary merge branch 1
+        private ToolStripStatusLabel DevicesConnetStatuLabel;
+        private RadioButton RadioButton_PowerText_Model;
+        private RadioButton RadioButton_Charge_Model;
         private Button Btn_Power_Off;
-        private RadioButton RadioButton_Charge_Test;
-        private RadioButton RadioButton_Power_Test;
-        private ComboBox comboBox1;
-        private ChartControl chartControl1;
-        private DataGridView DataUpdate_GridView;
-        private DataGridViewTextBoxColumn Item_Data;
-        private DataGridViewTextBoxColumn CurrentData;
-        private DataGridViewTextBoxColumn Max_Data;
-        private DataGridViewTextBoxColumn Min_Data;
-        private DataGridViewTextBoxColumn Ave_Data;
-        private Button Btn_Clear;
+        private Button Btn_Power_On;
+        private DataGridView DataGridView_CurrentInput;
+        private Button Btn_Check_Device;
         private Button Btn_Save;
-        private Button Btn_Stop;
-        private Button Btn_Pause;
-        private Button Btn_Start;
+        private DataGridViewTextBoxColumn Current;
+        private DataGridViewTextBoxColumn Voltage;
+        private DataGridViewTextBoxColumn Time;
+        private TableLayoutPanel tableLayoutPanel_Control;
+        private ComboBox comboBox1;
+        private TextBox TextBox_PowerText_Result;
+        private Button Btn_Start_Text;
+        private Button Btn_Stop_Text;
+        private Button Btn_Pause_Continue;
+        private Panel panel1;
+=========
+        private ToolStripStatusLabel DeviceConnectStatusLabel;
+        private ToolStripProgressBar toolStripProgressBar1;
+        private HZH_Controls.Controls.GraphicalOverlayComponent graphicalOverlayComponent1;
+>>>>>>>>> Temporary merge branch 2
     }
 }

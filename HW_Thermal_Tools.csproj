@@ -27,6 +27,10 @@
     <PackageReference Include="Microsoft.Office.Interop.Excel" Version="15.0.4795.1001" />
     <PackageReference Include="NPOI" Version="2.6.1" />
     <PackageReference Include="OxyPlot.WindowsForms" Version="2.1.2" />
+<<<<<<< HEAD
+=======
+    <PackageReference Include="XtraReportsControls" Version="17.2.5" />
+>>>>>>> da56a275d5e280c168627b3c5e93c1902f8401e0
   </ItemGroup>
 
 </Project>

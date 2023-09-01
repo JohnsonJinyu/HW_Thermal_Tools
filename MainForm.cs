@@ -113,11 +113,14 @@ namespace HW_Thermal_Tools
             OpenChildForm(new Forms.ReadLog(), sender);
         }
 
+<<<<<<< HEAD
         private void BtnForm4_Click(object sender, EventArgs e)
         {
             OpenChildForm(new Forms.keithley2306(), sender);
         }
 
+=======
+>>>>>>> da56a275d5e280c168627b3c5e93c1902f8401e0
         private void panelLogo_Paint(object sender, PaintEventArgs e)
         {
 
@@ -148,6 +151,6 @@ namespace HW_Thermal_Tools
             lblTitle.Text = "主页";
         }
 
-        
+
     }
 }
