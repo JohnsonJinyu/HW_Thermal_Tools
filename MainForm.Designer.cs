@@ -40,10 +40,8 @@
             lblTitle = new Label();
             panelDeskTopPanel = new Panel();
             richTextBoxIntroduction = new RichTextBox();
-<<<<<<< HEAD
             BtnForm4 = new Button();
-=======
->>>>>>> da56a275d5e280c168627b3c5e93c1902f8401e0
+
             panelMenu.SuspendLayout();
             panelLogo.SuspendLayout();
             panelTitleBar.SuspendLayout();
@@ -53,10 +51,9 @@
             // panelMenu
             // 
             panelMenu.BackColor = Color.FromArgb(51, 51, 76);
-<<<<<<< HEAD
+
             panelMenu.Controls.Add(BtnForm4);
-=======
->>>>>>> da56a275d5e280c168627b3c5e93c1902f8401e0
+
             panelMenu.Controls.Add(BtnForm3);
             panelMenu.Controls.Add(BtnBackHome);
             panelMenu.Controls.Add(BtnForm2);
@@ -195,7 +192,6 @@
             richTextBoxIntroduction.Text = resources.GetString("richTextBoxIntroduction.Text");
             richTextBoxIntroduction.TextChanged += richTextBoxIntroduction_TextChanged;
             // 
-<<<<<<< HEAD
             // BtnForm4
             // 
             BtnForm4.Dock = DockStyle.Top;
@@ -209,8 +205,6 @@
             BtnForm4.UseVisualStyleBackColor = true;
             BtnForm4.Click += BtnForm4_Click;
             // 
-=======
->>>>>>> da56a275d5e280c168627b3c5e93c1902f8401e0
             // MainForm
             // 
             AllowDrop = true;
@@ -246,9 +240,7 @@
         private RichTextBox richTextBoxIntroduction;
         private Button BtnBackHome;
         private Button BtnForm3;
-<<<<<<< HEAD
         private Button BtnForm4;
-=======
->>>>>>> da56a275d5e280c168627b3c5e93c1902f8401e0
+
     }
 }
