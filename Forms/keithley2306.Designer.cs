@@ -74,7 +74,6 @@ namespace HW_Thermal_Tools.Forms
             // 
             // statusStrip1
             // 
-<<<<<<<<< Temporary merge branch 1
             statusStrip1.Items.AddRange(new ToolStripItem[] { DevicesConnetStatuLabel });
             statusStrip1.Location = new Point(0, 429);
             statusStrip1.Name = "statusStrip1";
@@ -295,7 +294,6 @@ namespace HW_Thermal_Tools.Forms
             ClientSize = new Size(974, 451);
             Controls.Add(panel1);
             Controls.Add(tableLayoutPanel_Control);
-=========
             statusStrip1.ImageScalingSize = new Size(20, 20);
             statusStrip1.Items.AddRange(new ToolStripItem[] { DeviceConnectStatusLabel, toolStripProgressBar1 });
             statusStrip1.Location = new Point(0, 586);
@@ -361,25 +359,20 @@ namespace HW_Thermal_Tools.Forms
             AutoScaleDimensions = new SizeF(8F, 18F);
             AutoScaleMode = AutoScaleMode.Font;
             ClientSize = new Size(1005, 612);
->>>>>>>>> Temporary merge branch 2
             Controls.Add(statusStrip1);
             Name = "keithley2306";
             Text = "keithley2306";
             statusStrip1.ResumeLayout(false);
             statusStrip1.PerformLayout();
-<<<<<<<<< Temporary merge branch 1
             ((System.ComponentModel.ISupportInitialize)DataGridView_CurrentInput).EndInit();
             tableLayoutPanel_Control.ResumeLayout(false);
             tableLayoutPanel_Control.PerformLayout();
-=========
->>>>>>>>> Temporary merge branch 2
             ResumeLayout(false);
             PerformLayout();
         }
 
         #endregion
         private StatusStrip statusStrip1;
-<<<<<<<<< Temporary merge branch 1
         private ToolStripStatusLabel DevicesConnetStatuLabel;
         private RadioButton RadioButton_PowerText_Model;
         private RadioButton RadioButton_Charge_Model;
@@ -398,10 +391,8 @@ namespace HW_Thermal_Tools.Forms
         private Button Btn_Stop_Text;
         private Button Btn_Pause_Continue;
         private Panel panel1;
-=========
         private ToolStripStatusLabel DeviceConnectStatusLabel;
         private ToolStripProgressBar toolStripProgressBar1;
         private HZH_Controls.Controls.GraphicalOverlayComponent graphicalOverlayComponent1;
->>>>>>>>> Temporary merge branch 2
     }
 }
