@@ -28,16 +28,32 @@
         /// </summary>
         private void InitializeComponent()
         {
+            DevExpress.XtraCharts.SwiftPlotDiagram swiftPlotDiagram1 = new DevExpress.XtraCharts.SwiftPlotDiagram();
+            DevExpress.XtraCharts.Series series1 = new DevExpress.XtraCharts.Series();
+            DevExpress.XtraCharts.SwiftPlotSeriesView swiftPlotSeriesView1 = new DevExpress.XtraCharts.SwiftPlotSeriesView();
+            DevExpress.XtraCharts.Series series2 = new DevExpress.XtraCharts.Series();
+            DevExpress.XtraCharts.SwiftPlotSeriesView swiftPlotSeriesView2 = new DevExpress.XtraCharts.SwiftPlotSeriesView();
+            DevExpress.XtraCharts.Series series3 = new DevExpress.XtraCharts.Series();
+            DevExpress.XtraCharts.SwiftPlotSeriesView swiftPlotSeriesView3 = new DevExpress.XtraCharts.SwiftPlotSeriesView();
             tablePanel1 = new DevExpress.Utils.Layout.TablePanel();
+            radioButton1 = new RadioButton();
+            button3 = new Button();
+            button2 = new Button();
+            button1 = new Button();
             statusStrip1 = new StatusStrip();
             toolStripStatusLabel1 = new ToolStripStatusLabel();
-            button1 = new Button();
-            button2 = new Button();
-            button3 = new Button();
-            radioButton1 = new RadioButton();
+            chartControl1 = new DevExpress.XtraCharts.ChartControl();
             ((System.ComponentModel.ISupportInitialize)tablePanel1).BeginInit();
             tablePanel1.SuspendLayout();
             statusStrip1.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)chartControl1).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)swiftPlotDiagram1).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)series1).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)swiftPlotSeriesView1).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)series2).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)swiftPlotSeriesView2).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)series3).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)swiftPlotSeriesView3).BeginInit();
             SuspendLayout();
             // 
             // tablePanel1
@@ -55,6 +71,52 @@
             tablePanel1.TabIndex = 0;
             tablePanel1.UseSkinIndents = true;
             // 
+            // radioButton1
+            // 
+            radioButton1.AutoSize = true;
+            tablePanel1.SetColumn(radioButton1, 0);
+            radioButton1.Location = new Point(15, 64);
+            radioButton1.Name = "radioButton1";
+            tablePanel1.SetRow(radioButton1, 1);
+            radioButton1.Size = new Size(111, 22);
+            radioButton1.TabIndex = 3;
+            radioButton1.TabStop = true;
+            radioButton1.Text = "radioButton1";
+            radioButton1.UseVisualStyleBackColor = true;
+            // 
+            // button3
+            // 
+            tablePanel1.SetColumn(button3, 2);
+            button3.Location = new Point(242, 19);
+            button3.Name = "button3";
+            tablePanel1.SetRow(button3, 0);
+            button3.Size = new Size(168, 29);
+            button3.TabIndex = 2;
+            button3.Text = "button3";
+            button3.UseVisualStyleBackColor = true;
+            // 
+            // button2
+            // 
+            tablePanel1.SetColumn(button2, 1);
+            button2.Location = new Point(150, 14);
+            button2.Name = "button2";
+            tablePanel1.SetRow(button2, 0);
+            button2.Size = new Size(88, 39);
+            button2.TabIndex = 1;
+            button2.Text = "button2";
+            button2.UseVisualStyleBackColor = true;
+            // 
+            // button1
+            // 
+            tablePanel1.SetColumn(button1, 0);
+            button1.Location = new Point(15, 19);
+            button1.Name = "button1";
+            tablePanel1.SetRow(button1, 0);
+            button1.Size = new Size(131, 29);
+            button1.TabIndex = 0;
+            button1.Text = "button1";
+            button1.UseVisualStyleBackColor = true;
+            // 
             // statusStrip1
             // 
             statusStrip1.ImageScalingSize = new Size(20, 20);
@@ -71,57 +133,38 @@
             toolStripStatusLabel1.Size = new Size(167, 20);
             toolStripStatusLabel1.Text = "toolStripStatusLabel1";
             // 
-            // button1
+            // chartControl1
             // 
-            tablePanel1.SetColumn(button1, 0);
-            button1.Location = new Point(15, 19);
-            button1.Name = "button1";
-            tablePanel1.SetRow(button1, 0);
-            button1.Size = new Size(131, 29);
-            button1.TabIndex = 0;
-            button1.Text = "button1";
-            button1.UseVisualStyleBackColor = true;
-            // 
-            // button2
-            // 
-            tablePanel1.SetColumn(button2, 1);
-            button2.Location = new Point(150, 14);
-            button2.Name = "button2";
-            tablePanel1.SetRow(button2, 0);
-            button2.Size = new Size(88, 39);
-            button2.TabIndex = 1;
-            button2.Text = "button2";
-            button2.UseVisualStyleBackColor = true;
-            // 
-            // button3
-            // 
-            tablePanel1.SetColumn(button3, 2);
-            button3.Location = new Point(242, 19);
-            button3.Name = "button3";
-            tablePanel1.SetRow(button3, 0);
-            button3.Size = new Size(168, 29);
-            button3.TabIndex = 2;
-            button3.Text = "button3";
-            button3.UseVisualStyleBackColor = true;
-            // 
-            // radioButton1
-            // 
-            radioButton1.AutoSize = true;
-            tablePanel1.SetColumn(radioButton1, 0);
-            radioButton1.Location = new Point(15, 64);
-            radioButton1.Name = "radioButton1";
-            tablePanel1.SetRow(radioButton1, 1);
-            radioButton1.Size = new Size(111, 22);
-            radioButton1.TabIndex = 3;
-            radioButton1.TabStop = true;
-            radioButton1.Text = "radioButton1";
-            radioButton1.UseVisualStyleBackColor = true;
+            swiftPlotDiagram1.AxisX.VisibleInPanesSerializable = "-1";
+            swiftPlotDiagram1.AxisY.VisibleInPanesSerializable = "-1";
+            swiftPlotDiagram1.EnableAxisXScrolling = true;
+            swiftPlotDiagram1.EnableAxisXZooming = true;
+            swiftPlotDiagram1.EnableAxisYScrolling = true;
+            swiftPlotDiagram1.EnableAxisYZooming = true;
+            chartControl1.Diagram = swiftPlotDiagram1;
+            chartControl1.Dock = DockStyle.Fill;
+            chartControl1.Legend.LegendID = -1;
+            chartControl1.Location = new Point(0, 0);
+            chartControl1.Name = "chartControl1";
+            series1.Name = "Series 1";
+            series1.SeriesID = 0;
+            series1.View = swiftPlotSeriesView1;
+            series2.Name = "Series 2";
+            series2.SeriesID = 1;
+            series2.View = swiftPlotSeriesView2;
+            series3.Name = "Series 3";
+            series3.SeriesID = 2;
+            series3.View = swiftPlotSeriesView3;
+            chartControl1.SeriesSerializable = new DevExpress.XtraCharts.Series[] { series1, series2, series3 };
+            chartControl1.Size = new Size(691, 572);
+            chartControl1.TabIndex = 2;
             // 
             // keithley2306
             // 
             AutoScaleDimensions = new SizeF(8F, 18F);
             AutoScaleMode = AutoScaleMode.Font;
             ClientSize = new Size(1116, 598);
+            Controls.Add(chartControl1);
             Controls.Add(statusStrip1);
             Controls.Add(tablePanel1);
             Name = "keithley2306";
@@ -131,6 +174,14 @@
             tablePanel1.PerformLayout();
             statusStrip1.ResumeLayout(false);
             statusStrip1.PerformLayout();
+            ((System.ComponentModel.ISupportInitialize)swiftPlotDiagram1).EndInit();
+            ((System.ComponentModel.ISupportInitialize)swiftPlotSeriesView1).EndInit();
+            ((System.ComponentModel.ISupportInitialize)series1).EndInit();
+            ((System.ComponentModel.ISupportInitialize)swiftPlotSeriesView2).EndInit();
+            ((System.ComponentModel.ISupportInitialize)series2).EndInit();
+            ((System.ComponentModel.ISupportInitialize)swiftPlotSeriesView3).EndInit();
+            ((System.ComponentModel.ISupportInitialize)series3).EndInit();
+            ((System.ComponentModel.ISupportInitialize)chartControl1).EndInit();
             ResumeLayout(false);
             PerformLayout();
         }
@@ -144,5 +195,6 @@
         private Button button1;
         private StatusStrip statusStrip1;
         private ToolStripStatusLabel toolStripStatusLabel1;
+        private DevExpress.XtraCharts.ChartControl chartControl1;
     }
 }
