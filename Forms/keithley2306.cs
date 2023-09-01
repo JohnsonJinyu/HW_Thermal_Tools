@@ -17,5 +17,21 @@ namespace HW_Thermal_Tools.Forms
         {
             InitializeComponent();
         }
+
+        private void keithley2306_Load(object sender, EventArgs e)
+        {
+            //加载主题
+
+            //检测设备连接状态
+            CheckDeviceConnectStatus();
+
+        }
+
+
+        //3s一次检查设备是否连接
+        private void CheckDeviceConnectStatus()
+        {
+            throw new NotImplementedException();
+        }
     }
 }
