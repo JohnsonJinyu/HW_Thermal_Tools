@@ -115,7 +115,7 @@ namespace HW_Thermal_Tools
 
         private void BtnForm4_Click(object sender, EventArgs e)
         {
-            OpenChildForm(new Forms.keithley2306(), sender);
+            OpenChildForm(new Forms.Keithley2306Form(), sender);
         }
 
 

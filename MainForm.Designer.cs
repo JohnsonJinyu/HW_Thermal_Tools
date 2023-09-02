@@ -60,7 +60,7 @@
             panelMenu.Location = new Point(0, 0);
             panelMenu.Margin = new Padding(4);
             panelMenu.Name = "panelMenu";
-            panelMenu.Size = new Size(180, 753);
+            panelMenu.Size = new Size(180, 773);
             panelMenu.TabIndex = 0;
             // 
             // BtnForm4
@@ -95,7 +95,7 @@
             BtnBackHome.Dock = DockStyle.Bottom;
             BtnBackHome.FlatStyle = FlatStyle.Flat;
             BtnBackHome.Font = new Font("Microsoft YaHei UI", 10F, FontStyle.Bold, GraphicsUnit.Point);
-            BtnBackHome.Location = new Point(0, 708);
+            BtnBackHome.Location = new Point(0, 728);
             BtnBackHome.Margin = new Padding(4);
             BtnBackHome.Name = "BtnBackHome";
             BtnBackHome.Size = new Size(180, 45);
@@ -188,7 +188,7 @@
             panelDeskTopPanel.Margin = new Padding(4);
             panelDeskTopPanel.MinimumSize = new Size(1400, 650);
             panelDeskTopPanel.Name = "panelDeskTopPanel";
-            panelDeskTopPanel.Size = new Size(1402, 659);
+            panelDeskTopPanel.Size = new Size(1402, 679);
             panelDeskTopPanel.TabIndex = 2;
             // 
             // richTextBoxIntroduction
@@ -198,7 +198,7 @@
             richTextBoxIntroduction.Margin = new Padding(4);
             richTextBoxIntroduction.Name = "richTextBoxIntroduction";
             richTextBoxIntroduction.ReadOnly = true;
-            richTextBoxIntroduction.Size = new Size(1402, 659);
+            richTextBoxIntroduction.Size = new Size(1402, 679);
             richTextBoxIntroduction.TabIndex = 0;
             richTextBoxIntroduction.Text = resources.GetString("richTextBoxIntroduction.Text");
             richTextBoxIntroduction.TextChanged += richTextBoxIntroduction_TextChanged;
@@ -208,12 +208,12 @@
             AllowDrop = true;
             AutoScaleDimensions = new SizeF(9F, 20F);
             AutoScaleMode = AutoScaleMode.Font;
-            ClientSize = new Size(1582, 753);
+            ClientSize = new Size(1582, 773);
             Controls.Add(panelDeskTopPanel);
             Controls.Add(panelTitleBar);
             Controls.Add(panelMenu);
             Margin = new Padding(4);
-            MinimumSize = new Size(1600, 800);
+            MinimumSize = new Size(1600, 820);
             Name = "MainForm";
             Text = "硬件小工具集";
             Load += MainForm_Load;
