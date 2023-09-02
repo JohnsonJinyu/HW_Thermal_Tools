@@ -50,6 +50,10 @@
             Btn_ReCheckDevice = new Button();
             Btn_Power_On = new Button();
             Btn_Power_Off = new Button();
+            RadioButton_PowerTest = new RadioButton();
+            Btn_ReCheckDevice = new Button();
+            Btn_Power_On = new Button();
+            Btn_Power_Off = new Button();
             statusStrip1 = new StatusStrip();
             StatusLabel_Device = new ToolStripStatusLabel();
             chartControl1 = new DevExpress.XtraCharts.ChartControl();
@@ -256,7 +260,7 @@
             Btn_Power_Off.Text = "Power Off";
             Btn_Power_Off.UseVisualStyleBackColor = true;
             // 
-            // statusStrip1
+            // radioButton1
             // 
             statusStrip1.ImageScalingSize = new Size(20, 20);
             statusStrip1.Items.AddRange(new ToolStripItem[] { StatusLabel_Device });
