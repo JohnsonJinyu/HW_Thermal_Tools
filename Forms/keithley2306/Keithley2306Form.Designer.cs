@@ -28,13 +28,13 @@
         /// </summary>
         private void InitializeComponent()
         {
-            DevExpress.XtraCharts.SwiftPlotDiagram swiftPlotDiagram2 = new DevExpress.XtraCharts.SwiftPlotDiagram();
-            DevExpress.XtraCharts.Series series4 = new DevExpress.XtraCharts.Series();
-            DevExpress.XtraCharts.SwiftPlotSeriesView swiftPlotSeriesView4 = new DevExpress.XtraCharts.SwiftPlotSeriesView();
-            DevExpress.XtraCharts.Series series5 = new DevExpress.XtraCharts.Series();
-            DevExpress.XtraCharts.SwiftPlotSeriesView swiftPlotSeriesView5 = new DevExpress.XtraCharts.SwiftPlotSeriesView();
-            DevExpress.XtraCharts.Series series6 = new DevExpress.XtraCharts.Series();
-            DevExpress.XtraCharts.SwiftPlotSeriesView swiftPlotSeriesView6 = new DevExpress.XtraCharts.SwiftPlotSeriesView();
+            DevExpress.XtraCharts.SwiftPlotDiagram swiftPlotDiagram1 = new DevExpress.XtraCharts.SwiftPlotDiagram();
+            DevExpress.XtraCharts.Series series1 = new DevExpress.XtraCharts.Series();
+            DevExpress.XtraCharts.SwiftPlotSeriesView swiftPlotSeriesView1 = new DevExpress.XtraCharts.SwiftPlotSeriesView();
+            DevExpress.XtraCharts.Series series2 = new DevExpress.XtraCharts.Series();
+            DevExpress.XtraCharts.SwiftPlotSeriesView swiftPlotSeriesView2 = new DevExpress.XtraCharts.SwiftPlotSeriesView();
+            DevExpress.XtraCharts.Series series3 = new DevExpress.XtraCharts.Series();
+            DevExpress.XtraCharts.SwiftPlotSeriesView swiftPlotSeriesView3 = new DevExpress.XtraCharts.SwiftPlotSeriesView();
             TablePanel_Control = new DevExpress.Utils.Layout.TablePanel();
             Combox_Channel = new ComboBox();
             dataGridView2 = new DataGridView();
@@ -73,13 +73,13 @@
             ((System.ComponentModel.ISupportInitialize)dataGridView2).BeginInit();
             statusStrip1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)ChartControl_Watchdog).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)swiftPlotDiagram2).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)series4).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)swiftPlotSeriesView4).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)series5).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)swiftPlotSeriesView5).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)series6).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)swiftPlotSeriesView6).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)swiftPlotDiagram1).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)series1).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)swiftPlotSeriesView1).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)series2).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)swiftPlotSeriesView2).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)series3).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)swiftPlotSeriesView3).BeginInit();
             Chart_Panel.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)TabPanel_Chart_Control).BeginInit();
             TabPanel_Chart_Control.SuspendLayout();
@@ -115,7 +115,7 @@
             TablePanel_Control.SetColumn(Combox_Channel, 2);
             Combox_Channel.FormattingEnabled = true;
             Combox_Channel.Items.AddRange(new object[] { "CH1", "CH2" });
-            Combox_Channel.Location = new Point(230, 24);
+            Combox_Channel.Location = new Point(230, 25);
             Combox_Channel.Name = "Combox_Channel";
             TablePanel_Control.SetRow(Combox_Channel, 0);
             Combox_Channel.Size = new Size(78, 26);
@@ -213,7 +213,6 @@
             RadioButton_ChargeTest.Name = "RadioButton_ChargeTest";
             RadioButton_ChargeTest.Size = new Size(97, 59);
             RadioButton_ChargeTest.TabIndex = 5;
-            RadioButton_ChargeTest.TabStop = true;
             RadioButton_ChargeTest.Text = "充电测试";
             RadioButton_ChargeTest.UseVisualStyleBackColor = true;
             // 
@@ -230,6 +229,7 @@
             // RadioButton_PowerTest
             // 
             RadioButton_PowerTest.AutoSize = true;
+            RadioButton_PowerTest.Checked = true;
             RadioButton_PowerTest.Dock = DockStyle.Fill;
             RadioButton_PowerTest.Location = new Point(15, 118);
             RadioButton_PowerTest.Name = "RadioButton_PowerTest";
@@ -292,26 +292,26 @@
             // ChartControl_Watchdog
             // 
             ChartControl_Watchdog.Anchor = AnchorStyles.Top | AnchorStyles.Bottom | AnchorStyles.Left | AnchorStyles.Right;
-            swiftPlotDiagram2.AxisX.VisibleInPanesSerializable = "-1";
-            swiftPlotDiagram2.AxisY.VisibleInPanesSerializable = "-1";
-            swiftPlotDiagram2.EnableAxisXScrolling = true;
-            swiftPlotDiagram2.EnableAxisXZooming = true;
-            swiftPlotDiagram2.EnableAxisYScrolling = true;
-            swiftPlotDiagram2.EnableAxisYZooming = true;
-            ChartControl_Watchdog.Diagram = swiftPlotDiagram2;
+            swiftPlotDiagram1.AxisX.VisibleInPanesSerializable = "-1";
+            swiftPlotDiagram1.AxisY.VisibleInPanesSerializable = "-1";
+            swiftPlotDiagram1.EnableAxisXScrolling = true;
+            swiftPlotDiagram1.EnableAxisXZooming = true;
+            swiftPlotDiagram1.EnableAxisYScrolling = true;
+            swiftPlotDiagram1.EnableAxisYZooming = true;
+            ChartControl_Watchdog.Diagram = swiftPlotDiagram1;
             ChartControl_Watchdog.Legend.LegendID = -1;
             ChartControl_Watchdog.Location = new Point(0, 0);
             ChartControl_Watchdog.Name = "ChartControl_Watchdog";
-            series4.Name = "Power";
-            series4.SeriesID = 1;
-            series4.View = swiftPlotSeriesView4;
-            series5.Name = "Voltage";
-            series5.SeriesID = 2;
-            series5.View = swiftPlotSeriesView5;
-            series6.Name = "Current";
-            series6.SeriesID = 3;
-            series6.View = swiftPlotSeriesView6;
-            ChartControl_Watchdog.SeriesSerializable = new DevExpress.XtraCharts.Series[] { series4, series5, series6 };
+            series1.Name = "Power";
+            series1.SeriesID = 1;
+            series1.View = swiftPlotSeriesView1;
+            series2.Name = "Voltage";
+            series2.SeriesID = 2;
+            series2.View = swiftPlotSeriesView2;
+            series3.Name = "Current";
+            series3.SeriesID = 3;
+            series3.View = swiftPlotSeriesView3;
+            ChartControl_Watchdog.SeriesSerializable = new DevExpress.XtraCharts.Series[] { series1, series2, series3 };
             ChartControl_Watchdog.Size = new Size(1075, 445);
             ChartControl_Watchdog.TabIndex = 2;
             // 
@@ -420,7 +420,7 @@
             TabPanel_Chart_Control.SetColumn(ComboBox_DataFrequence, 3);
             ComboBox_DataFrequence.FormattingEnabled = true;
             ComboBox_DataFrequence.Items.AddRange(new object[] { "1 S", "2 S", "5 S", "10 S", "15 S", "30 S" });
-            ComboBox_DataFrequence.Location = new Point(933, 62);
+            ComboBox_DataFrequence.Location = new Point(933, 63);
             ComboBox_DataFrequence.Name = "ComboBox_DataFrequence";
             TabPanel_Chart_Control.SetRow(ComboBox_DataFrequence, 1);
             ComboBox_DataFrequence.Size = new Size(127, 26);
@@ -487,13 +487,13 @@
             ((System.ComponentModel.ISupportInitialize)dataGridView2).EndInit();
             statusStrip1.ResumeLayout(false);
             statusStrip1.PerformLayout();
-            ((System.ComponentModel.ISupportInitialize)swiftPlotDiagram2).EndInit();
-            ((System.ComponentModel.ISupportInitialize)swiftPlotSeriesView4).EndInit();
-            ((System.ComponentModel.ISupportInitialize)series4).EndInit();
-            ((System.ComponentModel.ISupportInitialize)swiftPlotSeriesView5).EndInit();
-            ((System.ComponentModel.ISupportInitialize)series5).EndInit();
-            ((System.ComponentModel.ISupportInitialize)swiftPlotSeriesView6).EndInit();
-            ((System.ComponentModel.ISupportInitialize)series6).EndInit();
+            ((System.ComponentModel.ISupportInitialize)swiftPlotDiagram1).EndInit();
+            ((System.ComponentModel.ISupportInitialize)swiftPlotSeriesView1).EndInit();
+            ((System.ComponentModel.ISupportInitialize)series1).EndInit();
+            ((System.ComponentModel.ISupportInitialize)swiftPlotSeriesView2).EndInit();
+            ((System.ComponentModel.ISupportInitialize)series2).EndInit();
+            ((System.ComponentModel.ISupportInitialize)swiftPlotSeriesView3).EndInit();
+            ((System.ComponentModel.ISupportInitialize)series3).EndInit();
             ((System.ComponentModel.ISupportInitialize)ChartControl_Watchdog).EndInit();
             Chart_Panel.ResumeLayout(false);
             ((System.ComponentModel.ISupportInitialize)TabPanel_Chart_Control).EndInit();
