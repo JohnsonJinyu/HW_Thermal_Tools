@@ -58,9 +58,8 @@
             panelMenu.Controls.Add(panelLogo);
             panelMenu.Dock = DockStyle.Left;
             panelMenu.Location = new Point(0, 0);
-            panelMenu.Margin = new Padding(4);
             panelMenu.Name = "panelMenu";
-            panelMenu.Size = new Size(180, 773);
+            panelMenu.Size = new Size(140, 641);
             panelMenu.TabIndex = 0;
             // 
             // BtnForm4
@@ -68,9 +67,10 @@
             BtnForm4.Dock = DockStyle.Top;
             BtnForm4.FlatStyle = FlatStyle.Flat;
             BtnForm4.Font = new Font("Microsoft YaHei UI", 10F, FontStyle.Bold, GraphicsUnit.Point);
-            BtnForm4.Location = new Point(0, 229);
+            BtnForm4.Location = new Point(0, 194);
+            BtnForm4.Margin = new Padding(2, 3, 2, 3);
             BtnForm4.Name = "BtnForm4";
-            BtnForm4.Size = new Size(180, 45);
+            BtnForm4.Size = new Size(140, 38);
             BtnForm4.TabIndex = 5;
             BtnForm4.Text = "keithley2306";
             BtnForm4.UseVisualStyleBackColor = true;
@@ -81,10 +81,10 @@
             BtnForm3.Dock = DockStyle.Top;
             BtnForm3.FlatStyle = FlatStyle.Flat;
             BtnForm3.Font = new Font("Microsoft YaHei UI", 10F, FontStyle.Bold, GraphicsUnit.Point);
-            BtnForm3.Location = new Point(0, 184);
-            BtnForm3.Margin = new Padding(3, 4, 3, 4);
+            BtnForm3.Location = new Point(0, 156);
+            BtnForm3.Margin = new Padding(2, 3, 2, 3);
             BtnForm3.Name = "BtnForm3";
-            BtnForm3.Size = new Size(180, 45);
+            BtnForm3.Size = new Size(140, 38);
             BtnForm3.TabIndex = 4;
             BtnForm3.Text = "Read Log";
             BtnForm3.UseVisualStyleBackColor = true;
@@ -95,10 +95,9 @@
             BtnBackHome.Dock = DockStyle.Bottom;
             BtnBackHome.FlatStyle = FlatStyle.Flat;
             BtnBackHome.Font = new Font("Microsoft YaHei UI", 10F, FontStyle.Bold, GraphicsUnit.Point);
-            BtnBackHome.Location = new Point(0, 728);
-            BtnBackHome.Margin = new Padding(4);
+            BtnBackHome.Location = new Point(0, 603);
             BtnBackHome.Name = "BtnBackHome";
-            BtnBackHome.Size = new Size(180, 45);
+            BtnBackHome.Size = new Size(140, 38);
             BtnBackHome.TabIndex = 3;
             BtnBackHome.Text = "主页";
             BtnBackHome.UseVisualStyleBackColor = true;
@@ -109,10 +108,9 @@
             BtnForm2.Dock = DockStyle.Top;
             BtnForm2.FlatStyle = FlatStyle.Flat;
             BtnForm2.Font = new Font("Microsoft YaHei UI", 10F, FontStyle.Bold, GraphicsUnit.Point);
-            BtnForm2.Location = new Point(0, 139);
-            BtnForm2.Margin = new Padding(4);
+            BtnForm2.Location = new Point(0, 118);
             BtnForm2.Name = "BtnForm2";
-            BtnForm2.Size = new Size(180, 45);
+            BtnForm2.Size = new Size(140, 38);
             BtnForm2.TabIndex = 2;
             BtnForm2.Text = "壳温拟合";
             BtnForm2.UseVisualStyleBackColor = true;
@@ -123,10 +121,9 @@
             BtnForm1.Dock = DockStyle.Top;
             BtnForm1.FlatStyle = FlatStyle.Flat;
             BtnForm1.Font = new Font("Microsoft YaHei UI", 10F, FontStyle.Bold, GraphicsUnit.Point);
-            BtnForm1.Location = new Point(0, 94);
-            BtnForm1.Margin = new Padding(4);
+            BtnForm1.Location = new Point(0, 80);
             BtnForm1.Name = "BtnForm1";
-            BtnForm1.Size = new Size(180, 45);
+            BtnForm1.Size = new Size(140, 38);
             BtnForm1.TabIndex = 1;
             BtnForm1.Text = "XML To Excel";
             BtnForm1.UseVisualStyleBackColor = true;
@@ -138,9 +135,8 @@
             panelLogo.Controls.Add(label1);
             panelLogo.Dock = DockStyle.Top;
             panelLogo.Location = new Point(0, 0);
-            panelLogo.Margin = new Padding(4);
             panelLogo.Name = "panelLogo";
-            panelLogo.Size = new Size(180, 94);
+            panelLogo.Size = new Size(140, 80);
             panelLogo.TabIndex = 0;
             panelLogo.Paint += panelLogo_Paint;
             // 
@@ -149,10 +145,9 @@
             label1.AutoSize = true;
             label1.Font = new Font("Microsoft YaHei UI", 9F, FontStyle.Bold, GraphicsUnit.Point);
             label1.ForeColor = Color.LightGray;
-            label1.Location = new Point(15, 38);
-            label1.Margin = new Padding(4, 0, 4, 0);
+            label1.Location = new Point(12, 32);
             label1.Name = "label1";
-            label1.Size = new Size(153, 19);
+            label1.Size = new Size(126, 17);
             label1.TabIndex = 0;
             label1.Text = "HW_Thermal_Tools";
             // 
@@ -161,10 +156,9 @@
             panelTitleBar.BackColor = Color.FromArgb(0, 150, 136);
             panelTitleBar.Controls.Add(lblTitle);
             panelTitleBar.Dock = DockStyle.Top;
-            panelTitleBar.Location = new Point(180, 0);
-            panelTitleBar.Margin = new Padding(4);
+            panelTitleBar.Location = new Point(140, 0);
             panelTitleBar.Name = "panelTitleBar";
-            panelTitleBar.Size = new Size(1402, 94);
+            panelTitleBar.Size = new Size(1084, 80);
             panelTitleBar.TabIndex = 1;
             // 
             // lblTitle
@@ -173,10 +167,9 @@
             lblTitle.AutoSize = true;
             lblTitle.Font = new Font("Microsoft YaHei UI", 15F, FontStyle.Bold, GraphicsUnit.Point);
             lblTitle.ForeColor = Color.White;
-            lblTitle.Location = new Point(636, 28);
-            lblTitle.Margin = new Padding(4, 0, 4, 0);
+            lblTitle.Location = new Point(492, 24);
             lblTitle.Name = "lblTitle";
-            lblTitle.Size = new Size(96, 33);
+            lblTitle.Size = new Size(76, 27);
             lblTitle.TabIndex = 0;
             lblTitle.Text = "HOME";
             // 
@@ -184,21 +177,19 @@
             // 
             panelDeskTopPanel.Controls.Add(richTextBoxIntroduction);
             panelDeskTopPanel.Dock = DockStyle.Fill;
-            panelDeskTopPanel.Location = new Point(180, 94);
-            panelDeskTopPanel.Margin = new Padding(4);
-            panelDeskTopPanel.MinimumSize = new Size(1400, 650);
+            panelDeskTopPanel.Location = new Point(140, 80);
+            panelDeskTopPanel.MinimumSize = new Size(1089, 552);
             panelDeskTopPanel.Name = "panelDeskTopPanel";
-            panelDeskTopPanel.Size = new Size(1402, 679);
+            panelDeskTopPanel.Size = new Size(1089, 561);
             panelDeskTopPanel.TabIndex = 2;
             // 
             // richTextBoxIntroduction
             // 
             richTextBoxIntroduction.Dock = DockStyle.Fill;
             richTextBoxIntroduction.Location = new Point(0, 0);
-            richTextBoxIntroduction.Margin = new Padding(4);
             richTextBoxIntroduction.Name = "richTextBoxIntroduction";
             richTextBoxIntroduction.ReadOnly = true;
-            richTextBoxIntroduction.Size = new Size(1402, 679);
+            richTextBoxIntroduction.Size = new Size(1089, 561);
             richTextBoxIntroduction.TabIndex = 0;
             richTextBoxIntroduction.Text = resources.GetString("richTextBoxIntroduction.Text");
             richTextBoxIntroduction.TextChanged += richTextBoxIntroduction_TextChanged;
@@ -206,14 +197,13 @@
             // MainForm
             // 
             AllowDrop = true;
-            AutoScaleDimensions = new SizeF(9F, 20F);
+            AutoScaleDimensions = new SizeF(7F, 17F);
             AutoScaleMode = AutoScaleMode.Font;
-            ClientSize = new Size(1582, 773);
+            ClientSize = new Size(1224, 641);
             Controls.Add(panelDeskTopPanel);
             Controls.Add(panelTitleBar);
             Controls.Add(panelMenu);
-            Margin = new Padding(4);
-            MinimumSize = new Size(1600, 820);
+            MinimumSize = new Size(1240, 680);
             Name = "MainForm";
             Text = "硬件小工具集";
             Load += MainForm_Load;

@@ -2,106 +2,111 @@
 using NationalInstruments.Visa;
 using System;
 
+
 namespace HW_Thermal_Tools.Forms.keithley2306
 {
+
     internal class Keithley2306
     {
-        // 创建一个 GPIB 会话对象
-        private GpibSession gpibSession;
 
-        // 定义仪器的 GPIB 地址
-        private const string gpibAddress = "GPIB0::12::INSTR";
 
-        // 定义超时时间，单位为毫秒
-        private const int timeout = 10000;
+        private ResourceManager ResourceManager;
+        private MessageBasedSession Session; // 增加一个会话对象
 
-        // 定义终止字符
-        private const string termination = "\n";
-
-        // 定义设备是否连接的标志
-        private bool isConnected;
-
-        // 构造函数
         public Keithley2306()
         {
-            // 初始化 GPIB 会话
-            try
+
+            ResourceManager = new ResourceManager();
+            
+        }
+
+        public bool IsConnectedGPIBDevices()
+        {
+            Dispose(); // 释放旧的ResourceManager
+            bool connected = false;
+            int retryCount = 0;
+            const int MaxRetryCount = 5; // 设置最大重试次数
+
+            using (ResourceManager rm = new ResourceManager())
             {
-                gpibSession = (GpibSession)GlobalResourceManager.Open(gpibAddress, AccessModes.None, timeout);
-                gpibSession.TerminationCharacterEnabled = true;
-                gpibSession.TerminationCharacter = (byte)termination[0];
-                isConnected = true;
+                // 原有的连接检测逻辑
+                while (!connected && retryCount < MaxRetryCount)
+                {
+                    try
+                    {
+                        var resources = rm.Find("GPIB?*::?*::INSTR");
+                        if (resources != null)
+                        {
+                            foreach (var resource in resources)
+                            {
+                                // 打开会话进行测试
+                                IVisaSession session = rm.Open(resource);
+                                if (session != null)
+                                {
+                                    connected = true;
+                                    // 初始化Session
+                                    string address = resource;
+                                    Session = (MessageBasedSession)rm.Open(address);
+
+                                    break;
+                                }
+                                //session.Dispose();
+                            }
+                        }
+                    }
+                    catch (VisaException e)
+                    {
+                        Console.WriteLine(e.Message);
+                        retryCount++;
+
+                    }
+                }
+                // 使用新的ResourceManager实例rm 
             }
-            catch (Exception e)
+
+
+            return connected;
+        }
+
+
+        public void Dispose()
+        {
+            if (ResourceManager != null)
             {
-                Console.WriteLine("无法打开 GPIB 会话: " + e.Message);
-                isConnected = false;
+                ResourceManager.Dispose();
+                ResourceManager = null;
+            }
+            
+        }
+
+
+
+        public void SelectChannel(string channel)
+        {
+            if (channel == "CH1")
+            {
+                Session.RawIO.Write("INST CH1"); // 选择通道1
+            }
+            else if (channel == "CH2")
+            {
+                Session.RawIO.Write("INST CH2"); // 选择通道2
             }
         }
 
-        // 设置通道 1 的电压和电流的方法
-        public void SetChannel1(double voltage, double current)
-        {
-            // 选择通道 1
-            gpibSession.RawIO.Write("INST CH1" + termination);
-
-            // 设置电压值，单位为伏特
-            gpibSession.RawIO.Write("VOLT " + voltage.ToString() + termination);
-
-            // 设置电流限制，单位为安培
-            gpibSession.RawIO.Write("CURR " + current.ToString() + termination);
-
-            // 启用输出
-            gpibSession.RawIO.Write("OUTP ON" + termination);
-
-            //关闭输出
-            gpibSession.RawIO.Write("OUTP OFF" + termination);
-        }
-
-        //选择通道1
-        public void SetChannel_1()
-        {
-            // 选择通道 1
-            gpibSession.RawIO.Write("INST CH1" + termination);
-        }
-
-        //选择通道1
-        public void SetChannel_2()
-        {
-            // 选择通道 1
-            gpibSession.RawIO.Write("INST CH2" + termination);
-        }
-
-        //设定电压值
         public void SetVoltage(string voltage)
         {
-            // 设置电压值，单位为伏特
-            gpibSession.RawIO.Write("VOLT " + voltage + termination);
+            Session.RawIO.Write($"VOLT {voltage}"); // 设置电压值
         }
 
-        public void Power_On()
+        public void OutPut_On()
         {
-            // 启用输出
-            gpibSession.RawIO.Write("OUTP ON" + termination);
+            Session.RawIO.Write("OUTP ON"); // 开启输出
         }
 
-        public void Power_Off()
+        public void OutPut_Off()
         {
-            // 关闭输出
-            gpibSession.RawIO.Write("OUTP OFF" + termination);
+            Session.RawIO.Write("OUTP OFF"); // 关闭输出
         }
 
-
-        // 关闭 GPIB 会话的方法
-        public void Close()
-        {
-            gpibSession.Dispose();
-        }
-
-        // 判断设备是否连接的方法，返回布尔值
-        public bool IsConnected()
-        {
-            return isConnected;
-        }
     }
 }
