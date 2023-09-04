@@ -203,7 +203,7 @@
             Controls.Add(panelDeskTopPanel);
             Controls.Add(panelTitleBar);
             Controls.Add(panelMenu);
-            MinimumSize = new Size(1240, 680);
+            MinimumSize = new Size(1239, 679);
             Name = "MainForm";
             Text = "硬件小工具集";
             Load += MainForm_Load;
