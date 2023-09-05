@@ -1,4 +1,5 @@
 ﻿using DevExpress.Mvvm.Native;
+using DevExpress.Utils.Extensions;
 using DevExpress.Xpo;
 using Ivi.Visa;
 using NationalInstruments.Visa;
@@ -75,7 +76,7 @@ namespace HW_Thermal_Tools.Forms.keithley2306
 
 
         /*
-         
+         设置输出
          */
         public void SelectChannel(string channel)
         {
@@ -103,6 +104,16 @@ namespace HW_Thermal_Tools.Forms.keithley2306
         {
             Session.RawIO.Write("OUTP OFF"); // 关闭输出
         }
+
+
+        /*
+         设置读取
+         */
+        public void ReadData()
+        {
+            
+        }
+
 
     }
 }

@@ -15,16 +15,20 @@ namespace HW_Thermal_Tools.Forms
         private static Keithley2306 NI_VISA_Function;
         // 创建一个布尔变量来记录设备的连接状态
         private bool ConnectedStatu;
-        // 定义一个私有的布尔变量，用来表示是否需要继续检测USB设备的变化
-        private static volatile bool running = true;
+        // 定义一个私有的布尔变量，用来表示是否需要继续检测设备的变化
+        private static volatile bool CheckSignal = true;
+        // 定义私有布尔变量，表示是否继续读取数据
+        private static volatile bool ReadSignal = false;
 
-        
 
-        // 定义一个私有的字段，用来存储后台任务
-        private Task task;
 
-        // 定义一个私有的字段，用来存储取消令牌源
-        private CancellationTokenSource cts;
+        // 定义俩哥哥后台任务
+        private Task CheckDeviceTask;
+        private Task ReadDataTask;
+
+        // 定义2个私有的字段，用来存储取消令牌源
+        private CancellationTokenSource CheckCTS;
+        private CancellationTokenSource ReadCTS;
 
         // 私有化构造函数，防止外部直接创建对象
         public Keithley2306Form()
@@ -32,8 +36,10 @@ namespace HW_Thermal_Tools.Forms
             InitializeComponent();
             NI_VISA_Function = new Keithley2306(); //构造函数中初始化
 
-            // 初始化定时器对象
-            
+            //初始化两个布尔变量为false
+            CheckSignal = false;
+            ReadSignal = false;
+
 
 
         }
@@ -76,27 +82,47 @@ namespace HW_Thermal_Tools.Forms
         }
 
 
-        // 定义一个公共的方法，用来启动后台线程
-        public  void StartDetection()
+       
+
+
+
+        private void Keithley2306Form_FormClosed(object sender, FormClosedEventArgs e)
+        {
+            //当Form closed时，关闭session会话和Task
+
+            CheckSignal = false;
+            // 发送取消信号给后台任务
+            CheckCTS.Cancel();
+
+            // 等待后台任务结束
+            CheckDeviceTask.Wait();
+        }
+
+
+
+
+
+        // 定义一个公共的方法，用来启动check()任务
+        public void StartDetection()
         {
             // 设置running变量为true，表示需要继续检测
-            running = true;
+            CheckSignal = true;
 
             // 创建一个取消令牌源
-            cts = new CancellationTokenSource();
+            CheckCTS = new CancellationTokenSource();
 
             // 获取取消令牌
-            var token = cts.Token;
+            var token = CheckCTS.Token;
 
             // 使用Task类的Run方法来创建并启动一个后台线程，并传入DectionAndUpdateUITask方法和取消令牌作为参数
-            // 不需要再调用Start方法来启动任务
-            task = Task.Run(() => DectionAndUpdateUITask(token), token);
+
+            CheckDeviceTask = Task.Run(() => DectionAndUpdateUITask(token), token);
 
         }
 
-        private  void DectionAndUpdateUITask(CancellationToken token)
+        private void DectionAndUpdateUITask(CancellationToken token)
         {
-            while(running)
+            while (CheckSignal)
             {
                 ConnectedStatu = NI_VISA_Function.Detection_Thread();
                 // 如果connected为true，表示设备已连接
@@ -128,18 +154,50 @@ namespace HW_Thermal_Tools.Forms
         }
 
 
-        
-
-        private void Keithley2306Form_FormClosed(object sender, FormClosedEventArgs e)
+        //定义一个方法，用来启动ReadData()后台任务
+        public void StartReadData()
         {
-            //当Form closed时，关闭session会话和Task
+            //设置ReadSignal 为 true ,表示需要运行ReadData()后台任务
+            ReadSignal = true;
 
-            running = false;
-            // 发送取消信号给后台任务
-            cts.Cancel();
+            // 创建一个取消令牌
+            ReadCTS = new CancellationTokenSource();
 
-            // 等待后台任务结束
-            task.Wait();
+            //get cancel token
+            var token = ReadCTS.Token;
+
+            // 使用Task类的 Run方法来创建并启动一个后台任务，并传入ReadData方法和取消令牌作为参数
+            ReadDataTask = Task.Run(() => ReadData(token), token);
+        }
+
+        //定义一个方法，用来停止ReadDta方法
+        public void StopReadData() 
+        {
+            // 设置ReadSignal 为false ，表示不需要运行ReadData任务
+            ReadSignal = false;
+            //发送取消信号给ReadData()后台任务
+            ReadCTS.Cancel();
+            // 等待readData()后台任务结束
+            ReadDataTask.Wait();
+            // 释放资源
+            ReadCTS.Dispose();
+        }
+
+
+        // 定义一个方法，用来在后台执行 readData() 方法
+        public void ReadData(CancellationToken token)
+        {
+            while (true)
+            {
+                // 调用 NI_VISA_Function 类中的 readData() 方法，执行读取电流电压的操作
+                NI_VISA_Function.ReadData();
+
+                // 在循环中检查取消令牌是否已经被取消，如果是，则退出循环
+                if (token.IsCancellationRequested)
+                {
+                    break;
+                }
+            }
         }
     }
 
