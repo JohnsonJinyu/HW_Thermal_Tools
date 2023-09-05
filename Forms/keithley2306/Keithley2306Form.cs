@@ -247,6 +247,17 @@ namespace HW_Thermal_Tools.Forms
             powerData.PowerAve = powerData.PowerHistory.Average();
         }
 
+        public void updateChart()
+        {
+            //
+            ChartControl_Watchdog.Series["Current"].DataSource = powerData.CurrentHistory;
+            ChartControl_Watchdog.Series["Voltage"].DataSource = powerData.VoltageHistory;
+            ChartControl_Watchdog.Series["Current"].DataSource = powerData.PowerHistory;
+
+            //调用Chart的RefreshData()方法刷新数据显示
+            ChartControl_Watchdog.RefreshData();
+        }
+
         private void Btn_Start_Click(object sender, EventArgs e)
         {
             StartReadData();
@@ -255,6 +266,24 @@ namespace HW_Thermal_Tools.Forms
         private void Btn_Stop_Click(object sender, EventArgs e)
         {
             StopReadData();
+        }
+
+        /*
+         控制曲线的显示选项
+         */
+        private void CheckBox_CurrentLineDisplay_CheckedChanged(object sender, EventArgs e)
+        {
+            ChartControl_Watchdog.Series["Current"].Visible = CheckBox_CurrentLineDisplay.Checked;
+        }
+
+        private void CheckBox_VoltageLineDisplay_CheckedChanged(object sender, EventArgs e)
+        {
+            ChartControl_Watchdog.Series["Voltage"].Visible = CheckBox_VoltageLineDisplay.Checked;
+        }
+
+        private void CheckBox_PowerLineDisplay_CheckedChanged(object sender, EventArgs e)
+        {
+            ChartControl_Watchdog.Series["Power"].Visible= CheckBox_PowerLineDisplay.Checked;
         }
     }
 

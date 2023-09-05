@@ -438,6 +438,7 @@
             CheckBox_PowerLineDisplay.TabIndex = 2;
             CheckBox_PowerLineDisplay.Text = "显示功耗";
             CheckBox_PowerLineDisplay.UseVisualStyleBackColor = true;
+            CheckBox_PowerLineDisplay.CheckedChanged += CheckBox_PowerLineDisplay_CheckedChanged;
             // 
             // CheckBox_VoltageLineDisplay
             // 
@@ -453,6 +454,7 @@
             CheckBox_VoltageLineDisplay.TabIndex = 1;
             CheckBox_VoltageLineDisplay.Text = "显示电压";
             CheckBox_VoltageLineDisplay.UseVisualStyleBackColor = true;
+            CheckBox_VoltageLineDisplay.CheckedChanged += CheckBox_VoltageLineDisplay_CheckedChanged;
             // 
             // CheckBox_CurrentLineDisplay
             // 
@@ -468,6 +470,7 @@
             CheckBox_CurrentLineDisplay.TabIndex = 0;
             CheckBox_CurrentLineDisplay.Text = "显示电流";
             CheckBox_CurrentLineDisplay.UseVisualStyleBackColor = true;
+            CheckBox_CurrentLineDisplay.CheckedChanged += CheckBox_CurrentLineDisplay_CheckedChanged;
             // 
             // statusStrip1
             // 
