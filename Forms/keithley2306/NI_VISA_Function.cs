@@ -1,5 +1,8 @@
-﻿using Ivi.Visa;
+﻿using DevExpress.Mvvm.Native;
+using DevExpress.Xpo;
+using Ivi.Visa;
 using NationalInstruments.Visa;
+using NPOI.SS.Formula.Functions;
 using System;
 
 
@@ -10,77 +13,70 @@ namespace HW_Thermal_Tools.Forms.keithley2306
     {
 
 
-        private ResourceManager ResourceManager;
-        private MessageBasedSession Session; // 增加一个会话对象
+        //定义一个锁对象
+        private Object sessionLock = new object();
+        private MessageBasedSession Session;
+        private bool connected;
+
+        private ResourceManager rm = new ResourceManager();
+        //定义设备地址
+        private string address = "GPIB0::6::INSTR";
+
+        //定义一个信号
+
 
         public Keithley2306()
         {
 
-            ResourceManager = new ResourceManager();
+            
             
         }
 
-        public bool IsConnectedGPIBDevices()
-        {
-            Dispose(); // 释放旧的ResourceManager
-            bool connected = false;
-            int retryCount = 0;
-            const int MaxRetryCount = 5; // 设置最大重试次数
+        /*
+         设备连接检测功能
+         */
 
-            using (ResourceManager rm = new ResourceManager())
+        public bool Detection_Thread()
+        {
+            //获取锁
+            Monitor.Enter(sessionLock);
+            try
             {
-                // 原有的连接检测逻辑
-                while (!connected && retryCount < MaxRetryCount)
+                //对于使用过程中断开设备，不关闭Form情况下，session会话未正常关闭，需要清空缓存后才能正常重新识别设备
+                if(Session != null)
                 {
-                    try
-                    {
-                        var resources = rm.Find("GPIB?*::?*::INSTR");
-                        if (resources != null)
-                        {
-                            foreach (var resource in resources)
-                            {
-                                // 打开会话进行测试
-                                IVisaSession session = rm.Open(resource);
-                                if (session != null)
-                                {
-                                    connected = true;
-                                    // 初始化Session
-                                    string address = resource;
-                                    Session = (MessageBasedSession)rm.Open(address);
-
-                                    break;
-                                }
-                                //session.Dispose();
-                            }
-                        }
-                    }
-                    catch (VisaException e)
-                    {
-                        Console.WriteLine(e.Message);
-                        retryCount++;
-
-                    }
+                    Session.Dispose();
                 }
-                // 使用新的ResourceManager实例rm 
-            }
-
-
-            return connected;
-        }
-
-
-        public void Dispose()
-        {
-            if (ResourceManager != null)
+                
+                //尝试打开会话
+                Session = (MessageBasedSession)rm.Open(address);
+                // 检测设备ID
+                Session.RawIO.Write("*IDN?");
+                string idn = Session.RawIO.ReadString();
+                
+                
+                if (idn != null)
+                {
+                    // 连接正常
+                connected = true;
+                }
+            }catch (VisaException e)
             {
-                ResourceManager.Dispose();
-                ResourceManager = null;
+                //打开会话失败，设备未连接
+                connected = false;
             }
-            
+            Monitor.Exit(sessionLock);
+            return connected;
+
         }
 
 
+        
 
+
+        /*
+         
+         */
         public void SelectChannel(string channel)
         {
             if (channel == "CH1")
