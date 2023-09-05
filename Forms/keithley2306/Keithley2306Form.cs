@@ -11,7 +11,7 @@ namespace HW_Thermal_Tools.Forms
 
     public partial class Keithley2306Form : DevExpress.XtraEditors.XtraForm
     {
-
+        
 
         private static Keithley2306 NI_VISA_Function;
         // 创建一个布尔变量来记录设备的连接状态
@@ -23,7 +23,7 @@ namespace HW_Thermal_Tools.Forms
 
 
 
-        // 定义俩哥哥后台任务
+        // 定义两个后台任务
         private Task CheckDeviceTask;
         private Task ReadDataTask;
 
@@ -109,6 +109,7 @@ namespace HW_Thermal_Tools.Forms
 
             // 等待后台任务结束
             CheckDeviceTask.Wait();
+            
         }
 
 
