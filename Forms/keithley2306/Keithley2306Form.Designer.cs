@@ -182,6 +182,7 @@
             Btn_Stop.TabIndex = 8;
             Btn_Stop.Text = "停止";
             Btn_Stop.UseVisualStyleBackColor = true;
+            Btn_Stop.Click += Btn_Stop_Click;
             // 
             // Btn_Pause
             // 
@@ -204,6 +205,7 @@
             Btn_Start.TabIndex = 6;
             Btn_Start.Text = "开始";
             Btn_Start.UseVisualStyleBackColor = true;
+            Btn_Start.Click += Btn_Start_Click;
             // 
             // RadioButton_ChargeTest
             // 

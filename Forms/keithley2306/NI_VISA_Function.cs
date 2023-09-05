@@ -43,11 +43,7 @@ namespace HW_Thermal_Tools.Forms.keithley2306
             Monitor.Enter(sessionLock);
             try
             {
-                //对于使用过程中断开设备，不关闭Form情况下，session会话未正常关闭，需要清空缓存后才能正常重新识别设备
-                if(Session != null)
-                {
-                    Session.Dispose();
-                }
+                
                 
                 //尝试打开会话
                 Session = (MessageBasedSession)rm.Open(address);
@@ -65,6 +61,11 @@ namespace HW_Thermal_Tools.Forms.keithley2306
             {
                 //打开会话失败，设备未连接
                 connected = false;
+                //对于使用过程中断开设备，不关闭Form情况下，session会话未正常关闭，需要清空缓存后才能正常重新识别设备
+                if (Session != null)
+                {
+                    Session.Dispose();
+                }
             }
             Monitor.Exit(sessionLock);
             return connected;
@@ -111,7 +112,39 @@ namespace HW_Thermal_Tools.Forms.keithley2306
          */
         public void ReadData()
         {
-            
+            // 创建PowerData对象
+            PowerData data = new PowerData();
+
+            // 读取电流
+            Session.RawIO.Write("MEAS:CURR?");
+            data.Current = float.Parse(Session.RawIO.ReadString());
+
+            // 读取电压  
+            Session.RawIO.Write("MEAS:VOLT?");
+            data.Voltage = float.Parse(Session.RawIO.ReadString());
+
+            // 计算功率 
+            data.Power = data.Current * data.Voltage;
+
+            // 保存到队列历史记录
+            data.CurrentHistory.Enqueue(data.Current);
+            data.VoltageHistory.Enqueue(data.Voltage);
+            data.PowerHistory.Enqueue(data.Power);
+
+            // 只保留最近100条记录
+            if (data.CurrentHistory.Count > 4800)
+            {
+                data.CurrentHistory.Dequeue();
+            }
+            if (data.VoltageHistory.Count > 4800)
+            {
+                data.VoltageHistory.Dequeue();
+            }
+            if (data.PowerHistory.Count > 4800)
+            {
+                data.PowerHistory.Dequeue();
+            }
+
         }
 
 

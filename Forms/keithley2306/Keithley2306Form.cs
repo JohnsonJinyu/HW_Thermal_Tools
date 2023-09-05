@@ -1,4 +1,5 @@
-﻿using HW_Thermal_Tools.Forms.keithley2306;
+﻿using DevExpress.XtraPivotGrid.Data;
+using HW_Thermal_Tools.Forms.keithley2306;
 using NationalInstruments.Visa;
 using NPOI.SS.Formula.Functions;
 using System.Threading.Tasks;
@@ -30,6 +31,14 @@ namespace HW_Thermal_Tools.Forms
         private CancellationTokenSource CheckCTS;
         private CancellationTokenSource ReadCTS;
 
+
+        // 定义PowerData类型的成员变量
+        private PowerData powerData = new PowerData();
+
+        //定义数据Grid的列索引
+
+        private int ItemCol, MinValueCol, MaxValueCol, CurrentValueCol, AverageValueCol;
+
         // 私有化构造函数，防止外部直接创建对象
         public Keithley2306Form()
         {
@@ -40,8 +49,12 @@ namespace HW_Thermal_Tools.Forms
             CheckSignal = false;
             ReadSignal = false;
 
-
-
+            //初始化列的索引
+            ItemCol = 0;
+            MinValueCol = 1;
+            MaxValueCol = 2;
+            CurrentValueCol = 3;
+            AverageValueCol = 4;
         }
 
 
@@ -82,7 +95,7 @@ namespace HW_Thermal_Tools.Forms
         }
 
 
-       
+
 
 
 
@@ -171,7 +184,7 @@ namespace HW_Thermal_Tools.Forms
         }
 
         //定义一个方法，用来停止ReadDta方法
-        public void StopReadData() 
+        public void StopReadData()
         {
             // 设置ReadSignal 为false ，表示不需要运行ReadData任务
             ReadSignal = false;
@@ -185,12 +198,27 @@ namespace HW_Thermal_Tools.Forms
 
 
         // 定义一个方法，用来在后台执行 readData() 方法
-        public void ReadData(CancellationToken token)
+        public async void ReadData(CancellationToken token)
         {
             while (true)
             {
                 // 调用 NI_VISA_Function 类中的 readData() 方法，执行读取电流电压的操作
                 NI_VISA_Function.ReadData();
+                //计算数据
+                CalculatedReaData();
+
+                Invoke(new Action(() =>
+                {
+                    DataGridView_WhatchDog.Rows[0].Cells[ItemCol].Value = "电流";
+                    DataGridView_WhatchDog.Rows[0].Cells[MinValueCol].Value = powerData.CurrentMin;
+                    DataGridView_WhatchDog.Rows[0].Cells[MaxValueCol].Value = powerData.CurrentMax;
+                    DataGridView_WhatchDog.Rows[0].Cells[CurrentValueCol].Value = powerData.Current;
+                    DataGridView_WhatchDog.Rows[0].Cells[AverageValueCol].Value = powerData.CurrentAve;
+
+                }));
+
+                await Task.Delay(100); // 每100毫秒读取一次
+
 
                 // 在循环中检查取消令牌是否已经被取消，如果是，则退出循环
                 if (token.IsCancellationRequested)
@@ -198,6 +226,35 @@ namespace HW_Thermal_Tools.Forms
                     break;
                 }
             }
+        }
+
+        //定义一个计算值的方法
+        public void CalculatedReaData()
+        {
+            //Current
+            powerData.CurrentMin = powerData.CurrentHistory.Min();
+            powerData.CurrentMax = powerData.CurrentHistory.Max();
+            powerData.CurrentAve = powerData.CurrentHistory.Average();
+
+            //Voltage
+            powerData.VoltageMin = powerData.VoltageHistory.Min();
+            powerData.VoltageMax = powerData.VoltageHistory.Max();
+            powerData.VoltageAve = powerData.VoltageHistory.Average();
+
+            //Power
+            powerData.PowerMin = powerData.PowerHistory.Min();
+            powerData.PowerMax = powerData.PowerHistory.Max();
+            powerData.PowerAve = powerData.PowerHistory.Average();
+        }
+
+        private void Btn_Start_Click(object sender, EventArgs e)
+        {
+            StartReadData();
+        }
+
+        private void Btn_Stop_Click(object sender, EventArgs e)
+        {
+            StopReadData();
         }
     }
 
