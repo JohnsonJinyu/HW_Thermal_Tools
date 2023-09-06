@@ -87,9 +87,11 @@ namespace HW_Thermal_Tools.Forms
             }
             else
             {
+                NI_VISA_Function.OpenSession();
                 NI_VISA_Function.SelectChannel(Combox_Channel.Text);
                 NI_VISA_Function.SetVoltage(ComboBox_Voltage_Select.Text);
                 NI_VISA_Function.OutPut_On();
+                MessageBox.Show("Session 会话已开启");
             }
 
         }
@@ -109,6 +111,9 @@ namespace HW_Thermal_Tools.Forms
 
             // 等待后台任务结束
             CheckDeviceTask.Wait();
+
+            //关闭Session会话
+            NI_VISA_Function.DisposeSession();
             
         }
 

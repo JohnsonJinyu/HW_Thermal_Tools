@@ -1,6 +1,7 @@
 ﻿using DevExpress.Mvvm.Native;
 using DevExpress.Utils.Extensions;
 using DevExpress.Xpo;
+using DevExpress.XtraRichEdit.Import.EPub;
 using Ivi.Visa;
 using NationalInstruments.Visa;
 using NPOI.SS.Formula.Functions;
@@ -43,29 +44,18 @@ namespace HW_Thermal_Tools.Forms.keithley2306
             Monitor.Enter(sessionLock);
             try
             {
-                
-                
-                //尝试打开会话
-                Session = (MessageBasedSession)rm.Open(address);
-                // 检测设备ID
-                Session.RawIO.Write("*IDN?");
-                string idn = Session.RawIO.ReadString();
-                
-                
-                if (idn != null)
+                string[] resources = (string[])rm.Find(address);
+                if(resources.Length > 0)
                 {
-                    // 连接正常
-                connected = true;
+                    connected = true;
                 }
-            }catch (VisaException e)
+             
+            }
+            catch (VisaException e)
             {
-                //打开会话失败，设备未连接
+                
                 connected = false;
-                //对于使用过程中断开设备，不关闭Form情况下，session会话未正常关闭，需要清空缓存后才能正常重新识别设备
-                if (Session != null)
-                {
-                    Session.Dispose();
-                }
+                
             }
             Monitor.Exit(sessionLock);
             return connected;
@@ -73,7 +63,26 @@ namespace HW_Thermal_Tools.Forms.keithley2306
         }
 
 
-        
+        /*
+         打开及关闭 Session会话
+         */
+        public void OpenSession()
+        {
+            Session = (MessageBasedSession)rm.Open(address);
+            // 置相关属性
+            Session.TimeoutMilliseconds = 3000;  //设置响应超时时间
+            // 设置终止字符(Terminator)
+            //Session.TerminationCharacter = (byte)'\n';
+
+            //Session.TerminationCharacterEnabled = true;
+
+
+        }
+
+           public void DisposeSession()
+        {
+            Session.Dispose();
+        }
 
 
         /*
@@ -123,8 +132,28 @@ namespace HW_Thermal_Tools.Forms.keithley2306
             Session.RawIO.Write("MEAS:VOLT?");
             data.Voltage = float.Parse(Session.RawIO.ReadString());
 
+
+
+            // 延时一段时间
+            //System.Threading.Thread.Sleep(200);
+
+            
+            // 发送读取命令获取数据
+            //Session.RawIO.Write("READ?(@1)");
+            // 读取响应并分割字符串
+            //string results_all = Session.RawIO.ReadString();
+
+            //string[] results = results_all.Split('\n');
+
+            // 第一个值是通道1电压,第二个值是通道1电流
+           // data.Voltage = float.Parse(results[0]);
+            //data.Current = float.Parse(results[1]);
+
+
+
             // 计算功率 
             data.Power = data.Current * data.Voltage;
+
 
             // 保存到队列历史记录
             data.CurrentHistory.Enqueue(data.Current);
