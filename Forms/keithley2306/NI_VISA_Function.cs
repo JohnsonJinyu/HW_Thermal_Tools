@@ -1,4 +1,5 @@
-﻿using DevExpress.Mvvm.Native;
+﻿using DevExpress.ClipboardSource.SpreadsheetML;
+using DevExpress.Mvvm.Native;
 using DevExpress.Utils.Extensions;
 using DevExpress.Xpo;
 using DevExpress.XtraRichEdit.Import.EPub;
@@ -24,14 +25,15 @@ namespace HW_Thermal_Tools.Forms.keithley2306
         //定义设备地址
         private string address = "GPIB0::6::INSTR";
 
-        //定义一个信号
-
+        
+        // 创建PowerData对象
+        PowerData data = new PowerData();
 
         public Keithley2306()
         {
 
             
-            
+
         }
 
         /*
@@ -121,8 +123,7 @@ namespace HW_Thermal_Tools.Forms.keithley2306
          */
         public void ReadData()
         {
-            // 创建PowerData对象
-            PowerData data = new PowerData();
+            
 
             // 读取电流
             Session.RawIO.Write("MEAS:CURR?");
@@ -176,6 +177,23 @@ namespace HW_Thermal_Tools.Forms.keithley2306
 
         }
 
+        public void CalculatedReaData()
+        {
+            //Current
+            data.CurrentMin = data.CurrentHistory.Min();
+            data.CurrentMax = data.CurrentHistory.Max();
+            data.CurrentAve = data.CurrentHistory.Average();
+
+            //Voltage
+            data.VoltageMin = data.VoltageHistory.Min();
+            data.VoltageMax = data.VoltageHistory.Max();
+            data.VoltageAve = data.VoltageHistory.Average();
+
+            //Power
+            data.PowerMin = data.PowerHistory.Min();
+            data.PowerMax = data.PowerHistory.Max();
+            data.PowerAve = data.PowerHistory.Average();
+        }
 
     }
 }

@@ -211,7 +211,7 @@ namespace HW_Thermal_Tools.Forms
                 // 调用 NI_VISA_Function 类中的 readData() 方法，执行读取电流电压的操作
                 NI_VISA_Function.ReadData();
                 //计算数据
-                CalculatedReaData();
+                NI_VISA_Function.CalculatedReaData();
 
                 Invoke(new Action(() =>
                 {
@@ -235,23 +235,7 @@ namespace HW_Thermal_Tools.Forms
         }
 
         //定义一个计算值的方法
-        public void CalculatedReaData()
-        {
-            //Current
-            powerData.CurrentMin = powerData.CurrentHistory.Min();
-            powerData.CurrentMax = powerData.CurrentHistory.Max();
-            powerData.CurrentAve = powerData.CurrentHistory.Average();
-
-            //Voltage
-            powerData.VoltageMin = powerData.VoltageHistory.Min();
-            powerData.VoltageMax = powerData.VoltageHistory.Max();
-            powerData.VoltageAve = powerData.VoltageHistory.Average();
-
-            //Power
-            powerData.PowerMin = powerData.PowerHistory.Min();
-            powerData.PowerMax = powerData.PowerHistory.Max();
-            powerData.PowerAve = powerData.PowerHistory.Average();
-        }
+        
 
         public void updateChart()
         {
