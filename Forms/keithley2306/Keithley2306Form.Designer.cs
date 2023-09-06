@@ -35,6 +35,7 @@
             DevExpress.XtraCharts.SwiftPlotSeriesView swiftPlotSeriesView2 = new DevExpress.XtraCharts.SwiftPlotSeriesView();
             DevExpress.XtraCharts.Series series3 = new DevExpress.XtraCharts.Series();
             DevExpress.XtraCharts.SwiftPlotSeriesView swiftPlotSeriesView3 = new DevExpress.XtraCharts.SwiftPlotSeriesView();
+            DataGridViewCellStyle dataGridViewCellStyle1 = new DataGridViewCellStyle();
             TablePanel_Control = new DevExpress.Utils.Layout.TablePanel();
             Combox_Channel = new ComboBox();
             dataGridView2 = new DataGridView();
@@ -56,7 +57,6 @@
             TextBox_Title_Display_Select = new TextBox();
             TextBox_Title_Freq = new TextBox();
             DataGridView_WhatchDog = new DataGridView();
-            DataItem = new DataGridViewTextBoxColumn();
             Min_Value = new DataGridViewTextBoxColumn();
             Max_Value = new DataGridViewTextBoxColumn();
             Current_Value = new DataGridViewTextBoxColumn();
@@ -315,7 +315,7 @@
             // 
             // TabPanel_Chart_Control
             // 
-            TabPanel_Chart_Control.Columns.AddRange(new DevExpress.Utils.Layout.TablePanelColumn[] { new DevExpress.Utils.Layout.TablePanelColumn(DevExpress.Utils.Layout.TablePanelEntityStyle.Absolute, 410F), new DevExpress.Utils.Layout.TablePanelColumn(DevExpress.Utils.Layout.TablePanelEntityStyle.Relative, 12.1F), new DevExpress.Utils.Layout.TablePanelColumn(DevExpress.Utils.Layout.TablePanelEntityStyle.Absolute, 100F), new DevExpress.Utils.Layout.TablePanelColumn(DevExpress.Utils.Layout.TablePanelEntityStyle.Absolute, 100F), new DevExpress.Utils.Layout.TablePanelColumn(DevExpress.Utils.Layout.TablePanelEntityStyle.Relative, 20.4F), new DevExpress.Utils.Layout.TablePanelColumn(DevExpress.Utils.Layout.TablePanelEntityStyle.Relative, 17.2F), new DevExpress.Utils.Layout.TablePanelColumn(DevExpress.Utils.Layout.TablePanelEntityStyle.Relative, 21.2F) });
+            TabPanel_Chart_Control.Columns.AddRange(new DevExpress.Utils.Layout.TablePanelColumn[] { new DevExpress.Utils.Layout.TablePanelColumn(DevExpress.Utils.Layout.TablePanelEntityStyle.Absolute, 429F), new DevExpress.Utils.Layout.TablePanelColumn(DevExpress.Utils.Layout.TablePanelEntityStyle.Relative, 12.1F), new DevExpress.Utils.Layout.TablePanelColumn(DevExpress.Utils.Layout.TablePanelEntityStyle.Absolute, 103F), new DevExpress.Utils.Layout.TablePanelColumn(DevExpress.Utils.Layout.TablePanelEntityStyle.Absolute, 100F), new DevExpress.Utils.Layout.TablePanelColumn(DevExpress.Utils.Layout.TablePanelEntityStyle.Relative, 20.4F), new DevExpress.Utils.Layout.TablePanelColumn(DevExpress.Utils.Layout.TablePanelEntityStyle.Relative, 17.2F), new DevExpress.Utils.Layout.TablePanelColumn(DevExpress.Utils.Layout.TablePanelEntityStyle.Relative, 21.2F) });
             TabPanel_Chart_Control.Controls.Add(TextBox_Title_Display_Select);
             TabPanel_Chart_Control.Controls.Add(TextBox_Title_Freq);
             TabPanel_Chart_Control.Controls.Add(DataGridView_WhatchDog);
@@ -337,18 +337,18 @@
             TextBox_Title_Display_Select.Anchor = AnchorStyles.Top | AnchorStyles.Bottom | AnchorStyles.Left | AnchorStyles.Right;
             TabPanel_Chart_Control.SetColumn(TextBox_Title_Display_Select, 2);
             TextBox_Title_Display_Select.Font = new Font("Tahoma", 9F, FontStyle.Bold, GraphicsUnit.Point);
-            TextBox_Title_Display_Select.Location = new Point(452, 16);
+            TextBox_Title_Display_Select.Location = new Point(467, 16);
             TextBox_Title_Display_Select.Margin = new Padding(3, 2, 3, 2);
             TextBox_Title_Display_Select.Name = "TextBox_Title_Display_Select";
             TabPanel_Chart_Control.SetRow(TextBox_Title_Display_Select, 0);
-            TextBox_Title_Display_Select.Size = new Size(94, 22);
+            TextBox_Title_Display_Select.Size = new Size(97, 22);
             TextBox_Title_Display_Select.TabIndex = 6;
             TextBox_Title_Display_Select.Text = "显示选项";
             // 
             // TextBox_Title_Freq
             // 
             TabPanel_Chart_Control.SetColumn(TextBox_Title_Freq, 3);
-            TextBox_Title_Freq.Location = new Point(552, 16);
+            TextBox_Title_Freq.Location = new Point(570, 16);
             TextBox_Title_Freq.Margin = new Padding(3, 2, 3, 2);
             TextBox_Title_Freq.Name = "TextBox_Title_Freq";
             TabPanel_Chart_Control.SetRow(TextBox_Title_Freq, 0);
@@ -361,26 +361,27 @@
             DataGridView_WhatchDog.AutoSizeRowsMode = DataGridViewAutoSizeRowsMode.AllCellsExceptHeaders;
             TabPanel_Chart_Control.SetColumn(DataGridView_WhatchDog, 0);
             DataGridView_WhatchDog.ColumnHeadersHeightSizeMode = DataGridViewColumnHeadersHeightSizeMode.AutoSize;
-            DataGridView_WhatchDog.Columns.AddRange(new DataGridViewColumn[] { DataItem, Min_Value, Max_Value, Current_Value, Ave_Value });
+            DataGridView_WhatchDog.Columns.AddRange(new DataGridViewColumn[] { Min_Value, Max_Value, Current_Value, Ave_Value });
             DataGridView_WhatchDog.Dock = DockStyle.Fill;
             DataGridView_WhatchDog.Location = new Point(14, 12);
             DataGridView_WhatchDog.Margin = new Padding(3, 2, 3, 2);
             DataGridView_WhatchDog.Name = "DataGridView_WhatchDog";
+            DataGridView_WhatchDog.ReadOnly = true;
             TabPanel_Chart_Control.SetRow(DataGridView_WhatchDog, 0);
-            DataGridView_WhatchDog.RowHeadersVisible = false;
-            DataGridView_WhatchDog.RowHeadersWidth = 80;
+            DataGridView_WhatchDog.RowHeadersBorderStyle = DataGridViewHeaderBorderStyle.Sunken;
+            dataGridViewCellStyle1.Alignment = DataGridViewContentAlignment.MiddleLeft;
+            dataGridViewCellStyle1.BackColor = SystemColors.Control;
+            dataGridViewCellStyle1.Font = new Font("Tahoma", 9F, FontStyle.Regular, GraphicsUnit.Point);
+            dataGridViewCellStyle1.ForeColor = SystemColors.WindowText;
+            dataGridViewCellStyle1.SelectionBackColor = SystemColors.Highlight;
+            dataGridViewCellStyle1.SelectionForeColor = SystemColors.HighlightText;
+            dataGridViewCellStyle1.WrapMode = DataGridViewTriState.True;
+            DataGridView_WhatchDog.RowHeadersDefaultCellStyle = dataGridViewCellStyle1;
+            DataGridView_WhatchDog.RowHeadersWidth = 100;
             TabPanel_Chart_Control.SetRowSpan(DataGridView_WhatchDog, 4);
             DataGridView_WhatchDog.RowTemplate.Height = 29;
-            DataGridView_WhatchDog.Size = new Size(404, 111);
+            DataGridView_WhatchDog.Size = new Size(423, 111);
             DataGridView_WhatchDog.TabIndex = 4;
-            // 
-            // DataItem
-            // 
-            DataItem.AutoSizeMode = DataGridViewAutoSizeColumnMode.None;
-            DataItem.HeaderText = "Item";
-            DataItem.MinimumWidth = 6;
-            DataItem.Name = "DataItem";
-            DataItem.Width = 80;
             // 
             // Min_Value
             // 
@@ -388,6 +389,7 @@
             Min_Value.HeaderText = "Min";
             Min_Value.MinimumWidth = 6;
             Min_Value.Name = "Min_Value";
+            Min_Value.ReadOnly = true;
             Min_Value.Width = 80;
             // 
             // Max_Value
@@ -396,6 +398,7 @@
             Max_Value.HeaderText = "Max";
             Max_Value.MinimumWidth = 6;
             Max_Value.Name = "Max_Value";
+            Max_Value.ReadOnly = true;
             Max_Value.Width = 80;
             // 
             // Current_Value
@@ -404,6 +407,7 @@
             Current_Value.HeaderText = "Current";
             Current_Value.MinimumWidth = 6;
             Current_Value.Name = "Current_Value";
+            Current_Value.ReadOnly = true;
             Current_Value.Width = 80;
             // 
             // Ave_Value
@@ -412,6 +416,7 @@
             Ave_Value.HeaderText = "Ave";
             Ave_Value.MinimumWidth = 6;
             Ave_Value.Name = "Ave_Value";
+            Ave_Value.ReadOnly = true;
             Ave_Value.Width = 80;
             // 
             // ComboBox_DataFrequence
@@ -419,7 +424,7 @@
             TabPanel_Chart_Control.SetColumn(ComboBox_DataFrequence, 3);
             ComboBox_DataFrequence.FormattingEnabled = true;
             ComboBox_DataFrequence.Items.AddRange(new object[] { "1 S", "2 S", "5 S", "10 S", "15 S", "30 S" });
-            ComboBox_DataFrequence.Location = new Point(552, 47);
+            ComboBox_DataFrequence.Location = new Point(570, 47);
             ComboBox_DataFrequence.Margin = new Padding(3, 2, 3, 2);
             ComboBox_DataFrequence.Name = "ComboBox_DataFrequence";
             TabPanel_Chart_Control.SetRow(ComboBox_DataFrequence, 1);
@@ -430,7 +435,7 @@
             // 
             CheckBox_PowerLineDisplay.AutoSize = true;
             TabPanel_Chart_Control.SetColumn(CheckBox_PowerLineDisplay, 2);
-            CheckBox_PowerLineDisplay.Location = new Point(452, 103);
+            CheckBox_PowerLineDisplay.Location = new Point(467, 103);
             CheckBox_PowerLineDisplay.Margin = new Padding(3, 2, 3, 2);
             CheckBox_PowerLineDisplay.Name = "CheckBox_PowerLineDisplay";
             TabPanel_Chart_Control.SetRow(CheckBox_PowerLineDisplay, 3);
@@ -446,7 +451,7 @@
             CheckBox_VoltageLineDisplay.Checked = true;
             CheckBox_VoltageLineDisplay.CheckState = CheckState.Checked;
             TabPanel_Chart_Control.SetColumn(CheckBox_VoltageLineDisplay, 2);
-            CheckBox_VoltageLineDisplay.Location = new Point(452, 76);
+            CheckBox_VoltageLineDisplay.Location = new Point(467, 76);
             CheckBox_VoltageLineDisplay.Margin = new Padding(3, 2, 3, 2);
             CheckBox_VoltageLineDisplay.Name = "CheckBox_VoltageLineDisplay";
             TabPanel_Chart_Control.SetRow(CheckBox_VoltageLineDisplay, 2);
@@ -462,7 +467,7 @@
             CheckBox_CurrentLineDisplay.Checked = true;
             CheckBox_CurrentLineDisplay.CheckState = CheckState.Checked;
             TabPanel_Chart_Control.SetColumn(CheckBox_CurrentLineDisplay, 2);
-            CheckBox_CurrentLineDisplay.Location = new Point(452, 49);
+            CheckBox_CurrentLineDisplay.Location = new Point(467, 49);
             CheckBox_CurrentLineDisplay.Margin = new Padding(3, 2, 3, 2);
             CheckBox_CurrentLineDisplay.Name = "CheckBox_CurrentLineDisplay";
             TabPanel_Chart_Control.SetRow(CheckBox_CurrentLineDisplay, 1);
@@ -556,12 +561,11 @@
         private TextBox TextBox_Title_Freq;
         private TextBox TextBox_Title_Display_Select;
         private ComboBox Combox_Channel;
-        private DataGridViewTextBoxColumn DataItem;
+        private StatusStrip statusStrip1;
+        private ToolStripStatusLabel StatusLabel_DeviceStatus;
         private DataGridViewTextBoxColumn Min_Value;
         private DataGridViewTextBoxColumn Max_Value;
         private DataGridViewTextBoxColumn Current_Value;
         private DataGridViewTextBoxColumn Ave_Value;
-        private StatusStrip statusStrip1;
-        private ToolStripStatusLabel StatusLabel_DeviceStatus;
     }
 }

@@ -1,69 +1,60 @@
-﻿using DevExpress.XtraPivotGrid.Data;
-using HW_Thermal_Tools.Forms.keithley2306;
-using NationalInstruments.Visa;
-using NPOI.SS.Formula.Functions;
-using System.Threading.Tasks;
+﻿using HW_Thermal_Tools.Forms.keithley2306;
 
 
 namespace HW_Thermal_Tools.Forms
 {
 
-
     public partial class Keithley2306Form : DevExpress.XtraEditors.XtraForm
     {
-        
 
-        private static Keithley2306 NI_VISA_Function;
+
+
         // 创建一个布尔变量来记录设备的连接状态
         private bool ConnectedStatu;
         // 定义一个私有的布尔变量，用来表示是否需要继续检测设备的变化
         private static volatile bool CheckSignal = true;
         // 定义私有布尔变量，表示是否继续读取数据
         private static volatile bool ReadSignal = false;
-
-
-
         // 定义两个后台任务
         private Task CheckDeviceTask;
         private Task ReadDataTask;
-
         // 定义2个私有的字段，用来存储取消令牌源
         private CancellationTokenSource CheckCTS;
         private CancellationTokenSource ReadCTS;
 
-
-        // 定义PowerData类型的成员变量
-        private PowerData powerData = new PowerData();
+        public NiVisaFunction NiVisa { get; set; } //这里声明Visa属性
 
         //定义数据Grid的列索引
-
         private int ItemCol, MinValueCol, MaxValueCol, CurrentValueCol, AverageValueCol;
 
-        // 私有化构造函数，防止外部直接创建对象
-        public Keithley2306Form()
+
+        public Keithley2306Form(NiVisaFunction niVisaFunction)
         {
             InitializeComponent();
-            NI_VISA_Function = new Keithley2306(); //构造函数中初始化
+            this.NiVisa = niVisaFunction; //构造函数中初始化
+
+
 
             //初始化两个布尔变量为false
             CheckSignal = false;
             ReadSignal = false;
 
             //初始化列的索引
-            ItemCol = 0;
-            MinValueCol = 1;
-            MaxValueCol = 2;
-            CurrentValueCol = 3;
-            AverageValueCol = 4;
+            MinValueCol = 0;
+            MaxValueCol = 1;
+            CurrentValueCol = 2;
+            AverageValueCol = 3;
+
         }
 
 
 
         private void keithley2306_Load(object sender, EventArgs e)
         {
-
+            InitialGrid_WatchDog();
             //启动后台线程检测设备变化
             StartDetection();
+
 
         }
 
@@ -75,7 +66,7 @@ namespace HW_Thermal_Tools.Forms
 
         private void Btn_Power_Off_Click(object sender, EventArgs e)
         {
-            NI_VISA_Function.OutPut_Off();
+            this.NiVisa.OutPut_Off();
         }
 
         private void Btn_Power_On_Click(object sender, EventArgs e)
@@ -87,10 +78,10 @@ namespace HW_Thermal_Tools.Forms
             }
             else
             {
-                NI_VISA_Function.OpenSession();
-                NI_VISA_Function.SelectChannel(Combox_Channel.Text);
-                NI_VISA_Function.SetVoltage(ComboBox_Voltage_Select.Text);
-                NI_VISA_Function.OutPut_On();
+                this.NiVisa.OpenSession();
+                this.NiVisa.SelectChannel(Combox_Channel.Text);
+                this.NiVisa.SetVoltage(ComboBox_Voltage_Select.Text);
+                this.NiVisa.OutPut_On();
                 MessageBox.Show("Session 会话已开启");
             }
 
@@ -113,12 +104,22 @@ namespace HW_Thermal_Tools.Forms
             CheckDeviceTask.Wait();
 
             //关闭Session会话
-            NI_VISA_Function.DisposeSession();
-            
+            this.NiVisa.DisposeSession();
+
         }
 
 
+        // 定义一个方法，初始化采集数据显示的表格
+        public void InitialGrid_WatchDog()
+        {
+            DataGridView_WhatchDog.Rows.Add(2);
 
+
+            //将dataGridView 的RowHeader设定
+            DataGridView_WhatchDog.Rows[0].HeaderCell.Value = "Current";
+            DataGridView_WhatchDog.Rows[1].HeaderCell.Value = "Voltage";
+            DataGridView_WhatchDog.Rows[2].HeaderCell.Value = "Power";
+        }
 
 
         // 定义一个公共的方法，用来启动check()任务
@@ -143,7 +144,7 @@ namespace HW_Thermal_Tools.Forms
         {
             while (CheckSignal)
             {
-                ConnectedStatu = NI_VISA_Function.Detection_Thread();
+                ConnectedStatu = this.NiVisa.Detection_Thread();
                 // 如果connected为true，表示设备已连接
                 if (ConnectedStatu)
                 {
@@ -209,21 +210,18 @@ namespace HW_Thermal_Tools.Forms
             while (true)
             {
                 // 调用 NI_VISA_Function 类中的 readData() 方法，执行读取电流电压的操作
-                NI_VISA_Function.ReadData();
+                this.NiVisa.ReadData();
                 //计算数据
-                NI_VISA_Function.CalculatedReaData();
+                this.NiVisa.CalculatedReaData();
 
                 Invoke(new Action(() =>
                 {
-                    DataGridView_WhatchDog.Rows[0].Cells[ItemCol].Value = "电流";
-                    DataGridView_WhatchDog.Rows[0].Cells[MinValueCol].Value = powerData.CurrentMin;
-                    DataGridView_WhatchDog.Rows[0].Cells[MaxValueCol].Value = powerData.CurrentMax;
-                    DataGridView_WhatchDog.Rows[0].Cells[CurrentValueCol].Value = powerData.Current;
-                    DataGridView_WhatchDog.Rows[0].Cells[AverageValueCol].Value = powerData.CurrentAve;
+                    updateGridView();
+                    updateChart();
 
                 }));
 
-                await Task.Delay(100); // 每100毫秒读取一次
+                await Task.Delay(1000); // 每100毫秒读取一次
 
 
                 // 在循环中检查取消令牌是否已经被取消，如果是，则退出循环
@@ -234,15 +232,35 @@ namespace HW_Thermal_Tools.Forms
             }
         }
 
-        //定义一个计算值的方法
-        
+        //定义一个更新表格的方法
+
+        public void updateGridView()
+        {
+            //DataGridView_WhatchDog.Rows[0].Cells[ItemCol].Value = "Current";
+            DataGridView_WhatchDog.Rows[0].Cells[MinValueCol].Value = this.NiVisa.data.CurrentMin;
+            DataGridView_WhatchDog.Rows[0].Cells[MaxValueCol].Value = this.NiVisa.data.CurrentMax;
+            DataGridView_WhatchDog.Rows[0].Cells[CurrentValueCol].Value = this.NiVisa.data.Current;
+            DataGridView_WhatchDog.Rows[0].Cells[AverageValueCol].Value = this.NiVisa.data.CurrentAve;
+
+            //DataGridView_WhatchDog.Rows[1].Cells[ItemCol].Value = "Voltage";
+            DataGridView_WhatchDog.Rows[1].Cells[MinValueCol].Value = this.NiVisa.data.VoltageMin;
+            DataGridView_WhatchDog.Rows[1].Cells[MaxValueCol].Value = this.NiVisa.data.VoltageMax;
+            DataGridView_WhatchDog.Rows[1].Cells[CurrentValueCol].Value = this.NiVisa.data.Voltage;
+            DataGridView_WhatchDog.Rows[1].Cells[AverageValueCol].Value = this.NiVisa.data.VoltageAve;
+
+            // DataGridView_WhatchDog.Rows[2].Cells[ItemCol].Value = "Power";
+            DataGridView_WhatchDog.Rows[2].Cells[MinValueCol].Value = this.NiVisa.data.PowerMin;
+            DataGridView_WhatchDog.Rows[2].Cells[MaxValueCol].Value = this.NiVisa.data.PowerMax;
+            DataGridView_WhatchDog.Rows[2].Cells[CurrentValueCol].Value = this.NiVisa.data.Power;
+            DataGridView_WhatchDog.Rows[2].Cells[AverageValueCol].Value = this.NiVisa.data.PowerAve;
+        }
 
         public void updateChart()
         {
             //
-            ChartControl_Watchdog.Series["Current"].DataSource = powerData.CurrentHistory;
-            ChartControl_Watchdog.Series["Voltage"].DataSource = powerData.VoltageHistory;
-            ChartControl_Watchdog.Series["Current"].DataSource = powerData.PowerHistory;
+            ChartControl_Watchdog.Series["Current"].DataSource = this.NiVisa.data.CurrentHistory;
+            ChartControl_Watchdog.Series["Voltage"].DataSource = this.NiVisa.data.VoltageHistory;
+            ChartControl_Watchdog.Series["Current"].DataSource = this.NiVisa.data.PowerHistory;
 
             //调用Chart的RefreshData()方法刷新数据显示
             ChartControl_Watchdog.RefreshData();
@@ -273,7 +291,7 @@ namespace HW_Thermal_Tools.Forms
 
         private void CheckBox_PowerLineDisplay_CheckedChanged(object sender, EventArgs e)
         {
-            ChartControl_Watchdog.Series["Power"].Visible= CheckBox_PowerLineDisplay.Checked;
+            ChartControl_Watchdog.Series["Power"].Visible = CheckBox_PowerLineDisplay.Checked;
         }
     }
 

@@ -1,4 +1,5 @@
-﻿using System;
+﻿using HW_Thermal_Tools.Forms.keithley2306;
+using System;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Data;
@@ -115,7 +116,9 @@ namespace HW_Thermal_Tools
 
         private void BtnForm4_Click(object sender, EventArgs e)
         {
-            OpenChildForm(new Forms.Keithley2306Form(), sender);
+            // 创建一个 NiVisaFunction 类型的对象
+            NiVisaFunction niVisa = new NiVisaFunction();
+            OpenChildForm(new Forms.Keithley2306Form(niVisa), sender);
         }
 
 

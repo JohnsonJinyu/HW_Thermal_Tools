@@ -1,18 +1,11 @@
-﻿using DevExpress.ClipboardSource.SpreadsheetML;
-using DevExpress.Mvvm.Native;
-using DevExpress.Utils.Extensions;
-using DevExpress.Xpo;
-using DevExpress.XtraRichEdit.Import.EPub;
-using Ivi.Visa;
+﻿using Ivi.Visa;
 using NationalInstruments.Visa;
-using NPOI.SS.Formula.Functions;
-using System;
 
 
 namespace HW_Thermal_Tools.Forms.keithley2306
 {
 
-    internal class Keithley2306
+    public class NiVisaFunction
     {
 
 
@@ -27,12 +20,12 @@ namespace HW_Thermal_Tools.Forms.keithley2306
 
         
         // 创建PowerData对象
-        PowerData data = new PowerData();
+        public PowerData data;
 
-        public Keithley2306()
+        public NiVisaFunction()
         {
+            data = new PowerData();
 
-            
 
         }
 
@@ -83,7 +76,11 @@ namespace HW_Thermal_Tools.Forms.keithley2306
 
            public void DisposeSession()
         {
-            Session.Dispose();
+            if(Session != null)
+            {
+                Session.Dispose();
+            }
+            
         }
 
 
@@ -132,25 +129,6 @@ namespace HW_Thermal_Tools.Forms.keithley2306
             // 读取电压  
             Session.RawIO.Write("MEAS:VOLT?");
             data.Voltage = float.Parse(Session.RawIO.ReadString());
-
-
-
-            // 延时一段时间
-            //System.Threading.Thread.Sleep(200);
-
-            
-            // 发送读取命令获取数据
-            //Session.RawIO.Write("READ?(@1)");
-            // 读取响应并分割字符串
-            //string results_all = Session.RawIO.ReadString();
-
-            //string[] results = results_all.Split('\n');
-
-            // 第一个值是通道1电压,第二个值是通道1电流
-           // data.Voltage = float.Parse(results[0]);
-            //data.Current = float.Parse(results[1]);
-
-
 
             // 计算功率 
             data.Power = data.Current * data.Voltage;
