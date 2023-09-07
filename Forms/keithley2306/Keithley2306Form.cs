@@ -2,7 +2,7 @@
 using HW_Thermal_Tools.Forms.keithley2306;
 using DevExpress.XtraCharts.Native;
 using System.Collections.Generic;
-
+using DevExpress.CodeParser;
 
 namespace HW_Thermal_Tools.Forms
 {
@@ -26,6 +26,9 @@ namespace HW_Thermal_Tools.Forms
         private CancellationTokenSource ReadCTS;
 
         public NiVisaFunction NiVisa { get; set; } //这里声明Visa属性
+
+        //定义一个采集频率的常量
+        private static int ReadFrequence;
 
         //定义数据Grid的列索引
         private int ItemCol, MinValueCol, MaxValueCol, CurrentValueCol, AverageValueCol;
@@ -128,9 +131,6 @@ namespace HW_Thermal_Tools.Forms
         public void InitialChart()
         {
 
-
-
-
             // 设置Current Series的属性
             ChartControl_Watchdog.Series["Current"].DataSource = this.NiVisa.data.CurrentHistory;
             //ChartControl_Watchdog.Series["Current"].SeriesDataMember = "Current"; // 指定Series的名称
@@ -150,6 +150,36 @@ namespace HW_Thermal_Tools.Forms
             ChartControl_Watchdog.Series["Power"].ValueDataMembers.AddRange(new string[] { "Value" }); // 指定Series的纵轴数据
 
         }
+
+
+        //定义一个方法，用来初始化采集频率
+        public void Initial_ReadFreq()
+        {
+            switch (ComboBox_DataFrequence.Text)
+            {
+                case "250 ms / 次":
+                    ReadFrequence = 250;
+                    break;
+                case "500 ms / 次":
+                    ReadFrequence = 250;
+                    break;
+                case "1 S / 次":
+                    ReadFrequence = 250;
+                    break;
+                case "2 S / 次":
+                    ReadFrequence = 250;
+                    break;
+                case "5 S / 次":
+                    ReadFrequence = 250;
+                    break;
+                case "10 S / 次":
+                    ReadFrequence = 250;
+                    break;
+
+            }
+        }
+
+
 
 
         // 定义一个公共的方法，用来启动check()任务
@@ -251,7 +281,7 @@ namespace HW_Thermal_Tools.Forms
 
                 }));
 
-                await Task.Delay(1000); // 每100毫秒读取一次
+                await Task.Delay(ReadFrequence); // 每100毫秒读取一次
 
 
                 // 在循环中检查取消令牌是否已经被取消，如果是，则退出循环
@@ -288,16 +318,6 @@ namespace HW_Thermal_Tools.Forms
         }
 
 
-
-        public void updateChart()
-        {
-
-
-
-            //调用Chart的RefreshData()方法刷新数据显示
-            //ChartControl_Watchdog.RefreshData();
-            ChartControl_Watchdog.Refresh();
-        }
 
         private void Btn_Start_Click(object sender, EventArgs e)
         {
