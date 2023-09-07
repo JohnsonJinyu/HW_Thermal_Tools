@@ -1,5 +1,7 @@
-﻿using Ivi.Visa;
+﻿using DevExpress.ClipboardSource.SpreadsheetML;
+using Ivi.Visa;
 using NationalInstruments.Visa;
+using System.Windows.Forms;
 
 
 namespace HW_Thermal_Tools.Forms.keithley2306
@@ -138,15 +140,22 @@ namespace HW_Thermal_Tools.Forms.keithley2306
          */
         public void ReadData()
         {
-            
+            /*
+             1、使用double.Parse将string转换成double类型
+             2、Math.Round的参数为double类型
+             3、最后再转为float类型赋值给Current
+             */
 
             // 读取电流
             Session.RawIO.Write("MEAS:CURR?");
-            data.Current = float.Parse(Session.RawIO.ReadString());
+
+            data.Current = Math.Round(float.Parse(Session.RawIO.ReadString()) * 1000,5); //转为mA,并保留小数点后5位
+            
 
             // 读取电压  
             Session.RawIO.Write("MEAS:VOLT?");
-            data.Voltage = float.Parse(Session.RawIO.ReadString());
+            data.Voltage = Math.Round(float.Parse(Session.RawIO.ReadString()) * 1000, 5);  //转为mV,并保留小数点后5位
+
 
             // 计算功率 
             data.Power = data.Current * data.Voltage;
