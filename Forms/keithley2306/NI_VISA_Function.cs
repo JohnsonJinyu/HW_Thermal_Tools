@@ -159,23 +159,13 @@ namespace HW_Thermal_Tools.Forms.keithley2306
             data.PowerHistory.Add(new DataPoint(DateTime.Now, data.Power));
             data.OriDataHistory.Add(new ExcelDataPoint(DateTime.Now, data.Current, data.Voltage, data.Power));
 
-            /*// 只保留最近4800条记录
-            if (data.CurrentHistory.Count > 4800)
-            {
-                data.CurrentHistory.RemoveAt(0);
-            }
-            if (data.VoltageHistory.Count > 4800)
-            {
-                data.VoltageHistory.RemoveAt(0);
-            }
-            if (data.PowerHistory.Count > 4800)
-            {
-                data.PowerHistory.RemoveAt(0);
-            }*/
 
         }
 
-
+        public async Task ReadDataAsync()
+        {
+            await Task.Run(() => ReadData());
+        }
 
         public void CalculatedReaData()
         {

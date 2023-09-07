@@ -277,27 +277,29 @@ namespace HW_Thermal_Tools.Forms
             ReadDataTask = Task.Run(() => ReadData(token), token);
         }
 
-        //定义一个方法，用来停止ReadDta方法
         public void StopReadData()
         {
-            // 设置ReadSignal 为false ，表示不需要运行ReadData任务
+            // 设置ReadSignal 为false ,表示不需要运行ReadData任务
             ReadSignal = false;
+
             //发送取消信号给ReadData()后台任务
             ReadCTS.Cancel();
+
             // 等待readData()后台任务结束
             ReadDataTask.Wait();
+
             // 释放资源
             ReadCTS.Dispose();
         }
 
 
-        // 定义一个方法，用来在后台执行 readData() 方法
         public async void ReadData(CancellationToken token)
         {
-            while (true)
+            while (!token.IsCancellationRequested)
             {
-                // 调用 NI_VISA_Function 类中的 readData() 方法，执行读取电流电压的操作
-                this.NiVisa.ReadData();
+                // 调用 NI_VISA_Function 类中NiVisa.ReadDataAsync() 来异步读取数据:
+                await this.NiVisa.ReadDataAsync();
+
                 //计算数据
                 this.NiVisa.CalculatedReaData();
 
@@ -305,13 +307,11 @@ namespace HW_Thermal_Tools.Forms
                 {
                     updateGridView();
                     ChartControl_Watchdog.RefreshData();
-
                 }));
 
                 await Task.Delay(ReadFrequence); // 每100毫秒读取一次
 
-
-                // 在循环中检查取消令牌是否已经被取消，如果是，则退出循环
+                // 检查是否取消
                 if (token.IsCancellationRequested)
                 {
                     break;
