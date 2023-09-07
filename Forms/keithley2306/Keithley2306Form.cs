@@ -82,59 +82,49 @@ namespace HW_Thermal_Tools.Forms
 
         private void Btn_Power_On_Click(object sender, EventArgs e)
         {
-            if (RadioButton_PowerTest.Checked == true)
+            if (!ConnectedStatu)
             {
-                if (!ConnectedStatu)
+                MessageBox.Show("未连接设备");
+            }
+            else if (RadioButton_PowerTest.Checked == true)
+            {
+                this.NiVisa.OpenSession();
+                this.NiVisa.SelectChannel(Combox_Channel.Text);
+                this.NiVisa.SetVoltage(ComboBox_Voltage_Select.Text);
+                this.NiVisa.SetCurrent_Lim(Combox_CurrentLim_Select.Text);
+                this.NiVisa.OutPut_On();
+                MessageBox.Show("Session 会话已开启");
+            }
+            else if (RadioButton_ChargeTest.Checked == true)
+            {
+
+                if (DataGridView_ChargeInput.Rows.Count == 1)
                 {
-                    MessageBox.Show("未连接设备");
+                    MessageBox.Show("请先输入充电电流 电压 时间！！！");
                 }
                 else
                 {
                     this.NiVisa.OpenSession();
-                    this.NiVisa.SelectChannel(Combox_Channel.Text);
-                    this.NiVisa.SetVoltage(ComboBox_Voltage_Select.Text);
-                    this.NiVisa.SetCurrent_Lim(Combox_CurrentLim_Select.Text);
-                    this.NiVisa.OutPut_On();
                     MessageBox.Show("Session 会话已开启");
-                }
-            }
-
-            if (RadioButton_ChargeTest.Checked == true)
-            {
-                if (!ConnectedStatu)
-                {
-                    MessageBox.Show("未连接设备");
-                }
-                else
-                {
-                    if (DataGridView_ChargeInput.Rows.Count == 1)
+                    for (int i = 0; i < DataGridView_ChargeInput.Rows.Count - 1; i++)
                     {
-                        MessageBox.Show("请先输入充电电流 电压 时间！！！");
-                    }
-                    else
-                    {
-                        this.NiVisa.OpenSession();
-                        MessageBox.Show("Session 会话已开启");
-                        for (int i = 0; i < DataGridView_ChargeInput.Rows.Count - 1; i++)
+                        if (this.NiVisa.IsOutputOn())
                         {
-                            if (this.NiVisa.IsOutputOn())
-                            {
-                                this.NiVisa.SelectChannel(Combox_Channel.Text);
-                                this.NiVisa.SetVoltage(DataGridView_ChargeInput.Rows[i].Cells["Charge_Voltage"].Value.ToString());
-                                this.NiVisa.SetCurrent(DataGridView_ChargeInput.Rows[i].Cells["Charge_Current"].Value.ToString());
-                            }
-                            else
-                            {
-                                this.NiVisa.SelectChannel(Combox_Channel.Text);
-                                this.NiVisa.SetVoltage(DataGridView_ChargeInput.Rows[i].Cells["Charge_Voltage"].Value.ToString());
-                                this.NiVisa.SetCurrent(DataGridView_ChargeInput.Rows[i].Cells["Charge_Current"].Value.ToString());
-                                this.NiVisa.OutPut_On();
-                            }
-                            //持续多长时间
-                            Thread.Sleep(DataGridView_ChargeInput.Rows[i].Cells["Charge_Time"].Value.ToInt() * 1000);
+                            this.NiVisa.SelectChannel(Combox_Channel.Text);
+                            this.NiVisa.SetVoltage(DataGridView_ChargeInput.Rows[i].Cells["Charge_Voltage"].Value.ToString());
+                            this.NiVisa.SetCurrent(DataGridView_ChargeInput.Rows[i].Cells["Charge_Current"].Value.ToString());
                         }
-
+                        else
+                        {
+                            this.NiVisa.SelectChannel(Combox_Channel.Text);
+                            this.NiVisa.SetVoltage(DataGridView_ChargeInput.Rows[i].Cells["Charge_Voltage"].Value.ToString());
+                            this.NiVisa.SetCurrent(DataGridView_ChargeInput.Rows[i].Cells["Charge_Current"].Value.ToString());
+                            this.NiVisa.OutPut_On();
+                        }
+                        //持续多长时间
+                        Thread.Sleep(DataGridView_ChargeInput.Rows[i].Cells["Charge_Time"].Value.ToInt() * 1000);
                     }
+
                 }
             }
 
