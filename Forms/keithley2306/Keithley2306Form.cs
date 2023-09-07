@@ -3,6 +3,8 @@ using HW_Thermal_Tools.Forms.keithley2306;
 using DevExpress.XtraCharts.Native;
 using System.Collections.Generic;
 using DevExpress.CodeParser;
+using OfficeOpenXml;
+using System.Diagnostics;
 
 namespace HW_Thermal_Tools.Forms
 {
@@ -78,22 +80,47 @@ namespace HW_Thermal_Tools.Forms
 
         private void Btn_Power_On_Click(object sender, EventArgs e)
         {
+            if (RadioButton_PowerTest.Checked == true)
+            {
+                if (!ConnectedStatu)
+                {
+                    MessageBox.Show("未连接设备");
+                }
+                else
+                {
+                    this.NiVisa.OpenSession();
+                    this.NiVisa.SelectChannel(Combox_Channel.Text);
+                    this.NiVisa.SetVoltage(ComboBox_Voltage_Select.Text);
+                    this.NiVisa.SetCurrent_Lim(Combox_CurrentLim_Select.Text);
+                    this.NiVisa.OutPut_On();
+                    MessageBox.Show("Session 会话已开启");
+                }
+            }
 
-            if (!ConnectedStatu)
-            {
-                MessageBox.Show("未连接");
-            }
-            else
-            {
-                this.NiVisa.OpenSession();
-                this.NiVisa.SelectChannel(Combox_Channel.Text);
-                this.NiVisa.SetVoltage(ComboBox_Voltage_Select.Text);
-                this.NiVisa.OutPut_On();
-                MessageBox.Show("Session 会话已开启");
-            }
 
         }
 
+        private void Btn_Save_Click(object sender, EventArgs e)
+        {
+            if (this.NiVisa.data.CurrentHistory.Count > 0)
+            {
+                Save_OriData();
+            }
+            else
+            {
+                MessageBox.Show("当前暂无数据可以保存！");
+            }
+        }
+
+        private void Btn_Start_Click(object sender, EventArgs e)
+        {
+            StartReadData();
+        }
+
+        private void Btn_Stop_Click(object sender, EventArgs e)
+        {
+            StopReadData();
+        }
 
 
 
@@ -319,15 +346,10 @@ namespace HW_Thermal_Tools.Forms
 
 
 
-        private void Btn_Start_Click(object sender, EventArgs e)
-        {
-            StartReadData();
-        }
+        
 
-        private void Btn_Stop_Click(object sender, EventArgs e)
-        {
-            StopReadData();
-        }
+
+
 
         /*
          控制曲线的显示选项
@@ -346,6 +368,37 @@ namespace HW_Thermal_Tools.Forms
         {
             ChartControl_Watchdog.Series["Power"].Visible = CheckBox_PowerLineDisplay.Checked;
         }
+
+
+
+        //定义一个方法用来保存数据
+        public void Save_OriData()
+        {
+            // 创建一个SaveFileDialog对象，用于让用户选择保存目录和文件名称
+            SaveFileDialog saveFileDialog = new SaveFileDialog();
+            saveFileDialog.Filter = "Excel files (*.xlsx)|*.xlsx"; // 设置文件过滤器，只显示xlsx格式的文件
+            saveFileDialog.Title = "保存数据到Excel"; // 设置对话框的标题
+            ExcelPackage.LicenseContext = LicenseContext.NonCommercial; // 声明非商用许可证
+            if (saveFileDialog.ShowDialog() == DialogResult.OK) // 如果用户点击了保存按钮
+            {
+                var file = new FileInfo(saveFileDialog.FileName); // 创建一个FileInfo对象，指定文件路径
+
+                using (var package = new ExcelPackage(file)) // 创建一个ExcelPackage对象
+                {
+                    var ws = package.Workbook.Worksheets.Add("Data_Test_Worksheet"); // 创建一个工作表
+
+                    // 将OriDataHistory列表中的数据加载到工作表中，从第一行第一列开始
+                    ws.Cells["A1"].LoadFromCollection(this.NiVisa.data.OriDataHistory, true);
+
+                    package.SaveAs(file); // 将excel文件保存到指定的路径
+                }
+
+                MessageBox.Show("保存成功！");
+
+            }
+          
+        }
+      
     }
 
 }

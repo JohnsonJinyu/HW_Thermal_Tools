@@ -1,4 +1,6 @@
-﻿namespace HW_Thermal_Tools.Forms.keithley2306
+﻿using DevExpress.XtraSpellChecker;
+
+namespace HW_Thermal_Tools.Forms.keithley2306
 {
     public class PowerData
     {
@@ -24,7 +26,7 @@
         public List<DataPoint> VoltageHistory { get; set; } = new List<DataPoint>(); // 电压历史记录列表
         public List<DataPoint> PowerHistory { get; set; } = new List<DataPoint>(); // 功率历史记录列表
 
-
+        public List<ExcelDataPoint> OriDataHistory { get; set; } = new List<ExcelDataPoint>(); //用于保存所有数据最后保存到Excel
 
 
 
@@ -40,6 +42,22 @@
             Time = time;
             Value = value;
         }
+    }
+
+    public class ExcelDataPoint
+    {
+        public DateTime Time { get; set; } //时间
+        public float CurentValue { get; set; } //current value
+        public float VoltageValue { get; set; } //voltage value
+        public float PowerValue { get; set; } //power value
+
+        public ExcelDataPoint(DateTime time, float currentvalue, float voltageValue, float powerValue)
+        {
+            Time = time;
+            VoltageValue = voltageValue;
+            PowerValue = powerValue;
+        }
+
     }
 
 

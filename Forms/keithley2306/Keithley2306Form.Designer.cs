@@ -28,15 +28,18 @@
         /// </summary>
         private void InitializeComponent()
         {
-            DevExpress.XtraCharts.SwiftPlotDiagram swiftPlotDiagram2 = new DevExpress.XtraCharts.SwiftPlotDiagram();
-            DevExpress.XtraCharts.Series series4 = new DevExpress.XtraCharts.Series();
-            DevExpress.XtraCharts.SwiftPlotSeriesView swiftPlotSeriesView4 = new DevExpress.XtraCharts.SwiftPlotSeriesView();
-            DevExpress.XtraCharts.Series series5 = new DevExpress.XtraCharts.Series();
-            DevExpress.XtraCharts.SwiftPlotSeriesView swiftPlotSeriesView5 = new DevExpress.XtraCharts.SwiftPlotSeriesView();
-            DevExpress.XtraCharts.Series series6 = new DevExpress.XtraCharts.Series();
-            DevExpress.XtraCharts.SwiftPlotSeriesView swiftPlotSeriesView6 = new DevExpress.XtraCharts.SwiftPlotSeriesView();
-            DataGridViewCellStyle dataGridViewCellStyle2 = new DataGridViewCellStyle();
+            DevExpress.XtraCharts.SwiftPlotDiagram swiftPlotDiagram1 = new DevExpress.XtraCharts.SwiftPlotDiagram();
+            DevExpress.XtraCharts.Series series1 = new DevExpress.XtraCharts.Series();
+            DevExpress.XtraCharts.SwiftPlotSeriesView swiftPlotSeriesView1 = new DevExpress.XtraCharts.SwiftPlotSeriesView();
+            DevExpress.XtraCharts.Series series2 = new DevExpress.XtraCharts.Series();
+            DevExpress.XtraCharts.SwiftPlotSeriesView swiftPlotSeriesView2 = new DevExpress.XtraCharts.SwiftPlotSeriesView();
+            DevExpress.XtraCharts.Series series3 = new DevExpress.XtraCharts.Series();
+            DevExpress.XtraCharts.SwiftPlotSeriesView swiftPlotSeriesView3 = new DevExpress.XtraCharts.SwiftPlotSeriesView();
+            DataGridViewCellStyle dataGridViewCellStyle1 = new DataGridViewCellStyle();
             TablePanel_Control = new DevExpress.Utils.Layout.TablePanel();
+            Combox_CurrentLim_Select = new ComboBox();
+            textBox3 = new TextBox();
+            textBox2 = new TextBox();
             Combox_Channel = new ComboBox();
             dataGridView2 = new DataGridView();
             Charge_Voltage = new DataGridViewTextBoxColumn();
@@ -71,13 +74,13 @@
             TablePanel_Control.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)dataGridView2).BeginInit();
             ((System.ComponentModel.ISupportInitialize)ChartControl_Watchdog).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)swiftPlotDiagram2).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)series4).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)swiftPlotSeriesView4).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)series5).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)swiftPlotSeriesView5).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)series6).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)swiftPlotSeriesView6).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)swiftPlotDiagram1).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)series1).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)swiftPlotSeriesView1).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)series2).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)swiftPlotSeriesView2).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)series3).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)swiftPlotSeriesView3).BeginInit();
             Chart_Panel.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)TabPanel_Chart_Control).BeginInit();
             TabPanel_Chart_Control.SuspendLayout();
@@ -88,6 +91,9 @@
             // TablePanel_Control
             // 
             TablePanel_Control.Columns.AddRange(new DevExpress.Utils.Layout.TablePanelColumn[] { new DevExpress.Utils.Layout.TablePanelColumn(DevExpress.Utils.Layout.TablePanelEntityStyle.Relative, 39.64F), new DevExpress.Utils.Layout.TablePanelColumn(DevExpress.Utils.Layout.TablePanelEntityStyle.Relative, 37.68F), new DevExpress.Utils.Layout.TablePanelColumn(DevExpress.Utils.Layout.TablePanelEntityStyle.Relative, 32.68F) });
+            TablePanel_Control.Controls.Add(Combox_CurrentLim_Select);
+            TablePanel_Control.Controls.Add(textBox3);
+            TablePanel_Control.Controls.Add(textBox2);
             TablePanel_Control.Controls.Add(Combox_Channel);
             TablePanel_Control.Controls.Add(dataGridView2);
             TablePanel_Control.Controls.Add(Btn_Save);
@@ -107,6 +113,38 @@
             TablePanel_Control.Size = new Size(284, 548);
             TablePanel_Control.TabIndex = 0;
             TablePanel_Control.UseSkinIndents = true;
+            // 
+            // Combox_CurrentLim_Select
+            // 
+            TablePanel_Control.SetColumn(Combox_CurrentLim_Select, 2);
+            Combox_CurrentLim_Select.FormattingEnabled = true;
+            Combox_CurrentLim_Select.Items.AddRange(new object[] { "1.0", "1.5", "2.0", "2.25", "3.0" });
+            Combox_CurrentLim_Select.Location = new Point(197, 107);
+            Combox_CurrentLim_Select.Name = "Combox_CurrentLim_Select";
+            TablePanel_Control.SetRow(Combox_CurrentLim_Select, 2);
+            Combox_CurrentLim_Select.Size = new Size(74, 22);
+            Combox_CurrentLim_Select.TabIndex = 15;
+            Combox_CurrentLim_Select.Text = "2.0";
+            // 
+            // textBox3
+            // 
+            TablePanel_Control.SetColumn(textBox3, 1);
+            textBox3.Location = new Point(107, 109);
+            textBox3.Name = "textBox3";
+            TablePanel_Control.SetRow(textBox3, 2);
+            textBox3.Size = new Size(86, 22);
+            textBox3.TabIndex = 14;
+            textBox3.Text = "电流限制 / V";
+            // 
+            // textBox2
+            // 
+            TablePanel_Control.SetColumn(textBox2, 1);
+            textBox2.Location = new Point(107, 65);
+            textBox2.Name = "textBox2";
+            TablePanel_Control.SetRow(textBox2, 1);
+            textBox2.Size = new Size(86, 22);
+            textBox2.TabIndex = 13;
+            textBox2.Text = "电压选择 / V";
             // 
             // Combox_Channel
             // 
@@ -171,6 +209,7 @@
             Btn_Save.TabIndex = 9;
             Btn_Save.Text = "保存";
             Btn_Save.UseVisualStyleBackColor = true;
+            Btn_Save.Click += Btn_Save_Click;
             // 
             // Btn_Stop
             // 
@@ -222,14 +261,14 @@
             // 
             // ComboBox_Voltage_Select
             // 
-            TablePanel_Control.SetColumn(ComboBox_Voltage_Select, 1);
+            TablePanel_Control.SetColumn(ComboBox_Voltage_Select, 2);
             ComboBox_Voltage_Select.FormattingEnabled = true;
             ComboBox_Voltage_Select.Items.AddRange(new object[] { "3.5", "3.7", "3.9", "4.0" });
-            ComboBox_Voltage_Select.Location = new Point(108, 64);
+            ComboBox_Voltage_Select.Location = new Point(198, 64);
             ComboBox_Voltage_Select.Margin = new Padding(3, 2, 3, 2);
             ComboBox_Voltage_Select.Name = "ComboBox_Voltage_Select";
             TablePanel_Control.SetRow(ComboBox_Voltage_Select, 1);
-            ComboBox_Voltage_Select.Size = new Size(84, 22);
+            ComboBox_Voltage_Select.Size = new Size(72, 22);
             ComboBox_Voltage_Select.TabIndex = 4;
             ComboBox_Voltage_Select.Text = "3.7";
             // 
@@ -279,27 +318,27 @@
             // ChartControl_Watchdog
             // 
             ChartControl_Watchdog.Anchor = AnchorStyles.Top | AnchorStyles.Bottom | AnchorStyles.Left | AnchorStyles.Right;
-            swiftPlotDiagram2.AxisX.VisibleInPanesSerializable = "-1";
-            swiftPlotDiagram2.AxisY.VisibleInPanesSerializable = "-1";
-            swiftPlotDiagram2.EnableAxisXScrolling = true;
-            swiftPlotDiagram2.EnableAxisXZooming = true;
-            swiftPlotDiagram2.EnableAxisYScrolling = true;
-            swiftPlotDiagram2.EnableAxisYZooming = true;
-            ChartControl_Watchdog.Diagram = swiftPlotDiagram2;
+            swiftPlotDiagram1.AxisX.VisibleInPanesSerializable = "-1";
+            swiftPlotDiagram1.AxisY.VisibleInPanesSerializable = "-1";
+            swiftPlotDiagram1.EnableAxisXScrolling = true;
+            swiftPlotDiagram1.EnableAxisXZooming = true;
+            swiftPlotDiagram1.EnableAxisYScrolling = true;
+            swiftPlotDiagram1.EnableAxisYZooming = true;
+            ChartControl_Watchdog.Diagram = swiftPlotDiagram1;
             ChartControl_Watchdog.Legend.LegendID = -1;
             ChartControl_Watchdog.Location = new Point(0, 0);
             ChartControl_Watchdog.Margin = new Padding(3, 2, 3, 2);
             ChartControl_Watchdog.Name = "ChartControl_Watchdog";
-            series4.Name = "Power";
-            series4.SeriesID = 1;
-            series4.View = swiftPlotSeriesView4;
-            series5.Name = "Voltage";
-            series5.SeriesID = 2;
-            series5.View = swiftPlotSeriesView5;
-            series6.Name = "Current";
-            series6.SeriesID = 3;
-            series6.View = swiftPlotSeriesView6;
-            ChartControl_Watchdog.SeriesSerializable = new DevExpress.XtraCharts.Series[] { series4, series5, series6 };
+            series1.Name = "Power";
+            series1.SeriesID = 1;
+            series1.View = swiftPlotSeriesView1;
+            series2.Name = "Voltage";
+            series2.SeriesID = 2;
+            series2.View = swiftPlotSeriesView2;
+            series3.Name = "Current";
+            series3.SeriesID = 3;
+            series3.View = swiftPlotSeriesView3;
+            ChartControl_Watchdog.SeriesSerializable = new DevExpress.XtraCharts.Series[] { series1, series2, series3 };
             ChartControl_Watchdog.Size = new Size(788, 370);
             ChartControl_Watchdog.TabIndex = 2;
             // 
@@ -369,14 +408,14 @@
             DataGridView_WhatchDog.ReadOnly = true;
             TabPanel_Chart_Control.SetRow(DataGridView_WhatchDog, 0);
             DataGridView_WhatchDog.RowHeadersBorderStyle = DataGridViewHeaderBorderStyle.Sunken;
-            dataGridViewCellStyle2.Alignment = DataGridViewContentAlignment.MiddleLeft;
-            dataGridViewCellStyle2.BackColor = SystemColors.Control;
-            dataGridViewCellStyle2.Font = new Font("Tahoma", 9F, FontStyle.Regular, GraphicsUnit.Point);
-            dataGridViewCellStyle2.ForeColor = SystemColors.WindowText;
-            dataGridViewCellStyle2.SelectionBackColor = SystemColors.Highlight;
-            dataGridViewCellStyle2.SelectionForeColor = SystemColors.HighlightText;
-            dataGridViewCellStyle2.WrapMode = DataGridViewTriState.True;
-            DataGridView_WhatchDog.RowHeadersDefaultCellStyle = dataGridViewCellStyle2;
+            dataGridViewCellStyle1.Alignment = DataGridViewContentAlignment.MiddleLeft;
+            dataGridViewCellStyle1.BackColor = SystemColors.Control;
+            dataGridViewCellStyle1.Font = new Font("Tahoma", 9F, FontStyle.Regular, GraphicsUnit.Point);
+            dataGridViewCellStyle1.ForeColor = SystemColors.WindowText;
+            dataGridViewCellStyle1.SelectionBackColor = SystemColors.Highlight;
+            dataGridViewCellStyle1.SelectionForeColor = SystemColors.HighlightText;
+            dataGridViewCellStyle1.WrapMode = DataGridViewTriState.True;
+            DataGridView_WhatchDog.RowHeadersDefaultCellStyle = dataGridViewCellStyle1;
             DataGridView_WhatchDog.RowHeadersWidth = 100;
             TabPanel_Chart_Control.SetRowSpan(DataGridView_WhatchDog, 4);
             DataGridView_WhatchDog.RowTemplate.Height = 29;
@@ -517,13 +556,13 @@
             TablePanel_Control.ResumeLayout(false);
             TablePanel_Control.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)dataGridView2).EndInit();
-            ((System.ComponentModel.ISupportInitialize)swiftPlotDiagram2).EndInit();
-            ((System.ComponentModel.ISupportInitialize)swiftPlotSeriesView4).EndInit();
-            ((System.ComponentModel.ISupportInitialize)series4).EndInit();
-            ((System.ComponentModel.ISupportInitialize)swiftPlotSeriesView5).EndInit();
-            ((System.ComponentModel.ISupportInitialize)series5).EndInit();
-            ((System.ComponentModel.ISupportInitialize)swiftPlotSeriesView6).EndInit();
-            ((System.ComponentModel.ISupportInitialize)series6).EndInit();
+            ((System.ComponentModel.ISupportInitialize)swiftPlotDiagram1).EndInit();
+            ((System.ComponentModel.ISupportInitialize)swiftPlotSeriesView1).EndInit();
+            ((System.ComponentModel.ISupportInitialize)series1).EndInit();
+            ((System.ComponentModel.ISupportInitialize)swiftPlotSeriesView2).EndInit();
+            ((System.ComponentModel.ISupportInitialize)series2).EndInit();
+            ((System.ComponentModel.ISupportInitialize)swiftPlotSeriesView3).EndInit();
+            ((System.ComponentModel.ISupportInitialize)series3).EndInit();
             ((System.ComponentModel.ISupportInitialize)ChartControl_Watchdog).EndInit();
             Chart_Panel.ResumeLayout(false);
             ((System.ComponentModel.ISupportInitialize)TabPanel_Chart_Control).EndInit();
@@ -570,5 +609,8 @@
         private DataGridViewTextBoxColumn Max_Value;
         private DataGridViewTextBoxColumn Current_Value;
         private DataGridViewTextBoxColumn Ave_Value;
+        private TextBox textBox3;
+        private TextBox textBox2;
+        private ComboBox Combox_CurrentLim_Select;
     }
 }

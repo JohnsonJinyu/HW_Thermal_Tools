@@ -67,14 +67,14 @@ namespace HW_Thermal_Tools.Forms.keithley2306
             // 置相关属性
             Session.TimeoutMilliseconds = 3000;  //设置响应超时时间
             // 设置终止字符(Terminator)
-            //Session.TerminationCharacter = (byte)'\n';
+            Session.TerminationCharacter = (byte)'\n';
 
-            //Session.TerminationCharacterEnabled = true;
+            Session.TerminationCharacterEnabled = true;
 
 
         }
 
-           public void DisposeSession()
+        public void DisposeSession()
         {
             if(Session != null)
             {
@@ -103,6 +103,24 @@ namespace HW_Thermal_Tools.Forms.keithley2306
         {
             Session.RawIO.Write($"VOLT {voltage}"); // 设置电压值
         }
+
+        public void SetVoltage_Lim(string voltage)
+        {
+            Session.RawIO.Write($"VOLT {voltage}"); // 设置电压值(限制)
+        }
+
+
+        public void SetCurrent(string current)
+        {
+            Session.RawIO.Write($"CURR {current}"); // 设置电流值
+        }
+
+        public void SetCurrent_Lim(string currentLim)
+        {
+            Session.RawIO.Write($"CURR:LIM {currentLim}"); // 设置电流值（限制）
+        }
+
+
 
         public void OutPut_On()
         {
@@ -133,16 +151,15 @@ namespace HW_Thermal_Tools.Forms.keithley2306
             // 计算功率 
             data.Power = data.Current * data.Voltage;
 
-            
-
 
 
             // 保存到队列历史记录
             data.CurrentHistory.Add(new DataPoint(DateTime.Now, data.Current));
             data.VoltageHistory.Add(new DataPoint(DateTime.Now, data.Voltage));
             data.PowerHistory.Add(new DataPoint(DateTime.Now, data.Power));
+            data.OriDataHistory.Add(new ExcelDataPoint(DateTime.Now, data.Current, data.Voltage, data.Power));
 
-            // 只保留最近4800条记录
+            /*// 只保留最近4800条记录
             if (data.CurrentHistory.Count > 4800)
             {
                 data.CurrentHistory.RemoveAt(0);
@@ -154,7 +171,7 @@ namespace HW_Thermal_Tools.Forms.keithley2306
             if (data.PowerHistory.Count > 4800)
             {
                 data.PowerHistory.RemoveAt(0);
-            }
+            }*/
 
         }
 
