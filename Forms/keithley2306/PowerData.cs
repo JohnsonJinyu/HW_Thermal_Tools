@@ -20,12 +20,15 @@
         public float PowerAve { get; set; }
 
 
-        public Queue<float> CurrentHistory { get; set; } = new Queue<float>();
-        public Queue<float> VoltageHistory { get; set; } = new Queue<float>();
-        public Queue<float> PowerHistory { get; set; } = new Queue<float>();
+        public List<float> CurrentHistory { get; set; } = new List<float>();
+        public List<float> VoltageHistory { get; set; } = new List<float>();
+        public List<float> PowerHistory { get; set; } = new List<float>();
 
-       
+
 
 
     }
+
+
+    
 }

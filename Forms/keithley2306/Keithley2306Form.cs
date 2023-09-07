@@ -1,4 +1,7 @@
-﻿using HW_Thermal_Tools.Forms.keithley2306;
+﻿using DevExpress.XtraSpreadsheet.Model;
+using HW_Thermal_Tools.Forms.keithley2306;
+using DevExpress.XtraCharts.Native;
+using System.Collections.Generic;
 
 
 namespace HW_Thermal_Tools.Forms
@@ -52,6 +55,7 @@ namespace HW_Thermal_Tools.Forms
         private void keithley2306_Load(object sender, EventArgs e)
         {
             InitialGrid_WatchDog();
+            InitialChart();
             //启动后台线程检测设备变化
             StartDetection();
 
@@ -119,6 +123,13 @@ namespace HW_Thermal_Tools.Forms
             DataGridView_WhatchDog.Rows[0].HeaderCell.Value = "Current";
             DataGridView_WhatchDog.Rows[1].HeaderCell.Value = "Voltage";
             DataGridView_WhatchDog.Rows[2].HeaderCell.Value = "Power";
+        }
+        //定义一个方法,初始化数据曲线图
+        public void InitialChart()
+        {
+            ChartControl_Watchdog.Series["Current"].DataSource = this.NiVisa.data.CurrentHistory;
+            ChartControl_Watchdog.Series["Voltage"].DataSource = this.NiVisa.data.VoltageHistory;
+            ChartControl_Watchdog.Series["Power"].DataSource = this.NiVisa.data.PowerHistory;
         }
 
 
@@ -217,7 +228,7 @@ namespace HW_Thermal_Tools.Forms
                 Invoke(new Action(() =>
                 {
                     updateGridView();
-                    updateChart();
+                    ChartControl_Watchdog.RefreshData();
 
                 }));
 
@@ -231,6 +242,8 @@ namespace HW_Thermal_Tools.Forms
                 }
             }
         }
+
+
 
         //定义一个更新表格的方法
 
@@ -255,15 +268,16 @@ namespace HW_Thermal_Tools.Forms
             DataGridView_WhatchDog.Rows[2].Cells[AverageValueCol].Value = this.NiVisa.data.PowerAve;
         }
 
+
+
         public void updateChart()
         {
-            //
-            ChartControl_Watchdog.Series["Current"].DataSource = this.NiVisa.data.CurrentHistory;
-            ChartControl_Watchdog.Series["Voltage"].DataSource = this.NiVisa.data.VoltageHistory;
-            ChartControl_Watchdog.Series["Current"].DataSource = this.NiVisa.data.PowerHistory;
+            
+
 
             //调用Chart的RefreshData()方法刷新数据显示
-            ChartControl_Watchdog.RefreshData();
+            //ChartControl_Watchdog.RefreshData();
+            ChartControl_Watchdog.Refresh();
         }
 
         private void Btn_Start_Click(object sender, EventArgs e)

@@ -133,27 +133,32 @@ namespace HW_Thermal_Tools.Forms.keithley2306
             // 计算功率 
             data.Power = data.Current * data.Voltage;
 
+            
+
+
 
             // 保存到队列历史记录
-            data.CurrentHistory.Enqueue(data.Current);
-            data.VoltageHistory.Enqueue(data.Voltage);
-            data.PowerHistory.Enqueue(data.Power);
+            data.CurrentHistory.Add(data.Current);
+            data.VoltageHistory.Add(data.Voltage);
+            data.PowerHistory.Add(data.Power);
 
-            // 只保留最近100条记录
+            // 只保留最近4800条记录
             if (data.CurrentHistory.Count > 4800)
             {
-                data.CurrentHistory.Dequeue();
+                data.CurrentHistory.RemoveAt(0);
             }
             if (data.VoltageHistory.Count > 4800)
             {
-                data.VoltageHistory.Dequeue();
+                data.VoltageHistory.RemoveAt(0);
             }
             if (data.PowerHistory.Count > 4800)
             {
-                data.PowerHistory.Dequeue();
+                data.PowerHistory.RemoveAt(0);
             }
 
         }
+
+
 
         public void CalculatedReaData()
         {
