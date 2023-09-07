@@ -61,6 +61,7 @@ namespace HW_Thermal_Tools.Forms
         {
             InitialGrid_WatchDog();
             InitialChart();
+            Initial_ReadFreq();
             //启动后台线程检测设备变化
             StartDetection();
 
@@ -100,6 +101,49 @@ namespace HW_Thermal_Tools.Forms
 
         }
 
+
+
+        private void Btn_Start_Click(object sender, EventArgs e)
+        {
+            //如果已有数据 需要清空
+            if (this.NiVisa.data.OriDataHistory.Count > 0)
+            {
+                this.NiVisa.data.OriDataHistory.Clear();
+                this.NiVisa.data.CurrentHistory.Clear();
+                this.NiVisa.data.VoltageHistory.Clear();
+                this.NiVisa.data.PowerHistory.Clear();
+            }
+
+            StartReadData();
+            //禁用按钮，避免误触
+            Btn_Start.Enabled = false;
+            Btn_Stop.Enabled = true;
+            Btn_Power_Off.Enabled = false;
+            Btn_Save.Enabled = false;
+            Combox_Channel.Enabled = false;
+            Combox_CurrentLim_Select.Enabled = false;
+            ComboBox_Voltage_Select.Enabled = false;
+            ComboBox_DataFrequence.Enabled = false;
+
+
+        }
+
+        private void Btn_Stop_Click(object sender, EventArgs e)
+        {
+
+            StopReadData();
+
+            Btn_Start.Enabled = true;
+            Btn_Stop.Enabled = false;
+            Btn_Power_Off.Enabled = true;
+            Btn_Save.Enabled = true;
+            Combox_Channel.Enabled = true;
+            Combox_CurrentLim_Select.Enabled = true;
+            ComboBox_Voltage_Select.Enabled = true;
+            ComboBox_DataFrequence.Enabled = true;
+        }
+
+
         private void Btn_Save_Click(object sender, EventArgs e)
         {
             if (this.NiVisa.data.CurrentHistory.Count > 0)
@@ -111,19 +155,6 @@ namespace HW_Thermal_Tools.Forms
                 MessageBox.Show("当前暂无数据可以保存！");
             }
         }
-
-        private void Btn_Start_Click(object sender, EventArgs e)
-        {
-            StartReadData();
-        }
-
-        private void Btn_Stop_Click(object sender, EventArgs e)
-        {
-            StopReadData();
-        }
-
-
-
 
 
         private void Keithley2306Form_FormClosed(object sender, FormClosedEventArgs e)
@@ -147,34 +178,32 @@ namespace HW_Thermal_Tools.Forms
         public void InitialGrid_WatchDog()
         {
             DataGridView_WhatchDog.Rows.Add(2);
-
-
             //将dataGridView 的RowHeader设定
-            DataGridView_WhatchDog.Rows[0].HeaderCell.Value = "Current";
-            DataGridView_WhatchDog.Rows[1].HeaderCell.Value = "Voltage";
-            DataGridView_WhatchDog.Rows[2].HeaderCell.Value = "Power";
+            DataGridView_WhatchDog.Rows[0].HeaderCell.Value = "Current(mA)";
+            DataGridView_WhatchDog.Rows[1].HeaderCell.Value = "Voltage(mV)";
+            DataGridView_WhatchDog.Rows[2].HeaderCell.Value = "Power(mW)";
         }
         //定义一个方法,初始化数据曲线图
         public void InitialChart()
         {
 
             // 设置Current Series的属性
-            ChartControl_Watchdog.Series["Current"].DataSource = this.NiVisa.data.CurrentHistory;
+            ChartControl_Watchdog.Series["Current(mA)"].DataSource = this.NiVisa.data.CurrentHistory;
             //ChartControl_Watchdog.Series["Current"].SeriesDataMember = "Current"; // 指定Series的名称
-            ChartControl_Watchdog.Series["Current"].ArgumentDataMember = "Time"; // 指定Series的横轴数据
-            ChartControl_Watchdog.Series["Current"].ValueDataMembers.AddRange(new string[] { "Value" }); // 指定Series的纵轴数据
+            ChartControl_Watchdog.Series["Current(mA)"].ArgumentDataMember = "Time"; // 指定Series的横轴数据
+            ChartControl_Watchdog.Series["Current(mA)"].ValueDataMembers.AddRange(new string[] { "Value" }); // 指定Series的纵轴数据
 
             // 设置Voltage Series的属性
-            ChartControl_Watchdog.Series["Voltage"].DataSource = this.NiVisa.data.VoltageHistory;
+            ChartControl_Watchdog.Series["Voltage(mV)"].DataSource = this.NiVisa.data.VoltageHistory;
             //ChartControl_Watchdog.Series["Voltage"].SeriesDataMember = "Voltage"; // 指定Series的名称
-            ChartControl_Watchdog.Series["Voltage"].ArgumentDataMember = "Time"; // 指定Series的横轴数据
-            ChartControl_Watchdog.Series["Voltage"].ValueDataMembers.AddRange(new string[] { "Value" }); // 指定Series的纵轴数据
+            ChartControl_Watchdog.Series["Voltage(mV)"].ArgumentDataMember = "Time"; // 指定Series的横轴数据
+            ChartControl_Watchdog.Series["Voltage(mV)"].ValueDataMembers.AddRange(new string[] { "Value" }); // 指定Series的纵轴数据
 
             // 设置Power Series的属性
-            ChartControl_Watchdog.Series["Power"].DataSource = this.NiVisa.data.PowerHistory;
+            ChartControl_Watchdog.Series["Power(mW)"].DataSource = this.NiVisa.data.PowerHistory;
             //ChartControl_Watchdog.Series["Power"].SeriesDataMember = "Power"; // 指定Series的名称
-            ChartControl_Watchdog.Series["Power"].ArgumentDataMember = "Time"; // 指定Series的横轴数据
-            ChartControl_Watchdog.Series["Power"].ValueDataMembers.AddRange(new string[] { "Value" }); // 指定Series的纵轴数据
+            ChartControl_Watchdog.Series["Power(mW)"].ArgumentDataMember = "Time"; // 指定Series的横轴数据
+            ChartControl_Watchdog.Series["Power(mW)"].ValueDataMembers.AddRange(new string[] { "Value" }); // 指定Series的纵轴数据
 
         }
 
@@ -188,19 +217,19 @@ namespace HW_Thermal_Tools.Forms
                     ReadFrequence = 250;
                     break;
                 case "500 ms / 次":
-                    ReadFrequence = 250;
+                    ReadFrequence = 500;
                     break;
                 case "1 S / 次":
-                    ReadFrequence = 250;
+                    ReadFrequence = 1000;
                     break;
                 case "2 S / 次":
-                    ReadFrequence = 250;
+                    ReadFrequence = 2000;
                     break;
                 case "5 S / 次":
-                    ReadFrequence = 250;
+                    ReadFrequence = 5000;
                     break;
                 case "10 S / 次":
-                    ReadFrequence = 250;
+                    ReadFrequence = 10000;
                     break;
 
             }
@@ -346,7 +375,7 @@ namespace HW_Thermal_Tools.Forms
 
 
 
-        
+
 
 
 
@@ -356,17 +385,17 @@ namespace HW_Thermal_Tools.Forms
          */
         private void CheckBox_CurrentLineDisplay_CheckedChanged(object sender, EventArgs e)
         {
-            ChartControl_Watchdog.Series["Current"].Visible = CheckBox_CurrentLineDisplay.Checked;
+            ChartControl_Watchdog.Series["Current(mA)"].Visible = CheckBox_CurrentLineDisplay.Checked;
         }
 
         private void CheckBox_VoltageLineDisplay_CheckedChanged(object sender, EventArgs e)
         {
-            ChartControl_Watchdog.Series["Voltage"].Visible = CheckBox_VoltageLineDisplay.Checked;
+            ChartControl_Watchdog.Series["Voltage(mV)"].Visible = CheckBox_VoltageLineDisplay.Checked;
         }
 
         private void CheckBox_PowerLineDisplay_CheckedChanged(object sender, EventArgs e)
         {
-            ChartControl_Watchdog.Series["Power"].Visible = CheckBox_PowerLineDisplay.Checked;
+            ChartControl_Watchdog.Series["Power(mW)"].Visible = CheckBox_PowerLineDisplay.Checked;
         }
 
 
@@ -396,9 +425,9 @@ namespace HW_Thermal_Tools.Forms
                 MessageBox.Show("保存成功！");
 
             }
-          
+
         }
-      
+
     }
 
 }

@@ -47,7 +47,6 @@
             Charge_Time = new DataGridViewTextBoxColumn();
             Btn_Save = new Button();
             Btn_Stop = new Button();
-            Btn_Pause = new Button();
             Btn_Start = new Button();
             RadioButton_ChargeTest = new RadioButton();
             ComboBox_Voltage_Select = new ComboBox();
@@ -98,7 +97,6 @@
             TablePanel_Control.Controls.Add(dataGridView2);
             TablePanel_Control.Controls.Add(Btn_Save);
             TablePanel_Control.Controls.Add(Btn_Stop);
-            TablePanel_Control.Controls.Add(Btn_Pause);
             TablePanel_Control.Controls.Add(Btn_Start);
             TablePanel_Control.Controls.Add(RadioButton_ChargeTest);
             TablePanel_Control.Controls.Add(ComboBox_Voltage_Select);
@@ -223,17 +221,6 @@
             Btn_Stop.UseVisualStyleBackColor = true;
             Btn_Stop.Click += Btn_Stop_Click;
             // 
-            // Btn_Pause
-            // 
-            Btn_Pause.Dock = DockStyle.Fill;
-            Btn_Pause.Location = new Point(108, 426);
-            Btn_Pause.Margin = new Padding(3, 2, 3, 2);
-            Btn_Pause.Name = "Btn_Pause";
-            Btn_Pause.Size = new Size(87, 32);
-            Btn_Pause.TabIndex = 7;
-            Btn_Pause.Text = "暂停 / 继续";
-            Btn_Pause.UseVisualStyleBackColor = true;
-            // 
             // Btn_Start
             // 
             Btn_Start.Dock = DockStyle.Fill;
@@ -329,14 +316,17 @@
             ChartControl_Watchdog.Location = new Point(0, 0);
             ChartControl_Watchdog.Margin = new Padding(3, 2, 3, 2);
             ChartControl_Watchdog.Name = "ChartControl_Watchdog";
-            series1.Name = "Power";
+            series1.Name = "Power(mW)";
             series1.SeriesID = 1;
+            swiftPlotSeriesView1.Color = Color.Lime;
             series1.View = swiftPlotSeriesView1;
-            series2.Name = "Voltage";
+            series2.Name = "Voltage(mV)";
             series2.SeriesID = 2;
+            swiftPlotSeriesView2.Color = Color.Blue;
             series2.View = swiftPlotSeriesView2;
-            series3.Name = "Current";
+            series3.Name = "Current(mA)";
             series3.SeriesID = 3;
+            swiftPlotSeriesView3.Color = Color.Red;
             series3.View = swiftPlotSeriesView3;
             ChartControl_Watchdog.SeriesSerializable = new DevExpress.XtraCharts.Series[] { series1, series2, series3 };
             ChartControl_Watchdog.Size = new Size(788, 370);
@@ -354,7 +344,7 @@
             // 
             // TabPanel_Chart_Control
             // 
-            TabPanel_Chart_Control.Columns.AddRange(new DevExpress.Utils.Layout.TablePanelColumn[] { new DevExpress.Utils.Layout.TablePanelColumn(DevExpress.Utils.Layout.TablePanelEntityStyle.Absolute, 429F), new DevExpress.Utils.Layout.TablePanelColumn(DevExpress.Utils.Layout.TablePanelEntityStyle.Relative, 12.1F), new DevExpress.Utils.Layout.TablePanelColumn(DevExpress.Utils.Layout.TablePanelEntityStyle.Absolute, 103F), new DevExpress.Utils.Layout.TablePanelColumn(DevExpress.Utils.Layout.TablePanelEntityStyle.Absolute, 100F), new DevExpress.Utils.Layout.TablePanelColumn(DevExpress.Utils.Layout.TablePanelEntityStyle.Relative, 20.4F), new DevExpress.Utils.Layout.TablePanelColumn(DevExpress.Utils.Layout.TablePanelEntityStyle.Relative, 17.2F), new DevExpress.Utils.Layout.TablePanelColumn(DevExpress.Utils.Layout.TablePanelEntityStyle.Relative, 21.2F) });
+            TabPanel_Chart_Control.Columns.AddRange(new DevExpress.Utils.Layout.TablePanelColumn[] { new DevExpress.Utils.Layout.TablePanelColumn(DevExpress.Utils.Layout.TablePanelEntityStyle.Absolute, 450F), new DevExpress.Utils.Layout.TablePanelColumn(DevExpress.Utils.Layout.TablePanelEntityStyle.Relative, 12.1F), new DevExpress.Utils.Layout.TablePanelColumn(DevExpress.Utils.Layout.TablePanelEntityStyle.Absolute, 86F), new DevExpress.Utils.Layout.TablePanelColumn(DevExpress.Utils.Layout.TablePanelEntityStyle.Absolute, 79F), new DevExpress.Utils.Layout.TablePanelColumn(DevExpress.Utils.Layout.TablePanelEntityStyle.Relative, 25.54F), new DevExpress.Utils.Layout.TablePanelColumn(DevExpress.Utils.Layout.TablePanelEntityStyle.Relative, 12.06F) });
             TabPanel_Chart_Control.Controls.Add(TextBox_Title_Display_Select);
             TabPanel_Chart_Control.Controls.Add(TextBox_Title_Freq);
             TabPanel_Chart_Control.Controls.Add(DataGridView_WhatchDog);
@@ -366,7 +356,7 @@
             TabPanel_Chart_Control.Location = new Point(0, 388);
             TabPanel_Chart_Control.Margin = new Padding(3, 2, 3, 2);
             TabPanel_Chart_Control.Name = "TabPanel_Chart_Control";
-            TabPanel_Chart_Control.Rows.AddRange(new DevExpress.Utils.Layout.TablePanelRow[] { new DevExpress.Utils.Layout.TablePanelRow(DevExpress.Utils.Layout.TablePanelEntityStyle.Absolute, 34.7999763F), new DevExpress.Utils.Layout.TablePanelRow(DevExpress.Utils.Layout.TablePanelEntityStyle.Absolute, 26.9999962F), new DevExpress.Utils.Layout.TablePanelRow(DevExpress.Utils.Layout.TablePanelEntityStyle.Absolute, 27.0000381F), new DevExpress.Utils.Layout.TablePanelRow(DevExpress.Utils.Layout.TablePanelEntityStyle.Absolute, 56.3999939F) });
+            TabPanel_Chart_Control.Rows.AddRange(new DevExpress.Utils.Layout.TablePanelRow[] { new DevExpress.Utils.Layout.TablePanelRow(DevExpress.Utils.Layout.TablePanelEntityStyle.Absolute, 35.7999763F), new DevExpress.Utils.Layout.TablePanelRow(DevExpress.Utils.Layout.TablePanelEntityStyle.Absolute, 25.9999962F), new DevExpress.Utils.Layout.TablePanelRow(DevExpress.Utils.Layout.TablePanelEntityStyle.Absolute, 27.0000381F), new DevExpress.Utils.Layout.TablePanelRow(DevExpress.Utils.Layout.TablePanelEntityStyle.Absolute, 56.3999939F) });
             TabPanel_Chart_Control.Size = new Size(794, 136);
             TabPanel_Chart_Control.TabIndex = 5;
             TabPanel_Chart_Control.UseSkinIndents = true;
@@ -376,22 +366,22 @@
             TextBox_Title_Display_Select.Anchor = AnchorStyles.Top | AnchorStyles.Bottom | AnchorStyles.Left | AnchorStyles.Right;
             TabPanel_Chart_Control.SetColumn(TextBox_Title_Display_Select, 2);
             TextBox_Title_Display_Select.Font = new Font("Tahoma", 9F, FontStyle.Bold, GraphicsUnit.Point);
-            TextBox_Title_Display_Select.Location = new Point(467, 16);
+            TextBox_Title_Display_Select.Location = new Point(502, 17);
             TextBox_Title_Display_Select.Margin = new Padding(3, 2, 3, 2);
             TextBox_Title_Display_Select.Name = "TextBox_Title_Display_Select";
             TabPanel_Chart_Control.SetRow(TextBox_Title_Display_Select, 0);
-            TextBox_Title_Display_Select.Size = new Size(97, 22);
+            TextBox_Title_Display_Select.Size = new Size(80, 22);
             TextBox_Title_Display_Select.TabIndex = 6;
             TextBox_Title_Display_Select.Text = "显示选项";
             // 
             // TextBox_Title_Freq
             // 
             TabPanel_Chart_Control.SetColumn(TextBox_Title_Freq, 3);
-            TextBox_Title_Freq.Location = new Point(570, 16);
+            TextBox_Title_Freq.Location = new Point(588, 17);
             TextBox_Title_Freq.Margin = new Padding(3, 2, 3, 2);
             TextBox_Title_Freq.Name = "TextBox_Title_Freq";
             TabPanel_Chart_Control.SetRow(TextBox_Title_Freq, 0);
-            TextBox_Title_Freq.Size = new Size(94, 22);
+            TextBox_Title_Freq.Size = new Size(73, 22);
             TextBox_Title_Freq.TabIndex = 5;
             TextBox_Title_Freq.Text = "采样频率";
             // 
@@ -416,10 +406,10 @@
             dataGridViewCellStyle1.SelectionForeColor = SystemColors.HighlightText;
             dataGridViewCellStyle1.WrapMode = DataGridViewTriState.True;
             DataGridView_WhatchDog.RowHeadersDefaultCellStyle = dataGridViewCellStyle1;
-            DataGridView_WhatchDog.RowHeadersWidth = 100;
+            DataGridView_WhatchDog.RowHeadersWidth = 120;
             TabPanel_Chart_Control.SetRowSpan(DataGridView_WhatchDog, 4);
             DataGridView_WhatchDog.RowTemplate.Height = 29;
-            DataGridView_WhatchDog.Size = new Size(423, 111);
+            DataGridView_WhatchDog.Size = new Size(444, 111);
             DataGridView_WhatchDog.TabIndex = 4;
             // 
             // Min_Value
@@ -463,11 +453,11 @@
             TabPanel_Chart_Control.SetColumn(ComboBox_DataFrequence, 3);
             ComboBox_DataFrequence.FormattingEnabled = true;
             ComboBox_DataFrequence.Items.AddRange(new object[] { "250 ms / 次", "500 ms / 次", "1 S / 次", "2 S / 次", "5 S / 次", "10 S / 次" });
-            ComboBox_DataFrequence.Location = new Point(570, 47);
+            ComboBox_DataFrequence.Location = new Point(588, 48);
             ComboBox_DataFrequence.Margin = new Padding(3, 2, 3, 2);
             ComboBox_DataFrequence.Name = "ComboBox_DataFrequence";
             TabPanel_Chart_Control.SetRow(ComboBox_DataFrequence, 1);
-            ComboBox_DataFrequence.Size = new Size(94, 22);
+            ComboBox_DataFrequence.Size = new Size(73, 22);
             ComboBox_DataFrequence.TabIndex = 3;
             ComboBox_DataFrequence.Text = "1 S / 次";
             // 
@@ -477,7 +467,7 @@
             CheckBox_PowerLineDisplay.Checked = true;
             CheckBox_PowerLineDisplay.CheckState = CheckState.Checked;
             TabPanel_Chart_Control.SetColumn(CheckBox_PowerLineDisplay, 2);
-            CheckBox_PowerLineDisplay.Location = new Point(467, 103);
+            CheckBox_PowerLineDisplay.Location = new Point(502, 103);
             CheckBox_PowerLineDisplay.Margin = new Padding(3, 2, 3, 2);
             CheckBox_PowerLineDisplay.Name = "CheckBox_PowerLineDisplay";
             TabPanel_Chart_Control.SetRow(CheckBox_PowerLineDisplay, 3);
@@ -493,7 +483,7 @@
             CheckBox_VoltageLineDisplay.Checked = true;
             CheckBox_VoltageLineDisplay.CheckState = CheckState.Checked;
             TabPanel_Chart_Control.SetColumn(CheckBox_VoltageLineDisplay, 2);
-            CheckBox_VoltageLineDisplay.Location = new Point(467, 76);
+            CheckBox_VoltageLineDisplay.Location = new Point(502, 76);
             CheckBox_VoltageLineDisplay.Margin = new Padding(3, 2, 3, 2);
             CheckBox_VoltageLineDisplay.Name = "CheckBox_VoltageLineDisplay";
             TabPanel_Chart_Control.SetRow(CheckBox_VoltageLineDisplay, 2);
@@ -509,7 +499,7 @@
             CheckBox_CurrentLineDisplay.Checked = true;
             CheckBox_CurrentLineDisplay.CheckState = CheckState.Checked;
             TabPanel_Chart_Control.SetColumn(CheckBox_CurrentLineDisplay, 2);
-            CheckBox_CurrentLineDisplay.Location = new Point(467, 49);
+            CheckBox_CurrentLineDisplay.Location = new Point(502, 50);
             CheckBox_CurrentLineDisplay.Margin = new Padding(3, 2, 3, 2);
             CheckBox_CurrentLineDisplay.Name = "CheckBox_CurrentLineDisplay";
             TabPanel_Chart_Control.SetRow(CheckBox_CurrentLineDisplay, 1);
@@ -588,7 +578,6 @@
         private DevExpress.Utils.Layout.TablePanel TabPanel_Chart_Control;
         private Button Btn_Save;
         private Button Btn_Stop;
-        private Button Btn_Pause;
         private Button Btn_Start;
         private RadioButton RadioButton_ChargeTest;
         private CheckBox CheckBox_CurrentLineDisplay;
@@ -605,12 +594,12 @@
         private ComboBox Combox_Channel;
         private StatusStrip statusStrip1;
         private ToolStripStatusLabel StatusLabel_DeviceStatus;
+        private TextBox textBox3;
+        private TextBox textBox2;
+        private ComboBox Combox_CurrentLim_Select;
         private DataGridViewTextBoxColumn Min_Value;
         private DataGridViewTextBoxColumn Max_Value;
         private DataGridViewTextBoxColumn Current_Value;
         private DataGridViewTextBoxColumn Ave_Value;
-        private TextBox textBox3;
-        private TextBox textBox2;
-        private ComboBox Combox_CurrentLim_Select;
     }
 }
