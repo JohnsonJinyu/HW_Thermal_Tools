@@ -138,9 +138,9 @@ namespace HW_Thermal_Tools.Forms.keithley2306
 
 
             // 保存到队列历史记录
-            data.CurrentHistory.Add(data.Current);
-            data.VoltageHistory.Add(data.Voltage);
-            data.PowerHistory.Add(data.Power);
+            data.CurrentHistory.Add(new DataPoint(DateTime.Now, data.Current));
+            data.VoltageHistory.Add(new DataPoint(DateTime.Now, data.Voltage));
+            data.PowerHistory.Add(new DataPoint(DateTime.Now, data.Power));
 
             // 只保留最近4800条记录
             if (data.CurrentHistory.Count > 4800)
@@ -163,20 +163,21 @@ namespace HW_Thermal_Tools.Forms.keithley2306
         public void CalculatedReaData()
         {
             //Current
-            data.CurrentMin = data.CurrentHistory.Min();
-            data.CurrentMax = data.CurrentHistory.Max();
-            data.CurrentAve = data.CurrentHistory.Average();
+            data.CurrentMin = data.CurrentHistory.Min(p => p.Value); // 使用lambda表达式获取Value字段
+            data.CurrentMax = data.CurrentHistory.Max(p => p.Value); // 使用lambda表达式获取Value字段
+            data.CurrentAve = data.CurrentHistory.Average(p => p.Value); // 使用lambda表达式获取Value字段
 
             //Voltage
-            data.VoltageMin = data.VoltageHistory.Min();
-            data.VoltageMax = data.VoltageHistory.Max();
-            data.VoltageAve = data.VoltageHistory.Average();
+            data.VoltageMin = data.VoltageHistory.Min(p => p.Value); // 使用lambda表达式获取Value字段
+            data.VoltageMax = data.VoltageHistory.Max(p => p.Value); // 使用lambda表达式获取Value字段
+            data.VoltageAve = data.VoltageHistory.Average(p => p.Value); // 使用lambda表达式获取Value字段
 
             //Power
-            data.PowerMin = data.PowerHistory.Min();
-            data.PowerMax = data.PowerHistory.Max();
-            data.PowerAve = data.PowerHistory.Average();
+            data.PowerMin = data.PowerHistory.Min(p => p.Value); // 使用lambda表达式获取Value字段
+            data.PowerMax = data.PowerHistory.Max(p => p.Value); // 使用lambda表达式获取Value字段
+            data.PowerAve = data.PowerHistory.Average(p => p.Value); // 使用lambda表达式获取Value字段
         }
+
 
     }
 }

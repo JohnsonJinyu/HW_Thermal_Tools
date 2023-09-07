@@ -20,15 +20,27 @@
         public float PowerAve { get; set; }
 
 
-        public List<float> CurrentHistory { get; set; } = new List<float>();
-        public List<float> VoltageHistory { get; set; } = new List<float>();
-        public List<float> PowerHistory { get; set; } = new List<float>();
+        public List<DataPoint> CurrentHistory { get; set; } = new List<DataPoint>(); // 电流历史记录列表
+        public List<DataPoint> VoltageHistory { get; set; } = new List<DataPoint>(); // 电压历史记录列表
+        public List<DataPoint> PowerHistory { get; set; } = new List<DataPoint>(); // 功率历史记录列表
+
 
 
 
 
     }
 
+    public class DataPoint
+    {
+        public DateTime Time { get; set; } // 时间字段，用于横轴数据
+        public float Value { get; set; } // 数值字段，用于纵轴数据
 
-    
+        public DataPoint(DateTime time, float value) // 构造函数
+        {
+            Time = time;
+            Value = value;
+        }
+    }
+
+
 }

@@ -127,9 +127,28 @@ namespace HW_Thermal_Tools.Forms
         //定义一个方法,初始化数据曲线图
         public void InitialChart()
         {
+
+
+
+
+            // 设置Current Series的属性
             ChartControl_Watchdog.Series["Current"].DataSource = this.NiVisa.data.CurrentHistory;
+            //ChartControl_Watchdog.Series["Current"].SeriesDataMember = "Current"; // 指定Series的名称
+            ChartControl_Watchdog.Series["Current"].ArgumentDataMember = "Time"; // 指定Series的横轴数据
+            ChartControl_Watchdog.Series["Current"].ValueDataMembers.AddRange(new string[] { "Value" }); // 指定Series的纵轴数据
+
+            // 设置Voltage Series的属性
             ChartControl_Watchdog.Series["Voltage"].DataSource = this.NiVisa.data.VoltageHistory;
+            //ChartControl_Watchdog.Series["Voltage"].SeriesDataMember = "Voltage"; // 指定Series的名称
+            ChartControl_Watchdog.Series["Voltage"].ArgumentDataMember = "Time"; // 指定Series的横轴数据
+            ChartControl_Watchdog.Series["Voltage"].ValueDataMembers.AddRange(new string[] { "Value" }); // 指定Series的纵轴数据
+
+            // 设置Power Series的属性
             ChartControl_Watchdog.Series["Power"].DataSource = this.NiVisa.data.PowerHistory;
+            //ChartControl_Watchdog.Series["Power"].SeriesDataMember = "Power"; // 指定Series的名称
+            ChartControl_Watchdog.Series["Power"].ArgumentDataMember = "Time"; // 指定Series的横轴数据
+            ChartControl_Watchdog.Series["Power"].ValueDataMembers.AddRange(new string[] { "Value" }); // 指定Series的纵轴数据
+
         }
 
 
@@ -272,7 +291,7 @@ namespace HW_Thermal_Tools.Forms
 
         public void updateChart()
         {
-            
+
 
 
             //调用Chart的RefreshData()方法刷新数据显示

@@ -114,7 +114,7 @@
             TablePanel_Control.SetColumn(Combox_Channel, 2);
             Combox_Channel.FormattingEnabled = true;
             Combox_Channel.Items.AddRange(new object[] { "CH1", "CH2" });
-            Combox_Channel.Location = new Point(198, 22);
+            Combox_Channel.Location = new Point(198, 20);
             Combox_Channel.Margin = new Padding(3, 2, 3, 2);
             Combox_Channel.Name = "Combox_Channel";
             TablePanel_Control.SetRow(Combox_Channel, 0);
@@ -225,7 +225,7 @@
             TablePanel_Control.SetColumn(ComboBox_Voltage_Select, 1);
             ComboBox_Voltage_Select.FormattingEnabled = true;
             ComboBox_Voltage_Select.Items.AddRange(new object[] { "3.5", "3.7", "3.9", "4.0" });
-            ComboBox_Voltage_Select.Location = new Point(108, 64);
+            ComboBox_Voltage_Select.Location = new Point(108, 65);
             ComboBox_Voltage_Select.Margin = new Padding(3, 2, 3, 2);
             ComboBox_Voltage_Select.Name = "ComboBox_Voltage_Select";
             TablePanel_Control.SetRow(ComboBox_Voltage_Select, 1);
@@ -434,6 +434,8 @@
             // CheckBox_PowerLineDisplay
             // 
             CheckBox_PowerLineDisplay.AutoSize = true;
+            CheckBox_PowerLineDisplay.Checked = true;
+            CheckBox_PowerLineDisplay.CheckState = CheckState.Checked;
             TabPanel_Chart_Control.SetColumn(CheckBox_PowerLineDisplay, 2);
             CheckBox_PowerLineDisplay.Location = new Point(467, 103);
             CheckBox_PowerLineDisplay.Margin = new Padding(3, 2, 3, 2);
