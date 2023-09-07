@@ -1,6 +1,8 @@
 ﻿using DevExpress.ClipboardSource.SpreadsheetML;
+using HZH_Controls;
 using Ivi.Visa;
 using NationalInstruments.Visa;
+using NPOI.SS.Formula.Functions;
 using System.Windows.Forms;
 
 
@@ -133,6 +135,20 @@ namespace HW_Thermal_Tools.Forms.keithley2306
         {
             Session.RawIO.Write("OUTP OFF"); // 关闭输出
         }
+
+        public bool IsOutputOn()
+        {
+            // 发送 OUTP? 命令
+            Session.RawIO.Write("OUTP?");
+            // 接收返回的结果
+            string result = Session.RawIO.ReadString().Trim();
+            // 转换为布尔类型的值
+            bool output = result == "1";
+            
+            // 返回结果
+            return output;
+        }
+
 
 
         /*

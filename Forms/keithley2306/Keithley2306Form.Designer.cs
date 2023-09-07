@@ -41,7 +41,7 @@
             textBox3 = new TextBox();
             textBox2 = new TextBox();
             Combox_Channel = new ComboBox();
-            dataGridView2 = new DataGridView();
+            DataGridView_ChargeInput = new DataGridView();
             Charge_Voltage = new DataGridViewTextBoxColumn();
             Charge_Current = new DataGridViewTextBoxColumn();
             Charge_Time = new DataGridViewTextBoxColumn();
@@ -71,7 +71,7 @@
             StatusLabel_DeviceStatus = new ToolStripStatusLabel();
             ((System.ComponentModel.ISupportInitialize)TablePanel_Control).BeginInit();
             TablePanel_Control.SuspendLayout();
-            ((System.ComponentModel.ISupportInitialize)dataGridView2).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)DataGridView_ChargeInput).BeginInit();
             ((System.ComponentModel.ISupportInitialize)ChartControl_Watchdog).BeginInit();
             ((System.ComponentModel.ISupportInitialize)swiftPlotDiagram1).BeginInit();
             ((System.ComponentModel.ISupportInitialize)series1).BeginInit();
@@ -94,7 +94,7 @@
             TablePanel_Control.Controls.Add(textBox3);
             TablePanel_Control.Controls.Add(textBox2);
             TablePanel_Control.Controls.Add(Combox_Channel);
-            TablePanel_Control.Controls.Add(dataGridView2);
+            TablePanel_Control.Controls.Add(DataGridView_ChargeInput);
             TablePanel_Control.Controls.Add(Btn_Save);
             TablePanel_Control.Controls.Add(Btn_Stop);
             TablePanel_Control.Controls.Add(Btn_Start);
@@ -158,20 +158,20 @@
             Combox_Channel.TabIndex = 11;
             Combox_Channel.Text = "CH1";
             // 
-            // dataGridView2
+            // DataGridView_ChargeInput
             // 
-            TablePanel_Control.SetColumn(dataGridView2, 0);
-            dataGridView2.ColumnHeadersHeightSizeMode = DataGridViewColumnHeadersHeightSizeMode.AutoSize;
-            dataGridView2.Columns.AddRange(new DataGridViewColumn[] { Charge_Voltage, Charge_Current, Charge_Time });
-            TablePanel_Control.SetColumnSpan(dataGridView2, 3);
-            dataGridView2.Location = new Point(14, 183);
-            dataGridView2.Margin = new Padding(3, 2, 3, 2);
-            dataGridView2.Name = "dataGridView2";
-            TablePanel_Control.SetRow(dataGridView2, 4);
-            dataGridView2.RowHeadersWidth = 51;
-            dataGridView2.RowTemplate.Height = 29;
-            dataGridView2.Size = new Size(256, 240);
-            dataGridView2.TabIndex = 10;
+            TablePanel_Control.SetColumn(DataGridView_ChargeInput, 0);
+            DataGridView_ChargeInput.ColumnHeadersHeightSizeMode = DataGridViewColumnHeadersHeightSizeMode.AutoSize;
+            DataGridView_ChargeInput.Columns.AddRange(new DataGridViewColumn[] { Charge_Voltage, Charge_Current, Charge_Time });
+            TablePanel_Control.SetColumnSpan(DataGridView_ChargeInput, 3);
+            DataGridView_ChargeInput.Location = new Point(14, 183);
+            DataGridView_ChargeInput.Margin = new Padding(3, 2, 3, 2);
+            DataGridView_ChargeInput.Name = "DataGridView_ChargeInput";
+            TablePanel_Control.SetRow(DataGridView_ChargeInput, 4);
+            DataGridView_ChargeInput.RowHeadersWidth = 51;
+            DataGridView_ChargeInput.RowTemplate.Height = 29;
+            DataGridView_ChargeInput.Size = new Size(256, 240);
+            DataGridView_ChargeInput.TabIndex = 10;
             // 
             // Charge_Voltage
             // 
@@ -377,6 +377,7 @@
             // TextBox_Title_Freq
             // 
             TabPanel_Chart_Control.SetColumn(TextBox_Title_Freq, 3);
+            TextBox_Title_Freq.Font = new Font("Tahoma", 9F, FontStyle.Bold, GraphicsUnit.Point);
             TextBox_Title_Freq.Location = new Point(588, 17);
             TextBox_Title_Freq.Margin = new Padding(3, 2, 3, 2);
             TextBox_Title_Freq.Name = "TextBox_Title_Freq";
@@ -545,7 +546,7 @@
             ((System.ComponentModel.ISupportInitialize)TablePanel_Control).EndInit();
             TablePanel_Control.ResumeLayout(false);
             TablePanel_Control.PerformLayout();
-            ((System.ComponentModel.ISupportInitialize)dataGridView2).EndInit();
+            ((System.ComponentModel.ISupportInitialize)DataGridView_ChargeInput).EndInit();
             ((System.ComponentModel.ISupportInitialize)swiftPlotDiagram1).EndInit();
             ((System.ComponentModel.ISupportInitialize)swiftPlotSeriesView1).EndInit();
             ((System.ComponentModel.ISupportInitialize)series1).EndInit();
@@ -585,7 +586,7 @@
         private CheckBox CheckBox_PowerLineDisplay;
         private CheckBox CheckBox_VoltageLineDisplay;
         private DataGridView DataGridView_WhatchDog;
-        private DataGridView dataGridView2;
+        private DataGridView DataGridView_ChargeInput;
         private DataGridViewTextBoxColumn Charge_Voltage;
         private DataGridViewTextBoxColumn Charge_Current;
         private DataGridViewTextBoxColumn Charge_Time;

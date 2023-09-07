@@ -5,6 +5,7 @@ using System.Collections.Generic;
 using DevExpress.CodeParser;
 using OfficeOpenXml;
 using System.Diagnostics;
+using HZH_Controls;
 
 namespace HW_Thermal_Tools.Forms
 {
@@ -61,7 +62,7 @@ namespace HW_Thermal_Tools.Forms
         {
             InitialGrid_WatchDog();
             InitialChart();
-            Initial_ReadFreq();
+            
             //启动后台线程检测设备变化
             StartDetection();
 
@@ -98,6 +99,44 @@ namespace HW_Thermal_Tools.Forms
                 }
             }
 
+            if (RadioButton_ChargeTest.Checked == true)
+            {
+                if (!ConnectedStatu)
+                {
+                    MessageBox.Show("未连接设备");
+                }
+                else
+                {
+                    if (DataGridView_ChargeInput.Rows.Count == 1)
+                    {
+                        MessageBox.Show("请先输入充电电流 电压 时间！！！");
+                    }
+                    else
+                    {
+                        this.NiVisa.OpenSession();
+                        MessageBox.Show("Session 会话已开启");
+                        for (int i = 0; i < DataGridView_ChargeInput.Rows.Count - 1; i++)
+                        {
+                            if (this.NiVisa.IsOutputOn())
+                            {
+                                this.NiVisa.SelectChannel(Combox_Channel.Text);
+                                this.NiVisa.SetVoltage(DataGridView_ChargeInput.Rows[i].Cells["Charge_Voltage"].Value.ToString());
+                                this.NiVisa.SetCurrent(DataGridView_ChargeInput.Rows[i].Cells["Charge_Current"].Value.ToString());
+                            }
+                            else
+                            {
+                                this.NiVisa.SelectChannel(Combox_Channel.Text);
+                                this.NiVisa.SetVoltage(DataGridView_ChargeInput.Rows[i].Cells["Charge_Voltage"].Value.ToString());
+                                this.NiVisa.SetCurrent(DataGridView_ChargeInput.Rows[i].Cells["Charge_Current"].Value.ToString());
+                                this.NiVisa.OutPut_On();
+                            }
+                            //持续多长时间
+                            Thread.Sleep(DataGridView_ChargeInput.Rows[i].Cells["Charge_Time"].Value.ToInt() * 1000);
+                        }
+
+                    }
+                }
+            }
 
         }
 
@@ -105,6 +144,7 @@ namespace HW_Thermal_Tools.Forms
 
         private void Btn_Start_Click(object sender, EventArgs e)
         {
+            Initial_ReadFreq();
             //如果已有数据 需要清空
             if (this.NiVisa.data.OriDataHistory.Count > 0)
             {
