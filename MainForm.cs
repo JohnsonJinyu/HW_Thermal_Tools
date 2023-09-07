@@ -1,14 +1,4 @@
 ﻿using HW_Thermal_Tools.Forms.keithley2306;
-using System;
-using System.Collections.Generic;
-using System.ComponentModel;
-using System.Data;
-using System.Drawing;
-using System.Linq;
-using System.Reflection.Metadata.Ecma335;
-using System.Text;
-using System.Threading.Tasks;
-using System.Windows.Forms;
 
 namespace HW_Thermal_Tools
 {

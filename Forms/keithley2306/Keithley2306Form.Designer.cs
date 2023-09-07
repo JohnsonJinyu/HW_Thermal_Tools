@@ -29,6 +29,7 @@
         private void InitializeComponent()
         {
             DevExpress.XtraCharts.SwiftPlotDiagram swiftPlotDiagram1 = new DevExpress.XtraCharts.SwiftPlotDiagram();
+            DevExpress.XtraCharts.SwiftPlotDiagramSecondaryAxisY swiftPlotDiagramSecondaryAxisy1 = new DevExpress.XtraCharts.SwiftPlotDiagramSecondaryAxisY();
             DevExpress.XtraCharts.Series series1 = new DevExpress.XtraCharts.Series();
             DevExpress.XtraCharts.SwiftPlotSeriesView swiftPlotSeriesView1 = new DevExpress.XtraCharts.SwiftPlotSeriesView();
             DevExpress.XtraCharts.Series series2 = new DevExpress.XtraCharts.Series();
@@ -74,6 +75,7 @@
             ((System.ComponentModel.ISupportInitialize)DataGridView_ChargeInput).BeginInit();
             ((System.ComponentModel.ISupportInitialize)ChartControl_Watchdog).BeginInit();
             ((System.ComponentModel.ISupportInitialize)swiftPlotDiagram1).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)swiftPlotDiagramSecondaryAxisy1).BeginInit();
             ((System.ComponentModel.ISupportInitialize)series1).BeginInit();
             ((System.ComponentModel.ISupportInitialize)swiftPlotSeriesView1).BeginInit();
             ((System.ComponentModel.ISupportInitialize)series2).BeginInit();
@@ -117,7 +119,7 @@
             TablePanel_Control.SetColumn(Combox_CurrentLim_Select, 2);
             Combox_CurrentLim_Select.FormattingEnabled = true;
             Combox_CurrentLim_Select.Items.AddRange(new object[] { "1.0", "1.5", "2.0", "2.25", "3.0" });
-            Combox_CurrentLim_Select.Location = new Point(197, 107);
+            Combox_CurrentLim_Select.Location = new Point(197, 109);
             Combox_CurrentLim_Select.Name = "Combox_CurrentLim_Select";
             TablePanel_Control.SetRow(Combox_CurrentLim_Select, 2);
             Combox_CurrentLim_Select.Size = new Size(74, 22);
@@ -150,7 +152,7 @@
             TablePanel_Control.SetColumn(Combox_Channel, 2);
             Combox_Channel.FormattingEnabled = true;
             Combox_Channel.Items.AddRange(new object[] { "CH1", "CH2" });
-            Combox_Channel.Location = new Point(198, 22);
+            Combox_Channel.Location = new Point(198, 20);
             Combox_Channel.Margin = new Padding(3, 2, 3, 2);
             Combox_Channel.Name = "Combox_Channel";
             TablePanel_Control.SetRow(Combox_Channel, 0);
@@ -251,7 +253,7 @@
             TablePanel_Control.SetColumn(ComboBox_Voltage_Select, 2);
             ComboBox_Voltage_Select.FormattingEnabled = true;
             ComboBox_Voltage_Select.Items.AddRange(new object[] { "3.5", "3.7", "3.9", "4.0" });
-            ComboBox_Voltage_Select.Location = new Point(198, 64);
+            ComboBox_Voltage_Select.Location = new Point(198, 65);
             ComboBox_Voltage_Select.Margin = new Padding(3, 2, 3, 2);
             ComboBox_Voltage_Select.Name = "ComboBox_Voltage_Select";
             TablePanel_Control.SetRow(ComboBox_Voltage_Select, 1);
@@ -311,6 +313,10 @@
             swiftPlotDiagram1.EnableAxisXZooming = true;
             swiftPlotDiagram1.EnableAxisYScrolling = true;
             swiftPlotDiagram1.EnableAxisYZooming = true;
+            swiftPlotDiagramSecondaryAxisy1.AxisID = 0;
+            swiftPlotDiagramSecondaryAxisy1.Name = "Secondary AxisY 1";
+            swiftPlotDiagramSecondaryAxisy1.VisibleInPanesSerializable = "-1";
+            swiftPlotDiagram1.SecondaryAxesY.AddRange(new DevExpress.XtraCharts.SwiftPlotDiagramSecondaryAxisY[] { swiftPlotDiagramSecondaryAxisy1 });
             ChartControl_Watchdog.Diagram = swiftPlotDiagram1;
             ChartControl_Watchdog.Legend.LegendID = -1;
             ChartControl_Watchdog.Location = new Point(0, 0);
@@ -320,8 +326,9 @@
             series1.SeriesID = 1;
             swiftPlotSeriesView1.Color = Color.Lime;
             series1.View = swiftPlotSeriesView1;
-            series2.Name = "Voltage(mV)";
+            series2.Name = "Voltage(V)";
             series2.SeriesID = 2;
+            swiftPlotSeriesView2.AxisYName = "Secondary AxisY 1";
             swiftPlotSeriesView2.Color = Color.Blue;
             series2.View = swiftPlotSeriesView2;
             series3.Name = "Current(mA)";
@@ -547,6 +554,7 @@
             TablePanel_Control.ResumeLayout(false);
             TablePanel_Control.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)DataGridView_ChargeInput).EndInit();
+            ((System.ComponentModel.ISupportInitialize)swiftPlotDiagramSecondaryAxisy1).EndInit();
             ((System.ComponentModel.ISupportInitialize)swiftPlotDiagram1).EndInit();
             ((System.ComponentModel.ISupportInitialize)swiftPlotSeriesView1).EndInit();
             ((System.ComponentModel.ISupportInitialize)series1).EndInit();

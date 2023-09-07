@@ -1,9 +1,5 @@
-﻿using DevExpress.ClipboardSource.SpreadsheetML;
-using HZH_Controls;
-using Ivi.Visa;
+﻿using Ivi.Visa;
 using NationalInstruments.Visa;
-using NPOI.SS.Formula.Functions;
-using System.Windows.Forms;
 
 
 namespace HW_Thermal_Tools.Forms.keithley2306
@@ -22,7 +18,7 @@ namespace HW_Thermal_Tools.Forms.keithley2306
         //定义设备地址
         private string address = "GPIB0::6::INSTR";
 
-        
+
         // 创建PowerData对象
         public PowerData data;
 
@@ -30,33 +26,32 @@ namespace HW_Thermal_Tools.Forms.keithley2306
         {
             data = new PowerData();
 
-
         }
 
         /*
          设备连接检测功能
          */
 
-        public bool Detection_Thread()
+        public async Task<bool> Detection_Thread()
         {
             //获取锁
-            Monitor.Enter(sessionLock);
+            //Monitor.Enter(sessionLock);
             try
             {
-                string[] resources = (string[])rm.Find(address);
-                if(resources.Length > 0)
+                string[] resources = await Task.Run(() => (string[])rm.Find(address));
+                if (resources.Length > 0)
                 {
                     connected = true;
                 }
-             
+
             }
             catch (VisaException e)
             {
-                
+
                 connected = false;
-                
+
             }
-            Monitor.Exit(sessionLock);
+            //Monitor.Exit(sessionLock);
             return connected;
 
         }
@@ -71,20 +66,20 @@ namespace HW_Thermal_Tools.Forms.keithley2306
             // 置相关属性
             Session.TimeoutMilliseconds = 3000;  //设置响应超时时间
             // 设置终止字符(Terminator)
-            Session.TerminationCharacter = (byte)'\n';
+            //Session.TerminationCharacter = (byte)'\n';
 
-            Session.TerminationCharacterEnabled = true;
+            //Session.TerminationCharacterEnabled = true;
 
 
         }
 
         public void DisposeSession()
         {
-            if(Session != null)
+            if (Session != null)
             {
                 Session.Dispose();
             }
-            
+
         }
 
 
@@ -144,7 +139,7 @@ namespace HW_Thermal_Tools.Forms.keithley2306
             string result = Session.RawIO.ReadString().Trim();
             // 转换为布尔类型的值
             bool output = result == "1";
-            
+
             // 返回结果
             return output;
         }
@@ -165,12 +160,12 @@ namespace HW_Thermal_Tools.Forms.keithley2306
             // 读取电流
             Session.RawIO.Write("MEAS:CURR?");
 
-            data.Current = Math.Round(float.Parse(Session.RawIO.ReadString()) * 1000,5); //转为mA,并保留小数点后5位
-            
+            data.Current = Math.Round(float.Parse(Session.RawIO.ReadString()) * 1000, 5); //转为mA,并保留小数点后5位
+
 
             // 读取电压  
             Session.RawIO.Write("MEAS:VOLT?");
-            data.Voltage = Math.Round(float.Parse(Session.RawIO.ReadString()) * 1000, 5);  //转为mV,并保留小数点后5位
+            data.Voltage = Math.Round(float.Parse(Session.RawIO.ReadString()) , 5);  //转为mV,并保留小数点后5位
 
 
             // 计算功率 

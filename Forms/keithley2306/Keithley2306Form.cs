@@ -1,11 +1,6 @@
-﻿using DevExpress.XtraSpreadsheet.Model;
-using HW_Thermal_Tools.Forms.keithley2306;
-using DevExpress.XtraCharts.Native;
-using System.Collections.Generic;
-using DevExpress.CodeParser;
-using OfficeOpenXml;
-using System.Diagnostics;
+﻿using HW_Thermal_Tools.Forms.keithley2306;
 using HZH_Controls;
+using OfficeOpenXml;
 
 namespace HW_Thermal_Tools.Forms
 {
@@ -62,16 +57,12 @@ namespace HW_Thermal_Tools.Forms
         {
             InitialGrid_WatchDog();
             InitialChart();
-            
+
             //启动后台线程检测设备变化
             StartDetection();
 
 
         }
-
-
-
-
 
 
 
@@ -135,6 +126,7 @@ namespace HW_Thermal_Tools.Forms
         private void Btn_Start_Click(object sender, EventArgs e)
         {
             Initial_ReadFreq();
+
             //如果已有数据 需要清空
             if (this.NiVisa.data.OriDataHistory.Count > 0)
             {
@@ -145,6 +137,7 @@ namespace HW_Thermal_Tools.Forms
             }
 
             StartReadData();
+
             //禁用按钮，避免误触
             Btn_Start.Enabled = false;
             Btn_Stop.Enabled = true;
@@ -162,7 +155,7 @@ namespace HW_Thermal_Tools.Forms
         {
 
             StopReadData();
-
+            //启用按钮
             Btn_Start.Enabled = true;
             Btn_Stop.Enabled = false;
             Btn_Power_Off.Enabled = true;
@@ -190,16 +183,20 @@ namespace HW_Thermal_Tools.Forms
         private void Keithley2306Form_FormClosed(object sender, FormClosedEventArgs e)
         {
             //当Form closed时，关闭session会话和Task
+            
+
 
             CheckSignal = false;
             // 发送取消信号给后台任务
-            CheckCTS.Cancel();
+            //CheckCTS.Cancel();
 
             // 等待后台任务结束
             CheckDeviceTask.Wait();
 
+
+
             //关闭Session会话
-            this.NiVisa.DisposeSession();
+            //this.NiVisa.DisposeSession();
 
         }
 
@@ -210,7 +207,7 @@ namespace HW_Thermal_Tools.Forms
             DataGridView_WhatchDog.Rows.Add(2);
             //将dataGridView 的RowHeader设定
             DataGridView_WhatchDog.Rows[0].HeaderCell.Value = "Current(mA)";
-            DataGridView_WhatchDog.Rows[1].HeaderCell.Value = "Voltage(mV)";
+            DataGridView_WhatchDog.Rows[1].HeaderCell.Value = "Voltage(V)";
             DataGridView_WhatchDog.Rows[2].HeaderCell.Value = "Power(mW)";
         }
         //定义一个方法,初始化数据曲线图
@@ -224,10 +221,10 @@ namespace HW_Thermal_Tools.Forms
             ChartControl_Watchdog.Series["Current(mA)"].ValueDataMembers.AddRange(new string[] { "Value" }); // 指定Series的纵轴数据
 
             // 设置Voltage Series的属性
-            ChartControl_Watchdog.Series["Voltage(mV)"].DataSource = this.NiVisa.data.VoltageHistory;
+            ChartControl_Watchdog.Series["Voltage(V)"].DataSource = this.NiVisa.data.VoltageHistory;
             //ChartControl_Watchdog.Series["Voltage"].SeriesDataMember = "Voltage"; // 指定Series的名称
-            ChartControl_Watchdog.Series["Voltage(mV)"].ArgumentDataMember = "Time"; // 指定Series的横轴数据
-            ChartControl_Watchdog.Series["Voltage(mV)"].ValueDataMembers.AddRange(new string[] { "Value" }); // 指定Series的纵轴数据
+            ChartControl_Watchdog.Series["Voltage(V)"].ArgumentDataMember = "Time"; // 指定Series的横轴数据
+            ChartControl_Watchdog.Series["Voltage(V)"].ValueDataMembers.AddRange(new string[] { "Value" }); // 指定Series的纵轴数据
 
             // 设置Power Series的属性
             ChartControl_Watchdog.Series["Power(mW)"].DataSource = this.NiVisa.data.PowerHistory;
@@ -286,11 +283,18 @@ namespace HW_Thermal_Tools.Forms
 
         }
 
-        private void DectionAndUpdateUITask(CancellationToken token)
+
+        
+
+
+        private async void DectionAndUpdateUITask(CancellationToken token)
         {
+
+
             while (CheckSignal)
             {
-                ConnectedStatu = this.NiVisa.Detection_Thread();
+
+                ConnectedStatu = await this.NiVisa.Detection_Thread();
                 // 如果connected为true，表示设备已连接
                 if (ConnectedStatu)
                 {
@@ -312,10 +316,18 @@ namespace HW_Thermal_Tools.Forms
                 }
 
                 // 在循环中检查取消令牌是否已经被取消，如果是，则退出循环
+                /*
                 if (token.IsCancellationRequested)
                 {
                     break;
                 }
+                if (!CheckSignal)
+                {
+                    break;
+                }
+                */
+                if (!CheckSignal)
+                    break;
             }
         }
 
@@ -420,7 +432,7 @@ namespace HW_Thermal_Tools.Forms
 
         private void CheckBox_VoltageLineDisplay_CheckedChanged(object sender, EventArgs e)
         {
-            ChartControl_Watchdog.Series["Voltage(mV)"].Visible = CheckBox_VoltageLineDisplay.Checked;
+            ChartControl_Watchdog.Series["Voltage(V)"].Visible = CheckBox_VoltageLineDisplay.Checked;
         }
 
         private void CheckBox_PowerLineDisplay_CheckedChanged(object sender, EventArgs e)

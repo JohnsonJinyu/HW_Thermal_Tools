@@ -8,7 +8,6 @@ using OxyPlot.Series;
 using OxyPlot.WindowsForms;
 using System.Data;
 using System.Globalization;
-using System.IO;
 
 namespace HW_Thermal_Tools.Forms
 {

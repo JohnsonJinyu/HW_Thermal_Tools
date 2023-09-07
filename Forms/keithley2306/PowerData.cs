@@ -1,6 +1,4 @@
-﻿using DevExpress.XtraSpellChecker;
-
-namespace HW_Thermal_Tools.Forms.keithley2306
+﻿namespace HW_Thermal_Tools.Forms.keithley2306
 {
     public class PowerData
     {
