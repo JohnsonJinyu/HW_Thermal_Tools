@@ -29,19 +29,19 @@
         private void InitializeComponent()
         {
             components = new System.ComponentModel.Container();
-            DataGridViewCellStyle dataGridViewCellStyle1 = new DataGridViewCellStyle();
-            DevExpress.XtraCharts.SwiftPlotDiagram swiftPlotDiagram1 = new DevExpress.XtraCharts.SwiftPlotDiagram();
-            DevExpress.XtraCharts.SwiftPlotDiagramSecondaryAxisY swiftPlotDiagramSecondaryAxisy1 = new DevExpress.XtraCharts.SwiftPlotDiagramSecondaryAxisY();
-            DevExpress.XtraCharts.Series series1 = new DevExpress.XtraCharts.Series();
-            DevExpress.XtraCharts.SwiftPlotSeriesView swiftPlotSeriesView1 = new DevExpress.XtraCharts.SwiftPlotSeriesView();
-            DevExpress.XtraCharts.Series series2 = new DevExpress.XtraCharts.Series();
-            DevExpress.XtraCharts.SwiftPlotSeriesView swiftPlotSeriesView2 = new DevExpress.XtraCharts.SwiftPlotSeriesView();
-            DevExpress.XtraCharts.Series series3 = new DevExpress.XtraCharts.Series();
-            DevExpress.XtraCharts.SwiftPlotSeriesView swiftPlotSeriesView3 = new DevExpress.XtraCharts.SwiftPlotSeriesView();
-            DataGridViewCellStyle dataGridViewCellStyle5 = new DataGridViewCellStyle();
-            DataGridViewCellStyle dataGridViewCellStyle2 = new DataGridViewCellStyle();
-            DataGridViewCellStyle dataGridViewCellStyle3 = new DataGridViewCellStyle();
-            DataGridViewCellStyle dataGridViewCellStyle4 = new DataGridViewCellStyle();
+            DataGridViewCellStyle dataGridViewCellStyle6 = new DataGridViewCellStyle();
+            DataGridViewCellStyle dataGridViewCellStyle7 = new DataGridViewCellStyle();
+            DataGridViewCellStyle dataGridViewCellStyle8 = new DataGridViewCellStyle();
+            DataGridViewCellStyle dataGridViewCellStyle9 = new DataGridViewCellStyle();
+            DevExpress.XtraCharts.SwiftPlotDiagram swiftPlotDiagram2 = new DevExpress.XtraCharts.SwiftPlotDiagram();
+            DevExpress.XtraCharts.SwiftPlotDiagramSecondaryAxisY swiftPlotDiagramSecondaryAxisy2 = new DevExpress.XtraCharts.SwiftPlotDiagramSecondaryAxisY();
+            DevExpress.XtraCharts.Series series4 = new DevExpress.XtraCharts.Series();
+            DevExpress.XtraCharts.SwiftPlotSeriesView swiftPlotSeriesView4 = new DevExpress.XtraCharts.SwiftPlotSeriesView();
+            DevExpress.XtraCharts.Series series5 = new DevExpress.XtraCharts.Series();
+            DevExpress.XtraCharts.SwiftPlotSeriesView swiftPlotSeriesView5 = new DevExpress.XtraCharts.SwiftPlotSeriesView();
+            DevExpress.XtraCharts.Series series6 = new DevExpress.XtraCharts.Series();
+            DevExpress.XtraCharts.SwiftPlotSeriesView swiftPlotSeriesView6 = new DevExpress.XtraCharts.SwiftPlotSeriesView();
+            DataGridViewCellStyle dataGridViewCellStyle10 = new DataGridViewCellStyle();
             TablePanel_Control = new DevExpress.Utils.Layout.TablePanel();
             Label_Timer_Title = new Label();
             GaugeControl = new DevExpress.XtraGauges.Win.GaugeControl();
@@ -52,6 +52,9 @@
             Combox_CurrentLim_Select = new ComboBox();
             Combox_Channel = new ComboBox();
             DataGridView_ChargeInput = new DataGridView();
+            Charge_Voltage = new DataGridViewTextBoxColumn();
+            Charge_Current = new DataGridViewTextBoxColumn();
+            Charge_Time = new DataGridViewTextBoxColumn();
             Btn_Save = new Button();
             Btn_Stop = new Button();
             Btn_Start = new Button();
@@ -77,23 +80,21 @@
             statusStrip1 = new StatusStrip();
             StatusLabel_DeviceStatus = new ToolStripStatusLabel();
             timer1 = new System.Windows.Forms.Timer(components);
-            Charge_Voltage = new DataGridViewTextBoxColumn();
-            Charge_Current = new DataGridViewTextBoxColumn();
-            Charge_Time = new DataGridViewTextBoxColumn();
+            Label_Progress = new ToolStripProgressBar();
             ((System.ComponentModel.ISupportInitialize)TablePanel_Control).BeginInit();
             TablePanel_Control.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)digitalGauge1).BeginInit();
             ((System.ComponentModel.ISupportInitialize)digitalComponent1).BeginInit();
             ((System.ComponentModel.ISupportInitialize)DataGridView_ChargeInput).BeginInit();
             ((System.ComponentModel.ISupportInitialize)ChartControl_Watchdog).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)swiftPlotDiagram1).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)swiftPlotDiagramSecondaryAxisy1).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)series1).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)swiftPlotSeriesView1).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)series2).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)swiftPlotSeriesView2).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)series3).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)swiftPlotSeriesView3).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)swiftPlotDiagram2).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)swiftPlotDiagramSecondaryAxisy2).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)series4).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)swiftPlotSeriesView4).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)series5).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)swiftPlotSeriesView5).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)series6).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)swiftPlotSeriesView6).BeginInit();
             Chart_Panel.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)TabPanel_Chart_Control).BeginInit();
             TabPanel_Chart_Control.SuspendLayout();
@@ -204,7 +205,7 @@
             TablePanel_Control.SetColumn(Combox_CurrentLim_Select, 2);
             Combox_CurrentLim_Select.FormattingEnabled = true;
             Combox_CurrentLim_Select.Items.AddRange(new object[] { "1.0", "1.5", "2.0", "2.25", "3.0" });
-            Combox_CurrentLim_Select.Location = new Point(197, 109);
+            Combox_CurrentLim_Select.Location = new Point(197, 107);
             Combox_CurrentLim_Select.Name = "Combox_CurrentLim_Select";
             TablePanel_Control.SetRow(Combox_CurrentLim_Select, 2);
             Combox_CurrentLim_Select.Size = new Size(74, 22);
@@ -217,7 +218,7 @@
             TablePanel_Control.SetColumn(Combox_Channel, 2);
             Combox_Channel.FormattingEnabled = true;
             Combox_Channel.Items.AddRange(new object[] { "CH1", "CH2" });
-            Combox_Channel.Location = new Point(198, 20);
+            Combox_Channel.Location = new Point(198, 22);
             Combox_Channel.Margin = new Padding(3, 2, 3, 2);
             Combox_Channel.Name = "Combox_Channel";
             TablePanel_Control.SetRow(Combox_Channel, 0);
@@ -228,14 +229,14 @@
             // DataGridView_ChargeInput
             // 
             TablePanel_Control.SetColumn(DataGridView_ChargeInput, 0);
-            dataGridViewCellStyle1.Alignment = DataGridViewContentAlignment.MiddleCenter;
-            dataGridViewCellStyle1.BackColor = SystemColors.ActiveBorder;
-            dataGridViewCellStyle1.Font = new Font("Tahoma", 9F, FontStyle.Regular, GraphicsUnit.Point);
-            dataGridViewCellStyle1.ForeColor = SystemColors.WindowText;
-            dataGridViewCellStyle1.SelectionBackColor = SystemColors.Highlight;
-            dataGridViewCellStyle1.SelectionForeColor = SystemColors.HighlightText;
-            dataGridViewCellStyle1.WrapMode = DataGridViewTriState.True;
-            DataGridView_ChargeInput.ColumnHeadersDefaultCellStyle = dataGridViewCellStyle1;
+            dataGridViewCellStyle6.Alignment = DataGridViewContentAlignment.MiddleCenter;
+            dataGridViewCellStyle6.BackColor = SystemColors.ActiveBorder;
+            dataGridViewCellStyle6.Font = new Font("Tahoma", 9F, FontStyle.Regular, GraphicsUnit.Point);
+            dataGridViewCellStyle6.ForeColor = SystemColors.WindowText;
+            dataGridViewCellStyle6.SelectionBackColor = SystemColors.Highlight;
+            dataGridViewCellStyle6.SelectionForeColor = SystemColors.HighlightText;
+            dataGridViewCellStyle6.WrapMode = DataGridViewTriState.True;
+            DataGridView_ChargeInput.ColumnHeadersDefaultCellStyle = dataGridViewCellStyle6;
             DataGridView_ChargeInput.ColumnHeadersHeightSizeMode = DataGridViewColumnHeadersHeightSizeMode.AutoSize;
             DataGridView_ChargeInput.Columns.AddRange(new DataGridViewColumn[] { Charge_Voltage, Charge_Current, Charge_Time });
             TablePanel_Control.SetColumnSpan(DataGridView_ChargeInput, 3);
@@ -249,6 +250,36 @@
             DataGridView_ChargeInput.RowTemplate.Height = 29;
             DataGridView_ChargeInput.Size = new Size(256, 240);
             DataGridView_ChargeInput.TabIndex = 10;
+            // 
+            // Charge_Voltage
+            // 
+            Charge_Voltage.AutoSizeMode = DataGridViewAutoSizeColumnMode.ColumnHeader;
+            dataGridViewCellStyle7.Alignment = DataGridViewContentAlignment.MiddleCenter;
+            Charge_Voltage.DefaultCellStyle = dataGridViewCellStyle7;
+            Charge_Voltage.HeaderText = "Voltage(V)";
+            Charge_Voltage.MinimumWidth = 6;
+            Charge_Voltage.Name = "Charge_Voltage";
+            Charge_Voltage.Width = 92;
+            // 
+            // Charge_Current
+            // 
+            Charge_Current.AutoSizeMode = DataGridViewAutoSizeColumnMode.ColumnHeader;
+            dataGridViewCellStyle8.Alignment = DataGridViewContentAlignment.MiddleCenter;
+            Charge_Current.DefaultCellStyle = dataGridViewCellStyle8;
+            Charge_Current.HeaderText = "Current(A)";
+            Charge_Current.MinimumWidth = 6;
+            Charge_Current.Name = "Charge_Current";
+            Charge_Current.Width = 91;
+            // 
+            // Charge_Time
+            // 
+            Charge_Time.AutoSizeMode = DataGridViewAutoSizeColumnMode.ColumnHeader;
+            dataGridViewCellStyle9.Alignment = DataGridViewContentAlignment.MiddleCenter;
+            Charge_Time.DefaultCellStyle = dataGridViewCellStyle9;
+            Charge_Time.HeaderText = "Time(S)";
+            Charge_Time.MinimumWidth = 6;
+            Charge_Time.Name = "Charge_Time";
+            Charge_Time.Width = 76;
             // 
             // Btn_Save
             // 
@@ -304,7 +335,7 @@
             TablePanel_Control.SetColumn(ComboBox_Voltage_Select, 2);
             ComboBox_Voltage_Select.FormattingEnabled = true;
             ComboBox_Voltage_Select.Items.AddRange(new object[] { "3.5", "3.7", "3.9", "4.0" });
-            ComboBox_Voltage_Select.Location = new Point(198, 65);
+            ComboBox_Voltage_Select.Location = new Point(198, 64);
             ComboBox_Voltage_Select.Margin = new Padding(3, 2, 3, 2);
             ComboBox_Voltage_Select.Name = "ComboBox_Voltage_Select";
             TablePanel_Control.SetRow(ComboBox_Voltage_Select, 1);
@@ -358,35 +389,35 @@
             // ChartControl_Watchdog
             // 
             ChartControl_Watchdog.Anchor = AnchorStyles.Top | AnchorStyles.Bottom | AnchorStyles.Left | AnchorStyles.Right;
-            swiftPlotDiagram1.AxisX.VisibleInPanesSerializable = "-1";
-            swiftPlotDiagram1.AxisY.VisibleInPanesSerializable = "-1";
-            swiftPlotDiagram1.EnableAxisXScrolling = true;
-            swiftPlotDiagram1.EnableAxisXZooming = true;
-            swiftPlotDiagram1.EnableAxisYScrolling = true;
-            swiftPlotDiagram1.EnableAxisYZooming = true;
-            swiftPlotDiagramSecondaryAxisy1.AxisID = 0;
-            swiftPlotDiagramSecondaryAxisy1.Name = "Secondary AxisY 1";
-            swiftPlotDiagramSecondaryAxisy1.VisibleInPanesSerializable = "-1";
-            swiftPlotDiagram1.SecondaryAxesY.AddRange(new DevExpress.XtraCharts.SwiftPlotDiagramSecondaryAxisY[] { swiftPlotDiagramSecondaryAxisy1 });
-            ChartControl_Watchdog.Diagram = swiftPlotDiagram1;
+            swiftPlotDiagram2.AxisX.VisibleInPanesSerializable = "-1";
+            swiftPlotDiagram2.AxisY.VisibleInPanesSerializable = "-1";
+            swiftPlotDiagram2.EnableAxisXScrolling = true;
+            swiftPlotDiagram2.EnableAxisXZooming = true;
+            swiftPlotDiagram2.EnableAxisYScrolling = true;
+            swiftPlotDiagram2.EnableAxisYZooming = true;
+            swiftPlotDiagramSecondaryAxisy2.AxisID = 0;
+            swiftPlotDiagramSecondaryAxisy2.Name = "Secondary AxisY 1";
+            swiftPlotDiagramSecondaryAxisy2.VisibleInPanesSerializable = "-1";
+            swiftPlotDiagram2.SecondaryAxesY.AddRange(new DevExpress.XtraCharts.SwiftPlotDiagramSecondaryAxisY[] { swiftPlotDiagramSecondaryAxisy2 });
+            ChartControl_Watchdog.Diagram = swiftPlotDiagram2;
             ChartControl_Watchdog.Legend.LegendID = -1;
             ChartControl_Watchdog.Location = new Point(0, 0);
             ChartControl_Watchdog.Margin = new Padding(3, 2, 3, 2);
             ChartControl_Watchdog.Name = "ChartControl_Watchdog";
-            series1.Name = "Power(mW)";
-            series1.SeriesID = 1;
-            swiftPlotSeriesView1.Color = Color.Lime;
-            series1.View = swiftPlotSeriesView1;
-            series2.Name = "Voltage(V)";
-            series2.SeriesID = 2;
-            swiftPlotSeriesView2.AxisYName = "Secondary AxisY 1";
-            swiftPlotSeriesView2.Color = Color.Blue;
-            series2.View = swiftPlotSeriesView2;
-            series3.Name = "Current(mA)";
-            series3.SeriesID = 3;
-            swiftPlotSeriesView3.Color = Color.Red;
-            series3.View = swiftPlotSeriesView3;
-            ChartControl_Watchdog.SeriesSerializable = new DevExpress.XtraCharts.Series[] { series1, series2, series3 };
+            series4.Name = "Power(mW)";
+            series4.SeriesID = 1;
+            swiftPlotSeriesView4.Color = Color.Lime;
+            series4.View = swiftPlotSeriesView4;
+            series5.Name = "Voltage(V)";
+            series5.SeriesID = 2;
+            swiftPlotSeriesView5.AxisYName = "Secondary AxisY 1";
+            swiftPlotSeriesView5.Color = Color.Blue;
+            series5.View = swiftPlotSeriesView5;
+            series6.Name = "Current(mA)";
+            series6.SeriesID = 3;
+            swiftPlotSeriesView6.Color = Color.Red;
+            series6.View = swiftPlotSeriesView6;
+            ChartControl_Watchdog.SeriesSerializable = new DevExpress.XtraCharts.Series[] { series4, series5, series6 };
             ChartControl_Watchdog.Size = new Size(788, 370);
             ChartControl_Watchdog.TabIndex = 2;
             // 
@@ -456,14 +487,14 @@
             DataGridView_WhatchDog.ReadOnly = true;
             TabPanel_Chart_Control.SetRow(DataGridView_WhatchDog, 0);
             DataGridView_WhatchDog.RowHeadersBorderStyle = DataGridViewHeaderBorderStyle.Sunken;
-            dataGridViewCellStyle5.Alignment = DataGridViewContentAlignment.MiddleLeft;
-            dataGridViewCellStyle5.BackColor = SystemColors.Control;
-            dataGridViewCellStyle5.Font = new Font("Tahoma", 9F, FontStyle.Regular, GraphicsUnit.Point);
-            dataGridViewCellStyle5.ForeColor = SystemColors.WindowText;
-            dataGridViewCellStyle5.SelectionBackColor = SystemColors.Highlight;
-            dataGridViewCellStyle5.SelectionForeColor = SystemColors.HighlightText;
-            dataGridViewCellStyle5.WrapMode = DataGridViewTriState.True;
-            DataGridView_WhatchDog.RowHeadersDefaultCellStyle = dataGridViewCellStyle5;
+            dataGridViewCellStyle10.Alignment = DataGridViewContentAlignment.MiddleLeft;
+            dataGridViewCellStyle10.BackColor = SystemColors.Control;
+            dataGridViewCellStyle10.Font = new Font("Tahoma", 9F, FontStyle.Regular, GraphicsUnit.Point);
+            dataGridViewCellStyle10.ForeColor = SystemColors.WindowText;
+            dataGridViewCellStyle10.SelectionBackColor = SystemColors.Highlight;
+            dataGridViewCellStyle10.SelectionForeColor = SystemColors.HighlightText;
+            dataGridViewCellStyle10.WrapMode = DataGridViewTriState.True;
+            DataGridView_WhatchDog.RowHeadersDefaultCellStyle = dataGridViewCellStyle10;
             DataGridView_WhatchDog.RowHeadersWidth = 120;
             TabPanel_Chart_Control.SetRowSpan(DataGridView_WhatchDog, 4);
             DataGridView_WhatchDog.RowTemplate.Height = 29;
@@ -569,7 +600,7 @@
             // 
             // statusStrip1
             // 
-            statusStrip1.Items.AddRange(new ToolStripItem[] { StatusLabel_DeviceStatus });
+            statusStrip1.Items.AddRange(new ToolStripItem[] { StatusLabel_DeviceStatus, Label_Progress });
             statusStrip1.Location = new Point(0, 524);
             statusStrip1.Name = "statusStrip1";
             statusStrip1.Size = new Size(794, 24);
@@ -588,35 +619,10 @@
             timer1.Interval = 1000;
             timer1.Tick += timer1_Tick;
             // 
-            // Charge_Voltage
+            // Label_Progress
             // 
-            Charge_Voltage.AutoSizeMode = DataGridViewAutoSizeColumnMode.ColumnHeader;
-            dataGridViewCellStyle2.Alignment = DataGridViewContentAlignment.MiddleCenter;
-            Charge_Voltage.DefaultCellStyle = dataGridViewCellStyle2;
-            Charge_Voltage.HeaderText = "Voltage(V)";
-            Charge_Voltage.MinimumWidth = 6;
-            Charge_Voltage.Name = "Charge_Voltage";
-            Charge_Voltage.Width = 92;
-            // 
-            // Charge_Current
-            // 
-            Charge_Current.AutoSizeMode = DataGridViewAutoSizeColumnMode.ColumnHeader;
-            dataGridViewCellStyle3.Alignment = DataGridViewContentAlignment.MiddleCenter;
-            Charge_Current.DefaultCellStyle = dataGridViewCellStyle3;
-            Charge_Current.HeaderText = "Current(A)";
-            Charge_Current.MinimumWidth = 6;
-            Charge_Current.Name = "Charge_Current";
-            Charge_Current.Width = 91;
-            // 
-            // Charge_Time
-            // 
-            Charge_Time.AutoSizeMode = DataGridViewAutoSizeColumnMode.ColumnHeader;
-            dataGridViewCellStyle4.Alignment = DataGridViewContentAlignment.MiddleCenter;
-            Charge_Time.DefaultCellStyle = dataGridViewCellStyle4;
-            Charge_Time.HeaderText = "Time(S)";
-            Charge_Time.MinimumWidth = 6;
-            Charge_Time.Name = "Charge_Time";
-            Charge_Time.Width = 76;
+            Label_Progress.Name = "Label_Progress";
+            Label_Progress.Size = new Size(100, 18);
             // 
             // Keithley2306Form
             // 
@@ -642,14 +648,14 @@
             ((System.ComponentModel.ISupportInitialize)digitalGauge1).EndInit();
             ((System.ComponentModel.ISupportInitialize)digitalComponent1).EndInit();
             ((System.ComponentModel.ISupportInitialize)DataGridView_ChargeInput).EndInit();
-            ((System.ComponentModel.ISupportInitialize)swiftPlotDiagramSecondaryAxisy1).EndInit();
-            ((System.ComponentModel.ISupportInitialize)swiftPlotDiagram1).EndInit();
-            ((System.ComponentModel.ISupportInitialize)swiftPlotSeriesView1).EndInit();
-            ((System.ComponentModel.ISupportInitialize)series1).EndInit();
-            ((System.ComponentModel.ISupportInitialize)swiftPlotSeriesView2).EndInit();
-            ((System.ComponentModel.ISupportInitialize)series2).EndInit();
-            ((System.ComponentModel.ISupportInitialize)swiftPlotSeriesView3).EndInit();
-            ((System.ComponentModel.ISupportInitialize)series3).EndInit();
+            ((System.ComponentModel.ISupportInitialize)swiftPlotDiagramSecondaryAxisy2).EndInit();
+            ((System.ComponentModel.ISupportInitialize)swiftPlotDiagram2).EndInit();
+            ((System.ComponentModel.ISupportInitialize)swiftPlotSeriesView4).EndInit();
+            ((System.ComponentModel.ISupportInitialize)series4).EndInit();
+            ((System.ComponentModel.ISupportInitialize)swiftPlotSeriesView5).EndInit();
+            ((System.ComponentModel.ISupportInitialize)series5).EndInit();
+            ((System.ComponentModel.ISupportInitialize)swiftPlotSeriesView6).EndInit();
+            ((System.ComponentModel.ISupportInitialize)series6).EndInit();
             ((System.ComponentModel.ISupportInitialize)ChartControl_Watchdog).EndInit();
             Chart_Panel.ResumeLayout(false);
             ((System.ComponentModel.ISupportInitialize)TabPanel_Chart_Control).EndInit();
@@ -703,5 +709,6 @@
         private DataGridViewTextBoxColumn Charge_Voltage;
         private DataGridViewTextBoxColumn Charge_Current;
         private DataGridViewTextBoxColumn Charge_Time;
+        private ToolStripProgressBar Label_Progress;
     }
 }

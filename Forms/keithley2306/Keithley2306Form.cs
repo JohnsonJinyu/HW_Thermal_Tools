@@ -2,6 +2,8 @@
 using HW_Thermal_Tools.Forms.keithley2306;
 using HZH_Controls;
 using OfficeOpenXml;
+using System.ComponentModel;
+using LicenseContext = OfficeOpenXml.LicenseContext;
 
 namespace HW_Thermal_Tools.Forms
 {
@@ -84,19 +86,7 @@ namespace HW_Thermal_Tools.Forms
 
         private void LoadTheme()
         {
-            //由于button放在panel容易中，无法通过这种方式获取button
-            /*
-             foreach (System.Windows.Forms.Control btns in this.Controls)
-             {
-                 if (btns.GetType() == typeof(System.Windows.Forms.Button))
-                 {
-                     System.Windows.Forms.Button btn = (System.Windows.Forms.Button)btns;
-                     btn.BackColor = ThemeColor.PrimaryColor;
-                     btn.ForeColor = Color.White;
-                     btn.FlatAppearance.BorderColor = ThemeColor.SecondaryColor;
-                 }
-             }
-             */
+
             //通过这种方式获取
             foreach (System.Windows.Forms.Control control in TablePanel_Control.Controls)
             {
@@ -121,6 +111,20 @@ namespace HW_Thermal_Tools.Forms
 
         private void Btn_Power_On_Click(object sender, EventArgs e)
         {
+            //功能实现前弹窗提醒 模式选择的没有错误
+            if (DataGridView_ChargeInput.Rows.Count > 1)
+            {
+                // 弹出确认框
+                DialogResult result = MessageBox.Show("确认功能是否选择正确？", "提示", MessageBoxButtons.YesNo, MessageBoxIcon.Question);
+
+                if (result == DialogResult.No)
+                {
+                    return;
+                }
+
+
+            }
+
             if (!ConnectedStatu)
             {
                 MessageBox.Show("未连接设备");
@@ -145,29 +149,70 @@ namespace HW_Thermal_Tools.Forms
                 {
                     this.NiVisa.OpenSession();
                     MessageBox.Show("Session 会话已开启");
-                    for (int i = 0; i < DataGridView_ChargeInput.Rows.Count - 1; i++)
+                    // 创建一个BackgroundWorker组件
+                    BackgroundWorker worker = new BackgroundWorker();
+                    // 设置worker可以报告进度
+                    worker.WorkerReportsProgress = true;
+                    // 在DoWork事件中执行耗时的充电操作
+                    worker.DoWork += (s, e) =>
                     {
-                        if (this.NiVisa.IsOutputOn())
+                        // 获取worker的引用
+                        BackgroundWorker bw = s as BackgroundWorker;
+                        // 遍历DataGridView_ChargeInput的所有行
+                        for (int i = 0; i < DataGridView_ChargeInput.Rows.Count - 1; i++)
                         {
-                            this.NiVisa.SelectChannel(Combox_Channel.Text);
-                            this.NiVisa.SetVoltage(DataGridView_ChargeInput.Rows[i].Cells["Charge_Voltage"].Value.ToString());
-                            this.NiVisa.SetCurrent(DataGridView_ChargeInput.Rows[i].Cells["Charge_Current"].Value.ToString());
+                            // 判断是否已经输出了电压和电流
+                            if (this.NiVisa.IsOutputOn())
+                            {
+                                // 使用Invoke方法，在主线程上访问Combox_Channel控件
+                                this.Invoke((Action)delegate
+                                {
+                                    this.NiVisa.SelectChannel(Combox_Channel.Text);
+                                });
+                                this.NiVisa.SetVoltage(DataGridView_ChargeInput.Rows[i].Cells["Charge_Voltage"].Value.ToString());
+                                this.NiVisa.SetCurrent_Lim(DataGridView_ChargeInput.Rows[i].Cells["Charge_Current"].Value.ToString());
+                            }
+                            else
+                            {
+                                // 使用Invoke方法，在主线程上访问Combox_Channel控件
+                                this.Invoke((Action)delegate
+                                {
+                                    this.NiVisa.SelectChannel(Combox_Channel.Text);
+                                });
+                                this.NiVisa.SetVoltage(DataGridView_ChargeInput.Rows[i].Cells["Charge_Voltage"].Value.ToString());
+                                this.NiVisa.SetCurrent_Lim(DataGridView_ChargeInput.Rows[i].Cells["Charge_Current"].Value.ToString());
+                                this.NiVisa.OutPut_On();
+                            }
+                            // 持续多长时间
+                            Thread.Sleep(DataGridView_ChargeInput.Rows[i].Cells["Charge_Time"].Value.ToInt() * 1000);
+                            // 报告进度，传递当前行的索引和充电时间
+                            bw.ReportProgress(i, DataGridView_ChargeInput.Rows[i].Cells["Charge_Time"].Value.ToInt());
                         }
-                        else
-                        {
-                            this.NiVisa.SelectChannel(Combox_Channel.Text);
-                            this.NiVisa.SetVoltage(DataGridView_ChargeInput.Rows[i].Cells["Charge_Voltage"].Value.ToString());
-                            this.NiVisa.SetCurrent(DataGridView_ChargeInput.Rows[i].Cells["Charge_Current"].Value.ToString());
-                            this.NiVisa.OutPut_On();
-                        }
-                        //持续多长时间
-                        Thread.Sleep(DataGridView_ChargeInput.Rows[i].Cells["Charge_Time"].Value.ToInt() * 1000);
-                    }
-
+                    };
+                    // 在ProgressChanged事件中访问或修改控件，显示充电进度
+                    worker.ProgressChanged += (s, e) =>
+                    {
+                        // 获取当前行的索引和充电时间
+                        int index = e.ProgressPercentage;
+                        int time = (int)e.UserState;
+                        // 显示充电进度信息
+                        Label_Progress.Text = $"正在执行第{index + 1}行充电操作，持续{time}秒";
+                    };
+                    // 在RunWorkerCompleted事件中访问或修改控件，显示充电完成信息
+                    worker.RunWorkerCompleted += (s, e) =>
+                    {
+                        // 显示充电完成信息
+                        Label_Progress.Text = "所有充电操作已完成";
+                    };
+                    // 启动worker
+                    worker.RunWorkerAsync();
                 }
             }
 
         }
+
+
+
 
 
 
