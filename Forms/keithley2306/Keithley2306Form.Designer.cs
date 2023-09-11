@@ -28,6 +28,7 @@
         /// </summary>
         private void InitializeComponent()
         {
+            components = new System.ComponentModel.Container();
             DevExpress.XtraCharts.SwiftPlotDiagram swiftPlotDiagram1 = new DevExpress.XtraCharts.SwiftPlotDiagram();
             DevExpress.XtraCharts.SwiftPlotDiagramSecondaryAxisY swiftPlotDiagramSecondaryAxisy1 = new DevExpress.XtraCharts.SwiftPlotDiagramSecondaryAxisY();
             DevExpress.XtraCharts.Series series1 = new DevExpress.XtraCharts.Series();
@@ -38,6 +39,12 @@
             DevExpress.XtraCharts.SwiftPlotSeriesView swiftPlotSeriesView3 = new DevExpress.XtraCharts.SwiftPlotSeriesView();
             DataGridViewCellStyle dataGridViewCellStyle1 = new DataGridViewCellStyle();
             TablePanel_Control = new DevExpress.Utils.Layout.TablePanel();
+            Label_Timer_Title = new Label();
+            GaugeControl = new DevExpress.XtraGauges.Win.GaugeControl();
+            digitalGauge1 = new DevExpress.XtraGauges.Win.Gauges.Digital.DigitalGauge();
+            digitalComponent1 = new DevExpress.XtraGauges.Win.Gauges.Digital.DigitalBackgroundLayerComponent();
+            Label_Current_Lim_Select = new Label();
+            Label_Voltage_Select = new Label();
             Combox_CurrentLim_Select = new ComboBox();
             Combox_Channel = new ComboBox();
             DataGridView_ChargeInput = new DataGridView();
@@ -55,6 +62,8 @@
             ChartControl_Watchdog = new DevExpress.XtraCharts.ChartControl();
             Chart_Panel = new Panel();
             TabPanel_Chart_Control = new DevExpress.Utils.Layout.TablePanel();
+            Label_ReadFrequence = new Label();
+            Label_Display_Options = new Label();
             DataGridView_WhatchDog = new DataGridView();
             Min_Value = new DataGridViewTextBoxColumn();
             Max_Value = new DataGridViewTextBoxColumn();
@@ -66,12 +75,11 @@
             CheckBox_CurrentLineDisplay = new CheckBox();
             statusStrip1 = new StatusStrip();
             StatusLabel_DeviceStatus = new ToolStripStatusLabel();
-            Label_Voltage_Select = new Label();
-            Label_Current_Lim_Select = new Label();
-            Label_Display_Options = new Label();
-            Label_ReadFrequence = new Label();
+            timer1 = new System.Windows.Forms.Timer(components);
             ((System.ComponentModel.ISupportInitialize)TablePanel_Control).BeginInit();
             TablePanel_Control.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)digitalGauge1).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)digitalComponent1).BeginInit();
             ((System.ComponentModel.ISupportInitialize)DataGridView_ChargeInput).BeginInit();
             ((System.ComponentModel.ISupportInitialize)ChartControl_Watchdog).BeginInit();
             ((System.ComponentModel.ISupportInitialize)swiftPlotDiagram1).BeginInit();
@@ -92,6 +100,8 @@
             // TablePanel_Control
             // 
             TablePanel_Control.Columns.AddRange(new DevExpress.Utils.Layout.TablePanelColumn[] { new DevExpress.Utils.Layout.TablePanelColumn(DevExpress.Utils.Layout.TablePanelEntityStyle.Relative, 39.64F), new DevExpress.Utils.Layout.TablePanelColumn(DevExpress.Utils.Layout.TablePanelEntityStyle.Relative, 37.68F), new DevExpress.Utils.Layout.TablePanelColumn(DevExpress.Utils.Layout.TablePanelEntityStyle.Relative, 32.68F) });
+            TablePanel_Control.Controls.Add(Label_Timer_Title);
+            TablePanel_Control.Controls.Add(GaugeControl);
             TablePanel_Control.Controls.Add(Label_Current_Lim_Select);
             TablePanel_Control.Controls.Add(Label_Voltage_Select);
             TablePanel_Control.Controls.Add(Combox_CurrentLim_Select);
@@ -114,12 +124,83 @@
             TablePanel_Control.TabIndex = 0;
             TablePanel_Control.UseSkinIndents = true;
             // 
+            // Label_Timer_Title
+            // 
+            Label_Timer_Title.Anchor = AnchorStyles.Top | AnchorStyles.Bottom | AnchorStyles.Left | AnchorStyles.Right;
+            Label_Timer_Title.AutoSize = true;
+            TablePanel_Control.SetColumn(Label_Timer_Title, 0);
+            Label_Timer_Title.Font = new Font("Tahoma", 9F, FontStyle.Bold, GraphicsUnit.Point);
+            Label_Timer_Title.Location = new Point(14, 511);
+            Label_Timer_Title.Name = "Label_Timer_Title";
+            TablePanel_Control.SetRow(Label_Timer_Title, 7);
+            Label_Timer_Title.Size = new Size(72, 14);
+            Label_Timer_Title.TabIndex = 19;
+            Label_Timer_Title.Text = "已运行时间";
+            Label_Timer_Title.TextAlign = ContentAlignment.MiddleCenter;
+            // 
+            // GaugeControl
+            // 
+            GaugeControl.Anchor = AnchorStyles.Top | AnchorStyles.Bottom | AnchorStyles.Left | AnchorStyles.Right;
+            GaugeControl.BorderStyle = DevExpress.XtraEditors.Controls.BorderStyles.NoBorder;
+            TablePanel_Control.SetColumn(GaugeControl, 1);
+            TablePanel_Control.SetColumnSpan(GaugeControl, 2);
+            GaugeControl.Gauges.AddRange(new DevExpress.XtraGauges.Base.IGauge[] { digitalGauge1 });
+            GaugeControl.Location = new Point(107, 501);
+            GaugeControl.Name = "GaugeControl";
+            TablePanel_Control.SetRow(GaugeControl, 7);
+            GaugeControl.Size = new Size(164, 34);
+            GaugeControl.TabIndex = 18;
+            // 
+            // digitalGauge1
+            // 
+            digitalGauge1.AppearanceOff.ContentBrush = new DevExpress.XtraGauges.Core.Drawing.SolidBrushObject("Color:#EAECF1");
+            digitalGauge1.AppearanceOn.ContentBrush = new DevExpress.XtraGauges.Core.Drawing.SolidBrushObject("Color:#7184BA");
+            digitalGauge1.BackgroundLayers.AddRange(new DevExpress.XtraGauges.Win.Gauges.Digital.DigitalBackgroundLayerComponent[] { digitalComponent1 });
+            digitalGauge1.Bounds = new Rectangle(6, 6, 152, 22);
+            digitalGauge1.DigitCount = 8;
+            digitalGauge1.LetterSpacing = 2F;
+            digitalGauge1.Name = "digitalGauge1";
+            digitalGauge1.Padding = new DevExpress.XtraGauges.Core.Base.TextSpacing(5, 5, 5, 5);
+            digitalGauge1.Text = "00:00:00";
+            // 
+            // digitalComponent1
+            // 
+            digitalComponent1.BottomRight = new DevExpress.XtraGauges.Core.Base.PointF2D(404.699982F, 69.9625F);
+            digitalComponent1.Name = "digitalBackgroundLayerComponent1";
+            digitalComponent1.ShapeType = DevExpress.XtraGauges.Core.Model.DigitalBackgroundShapeSetType.Style16;
+            digitalComponent1.TopLeft = new DevExpress.XtraGauges.Core.Base.PointF2D(5F, 0F);
+            digitalComponent1.ZOrder = 1000;
+            // 
+            // Label_Current_Lim_Select
+            // 
+            Label_Current_Lim_Select.AutoSize = true;
+            TablePanel_Control.SetColumn(Label_Current_Lim_Select, 1);
+            Label_Current_Lim_Select.Font = new Font("Tahoma", 9F, FontStyle.Bold, GraphicsUnit.Point);
+            Label_Current_Lim_Select.Location = new Point(108, 113);
+            Label_Current_Lim_Select.Name = "Label_Current_Lim_Select";
+            TablePanel_Control.SetRow(Label_Current_Lim_Select, 2);
+            Label_Current_Lim_Select.Size = new Size(83, 14);
+            Label_Current_Lim_Select.TabIndex = 17;
+            Label_Current_Lim_Select.Text = "电流限制 / A";
+            // 
+            // Label_Voltage_Select
+            // 
+            Label_Voltage_Select.AutoSize = true;
+            TablePanel_Control.SetColumn(Label_Voltage_Select, 1);
+            Label_Voltage_Select.Font = new Font("Tahoma", 9F, FontStyle.Bold, GraphicsUnit.Point);
+            Label_Voltage_Select.Location = new Point(108, 69);
+            Label_Voltage_Select.Name = "Label_Voltage_Select";
+            TablePanel_Control.SetRow(Label_Voltage_Select, 1);
+            Label_Voltage_Select.Size = new Size(82, 14);
+            Label_Voltage_Select.TabIndex = 16;
+            Label_Voltage_Select.Text = "电压选择 / V";
+            // 
             // Combox_CurrentLim_Select
             // 
             TablePanel_Control.SetColumn(Combox_CurrentLim_Select, 2);
             Combox_CurrentLim_Select.FormattingEnabled = true;
             Combox_CurrentLim_Select.Items.AddRange(new object[] { "1.0", "1.5", "2.0", "2.25", "3.0" });
-            Combox_CurrentLim_Select.Location = new Point(197, 109);
+            Combox_CurrentLim_Select.Location = new Point(197, 107);
             Combox_CurrentLim_Select.Name = "Combox_CurrentLim_Select";
             TablePanel_Control.SetRow(Combox_CurrentLim_Select, 2);
             Combox_CurrentLim_Select.Size = new Size(74, 22);
@@ -132,7 +213,7 @@
             TablePanel_Control.SetColumn(Combox_Channel, 2);
             Combox_Channel.FormattingEnabled = true;
             Combox_Channel.Items.AddRange(new object[] { "CH1", "CH2" });
-            Combox_Channel.Location = new Point(198, 20);
+            Combox_Channel.Location = new Point(198, 22);
             Combox_Channel.Margin = new Padding(3, 2, 3, 2);
             Combox_Channel.Name = "Combox_Channel";
             TablePanel_Control.SetRow(Combox_Channel, 0);
@@ -233,7 +314,7 @@
             TablePanel_Control.SetColumn(ComboBox_Voltage_Select, 2);
             ComboBox_Voltage_Select.FormattingEnabled = true;
             ComboBox_Voltage_Select.Items.AddRange(new object[] { "3.5", "3.7", "3.9", "4.0" });
-            ComboBox_Voltage_Select.Location = new Point(198, 65);
+            ComboBox_Voltage_Select.Location = new Point(198, 64);
             ComboBox_Voltage_Select.Margin = new Padding(3, 2, 3, 2);
             ComboBox_Voltage_Select.Name = "ComboBox_Voltage_Select";
             TablePanel_Control.SetRow(ComboBox_Voltage_Select, 1);
@@ -347,6 +428,30 @@
             TabPanel_Chart_Control.Size = new Size(794, 136);
             TabPanel_Chart_Control.TabIndex = 5;
             TabPanel_Chart_Control.UseSkinIndents = true;
+            // 
+            // Label_ReadFrequence
+            // 
+            Label_ReadFrequence.AutoSize = true;
+            TabPanel_Chart_Control.SetColumn(Label_ReadFrequence, 3);
+            Label_ReadFrequence.Font = new Font("Tahoma", 9F, FontStyle.Bold, GraphicsUnit.Point);
+            Label_ReadFrequence.Location = new Point(588, 21);
+            Label_ReadFrequence.Name = "Label_ReadFrequence";
+            TabPanel_Chart_Control.SetRow(Label_ReadFrequence, 0);
+            Label_ReadFrequence.Size = new Size(59, 14);
+            Label_ReadFrequence.TabIndex = 7;
+            Label_ReadFrequence.Text = "采样频率";
+            // 
+            // Label_Display_Options
+            // 
+            Label_Display_Options.AutoSize = true;
+            TabPanel_Chart_Control.SetColumn(Label_Display_Options, 2);
+            Label_Display_Options.Font = new Font("Tahoma", 9F, FontStyle.Bold, GraphicsUnit.Point);
+            Label_Display_Options.Location = new Point(502, 21);
+            Label_Display_Options.Name = "Label_Display_Options";
+            TabPanel_Chart_Control.SetRow(Label_Display_Options, 0);
+            Label_Display_Options.Size = new Size(59, 14);
+            Label_Display_Options.TabIndex = 6;
+            Label_Display_Options.Text = "显示选项";
             // 
             // DataGridView_WhatchDog
             // 
@@ -488,53 +593,10 @@
             StatusLabel_DeviceStatus.Size = new Size(79, 19);
             StatusLabel_DeviceStatus.Text = "设备未连接";
             // 
-            // Label_Voltage_Select
+            // timer1
             // 
-            Label_Voltage_Select.AutoSize = true;
-            TablePanel_Control.SetColumn(Label_Voltage_Select, 1);
-            Label_Voltage_Select.Font = new Font("Tahoma", 9F, FontStyle.Bold, GraphicsUnit.Point);
-            Label_Voltage_Select.Location = new Point(108, 69);
-            Label_Voltage_Select.Name = "Label_Voltage_Select";
-            TablePanel_Control.SetRow(Label_Voltage_Select, 1);
-            Label_Voltage_Select.Size = new Size(82, 14);
-            Label_Voltage_Select.TabIndex = 16;
-            Label_Voltage_Select.Text = "电压选择 / V";
-            // 
-            // Label_Current_Lim_Select
-            // 
-            Label_Current_Lim_Select.AutoSize = true;
-            TablePanel_Control.SetColumn(Label_Current_Lim_Select, 1);
-            Label_Current_Lim_Select.Font = new Font("Tahoma", 9F, FontStyle.Bold, GraphicsUnit.Point);
-            Label_Current_Lim_Select.Location = new Point(108, 113);
-            Label_Current_Lim_Select.Name = "Label_Current_Lim_Select";
-            TablePanel_Control.SetRow(Label_Current_Lim_Select, 2);
-            Label_Current_Lim_Select.Size = new Size(83, 14);
-            Label_Current_Lim_Select.TabIndex = 17;
-            Label_Current_Lim_Select.Text = "电流限制 / A";
-            // 
-            // Label_Display_Options
-            // 
-            Label_Display_Options.AutoSize = true;
-            TabPanel_Chart_Control.SetColumn(Label_Display_Options, 2);
-            Label_Display_Options.Font = new Font("Tahoma", 9F, FontStyle.Bold, GraphicsUnit.Point);
-            Label_Display_Options.Location = new Point(502, 21);
-            Label_Display_Options.Name = "Label_Display_Options";
-            TabPanel_Chart_Control.SetRow(Label_Display_Options, 0);
-            Label_Display_Options.Size = new Size(59, 14);
-            Label_Display_Options.TabIndex = 6;
-            Label_Display_Options.Text = "显示选项";
-            // 
-            // Label_ReadFrequence
-            // 
-            Label_ReadFrequence.AutoSize = true;
-            TabPanel_Chart_Control.SetColumn(Label_ReadFrequence, 3);
-            Label_ReadFrequence.Font = new Font("Tahoma", 9F, FontStyle.Bold, GraphicsUnit.Point);
-            Label_ReadFrequence.Location = new Point(588, 21);
-            Label_ReadFrequence.Name = "Label_ReadFrequence";
-            TabPanel_Chart_Control.SetRow(Label_ReadFrequence, 0);
-            Label_ReadFrequence.Size = new Size(59, 14);
-            Label_ReadFrequence.TabIndex = 7;
-            Label_ReadFrequence.Text = "采样频率";
+            timer1.Interval = 1000;
+            timer1.Tick += timer1_Tick;
             // 
             // Keithley2306Form
             // 
@@ -557,6 +619,8 @@
             ((System.ComponentModel.ISupportInitialize)TablePanel_Control).EndInit();
             TablePanel_Control.ResumeLayout(false);
             TablePanel_Control.PerformLayout();
+            ((System.ComponentModel.ISupportInitialize)digitalGauge1).EndInit();
+            ((System.ComponentModel.ISupportInitialize)digitalComponent1).EndInit();
             ((System.ComponentModel.ISupportInitialize)DataGridView_ChargeInput).EndInit();
             ((System.ComponentModel.ISupportInitialize)swiftPlotDiagramSecondaryAxisy1).EndInit();
             ((System.ComponentModel.ISupportInitialize)swiftPlotDiagram1).EndInit();
@@ -614,5 +678,10 @@
         private Label Label_Voltage_Select;
         private Label Label_Display_Options;
         private Label Label_ReadFrequence;
+        private DevExpress.XtraGauges.Win.GaugeControl GaugeControl;
+        private DevExpress.XtraGauges.Win.Gauges.Digital.DigitalGauge digitalGauge1;
+        private DevExpress.XtraGauges.Win.Gauges.Digital.DigitalBackgroundLayerComponent digitalComponent1;
+        private System.Windows.Forms.Timer timer1;
+        private Label Label_Timer_Title;
     }
 }

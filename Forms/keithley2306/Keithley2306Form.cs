@@ -1,4 +1,5 @@
-﻿using HW_Thermal_Tools.Forms.keithley2306;
+﻿using DevExpress.XtraGauges.Win;
+using HW_Thermal_Tools.Forms.keithley2306;
 using HZH_Controls;
 using OfficeOpenXml;
 
@@ -35,6 +36,11 @@ namespace HW_Thermal_Tools.Forms
 
 
         private DeviceDetectionService service;
+
+
+        // 定义一个变量来记录计时器的运行时间
+        private int seconds = 0;
+
 
         public Keithley2306Form(NiVisaFunction niVisaFunction)
         {
@@ -168,6 +174,15 @@ namespace HW_Thermal_Tools.Forms
         private void Btn_Start_Click(object sender, EventArgs e)
         {
             Initial_ReadFreq();
+            // 如果有数据则清零
+            if (seconds > 0)
+            {
+                seconds = 0;
+                digitalGauge1.Text = "00:00:00";
+            }
+
+            // 启动计时器
+            timer1.Start();
 
             //如果已有数据 需要清空
             if (this.NiVisa.data.OriDataHistory.Count > 0)
@@ -197,6 +212,8 @@ namespace HW_Thermal_Tools.Forms
         {
 
             StopReadData();
+            // 停止计时
+            timer1.Stop();
             //启用按钮
             Btn_Start.Enabled = true;
             Btn_Stop.Enabled = false;
@@ -482,6 +499,27 @@ namespace HW_Thermal_Tools.Forms
         private async void Keithley2306Form_FormClosing(object sender, FormClosingEventArgs e)
         {
             await service.StopAsync(CancellationToken.None);
+        }
+
+
+
+        private void timer1_Tick(object sender, EventArgs e)
+        {
+            // 每次Tick事件增加一秒
+            seconds++;
+
+            // 计算时分秒
+            int hour = seconds / 3600;
+            int minute = (seconds % 3600) / 60;
+            int second = seconds % 60;
+
+            // 格式化字符串，如果小于10则补零
+            string hourStr = hour < 10 ? "0" + hour : hour.ToString();
+            string minuteStr = minute < 10 ? "0" + minute : minute.ToString();
+            string secondStr = second < 10 ? "0" + second : second.ToString();
+
+            // 更新gaugecontrol控件的Text属性
+            digitalGauge1.Text = hourStr + ":" + minuteStr + ":" + secondStr;
         }
     }
 
