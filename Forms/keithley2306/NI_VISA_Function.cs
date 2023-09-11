@@ -28,39 +28,7 @@ namespace HW_Thermal_Tools.Forms.keithley2306
 
         }
 
-        /*
-         设备连接检测功能
-         */
 
-        /*public bool Detection_Thread()
-        {
-            //获取锁
-            //Monitor.Enter(sessionLock);
-            try
-            {
-                string[] resources = (string[])rm.Find(address);
-                if (resources.Length > 0)
-                {
-                    connected = true;
-                }
-
-            }
-            catch (VisaException e)
-            {
-
-                connected = false;
-
-            }
-            
-            //Monitor.Exit(sessionLock);
-            return connected;
-
-        }*/
-
-
-        /*
-         打开及关闭 Session会话
-         */
         public void OpenSession()
         {
             Session = (MessageBasedSession)rm.Open(address);

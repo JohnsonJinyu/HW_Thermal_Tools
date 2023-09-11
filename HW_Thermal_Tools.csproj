@@ -37,6 +37,7 @@
     <PackageReference Include="GPIB.Repository" Version="6.0.1" />
     <PackageReference Include="HZH_Controls" Version="1.0.14" />
     <PackageReference Include="MathNet.Numerics" Version="5.0.0" />
+    <PackageReference Include="Microsoft.Extensions.Hosting.Abstractions" Version="7.0.0" />
     <PackageReference Include="Microsoft.Office.Interop.Excel" Version="15.0.4795.1001" />
     <PackageReference Include="NPOI" Version="2.6.1" />
     <PackageReference Include="OxyPlot.WindowsForms" Version="2.1.2" />

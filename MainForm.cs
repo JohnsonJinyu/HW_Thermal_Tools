@@ -13,13 +13,13 @@ namespace HW_Thermal_Tools
         private int tempIndex;
         private Form activeForm;
 
-        //定义一个字段用于保存设备连接检测对象
-        private NiDeviceDetection detector;
+
 
         public MainForm()
         {
             InitializeComponent();
             random = new Random();
+            //detector.CheckGPIBDevice("GPIB0::6::INSTR");
         }
 
         private Color SelectThemeColor()
@@ -113,11 +113,9 @@ namespace HW_Thermal_Tools
             // 创建一个 NiVisaFunction 类型的对象
             NiVisaFunction niVisa = new NiVisaFunction();
 
-            Keithley2306Form Form4 = new Keithley2306Form(niVisa);
 
-            Form4.Activated += Form4.Keithley2306Form_Activated;
 
-            OpenChildForm(Form4, sender);
+            OpenChildForm(new Forms.Keithley2306Form(niVisa), sender);
         }
 
 

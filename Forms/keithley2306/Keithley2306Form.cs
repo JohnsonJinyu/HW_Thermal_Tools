@@ -32,11 +32,13 @@ namespace HW_Thermal_Tools.Forms
         private static int ReadFrequence;
 
         //定义数据Grid的列索引
-        private int ItemCol, MinValueCol, MaxValueCol, CurrentValueCol, AverageValueCol;
+        private int MinValueCol, MaxValueCol, CurrentValueCol, AverageValueCol;
 
-        private NiDeviceDetection detector;
+
         //定义设备地址
         private string address = "GPIB0::6::INSTR";
+
+        private DeviceDetectionService service;
 
         public Keithley2306Form(NiVisaFunction niVisaFunction)
         {
@@ -55,17 +57,22 @@ namespace HW_Thermal_Tools.Forms
             CurrentValueCol = 2;
             AverageValueCol = 3;
 
+            // 创建一个 DeviceDetectionService 的实例
+            service = new DeviceDetectionService();
+
+            // 调用 SubscribeToDeviceDetection 方法，并传入 service 实例
+            SubscribeToDeviceDetection(service);
+
         }
 
 
 
-        private void keithley2306_Load(object sender, EventArgs e)
+        private async void keithley2306_Load(object sender, EventArgs e)
         {
             InitialGrid_WatchDog();
             InitialChart();
+            await service.StartAsync(CancellationToken.None);
 
-            //启动后台线程检测设备变化
-            //StartDetection();
 
 
         }
@@ -75,6 +82,7 @@ namespace HW_Thermal_Tools.Forms
         private void Btn_Power_Off_Click(object sender, EventArgs e)
         {
             this.NiVisa.OutPut_Off();
+            
         }
 
         private void Btn_Power_On_Click(object sender, EventArgs e)
@@ -191,16 +199,6 @@ namespace HW_Thermal_Tools.Forms
             //当Form closed时，关闭session会话和Task
 
 
-
-            CheckSignal = false;
-            // 发送取消信号给后台任务
-            //CheckCTS.Cancel();
-
-            // 等待后台任务结束
-            CheckDeviceTask.Wait();
-
-
-
             //关闭Session会话
             //this.NiVisa.DisposeSession();
 
@@ -270,7 +268,36 @@ namespace HW_Thermal_Tools.Forms
 
 
 
+        // 在 Form 类中定义一个方法，用于订阅 DeviceDetectionService 类的自定义事件，并实现事件处理器的逻辑
+        void SubscribeToDeviceDetection(DeviceDetectionService service)
+        {
+            // 使用 += 运算符订阅自定义事件，并指定一个匿名方法作为事件处理器
+            service.DeviceDetectionChanged += (sender, e) =>
+            {
+                // 在事件处理器中，获取事件参数中的检测结果
+                bool result = e.IsConnected;
 
+                // 根据检测结果更新 UI 或执行其他操作
+                if (result)
+                {
+                    // 设备已连接，更新 UI 或执行其他操作
+                    // 例如，将 ConnectedStatu 变量设置为 true，并显示连接成功的提示信息
+                    ConnectedStatu = true;
+                    //MessageBox.Show("设备已连接！", "提示", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                    StatusLabel_DeviceStatus.Text = "Connected";
+                    StatusLabel_DeviceStatus.BackColor = Color.Green;
+                }
+                else
+                {
+                    // 设备未连接，更新 UI 或执行其他操作
+                    // 例如，将 ConnectedStatu 变量设置为 false，并显示连接失败的提示信息
+                    ConnectedStatu = false;
+                    // MessageBox.Show("设备未连接！", "警告", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                    StatusLabel_DeviceStatus.Text = "DisConnect";
+                    StatusLabel_DeviceStatus.BackColor = Color.Red;
+                }
+            };
+        }
 
 
 
@@ -412,41 +439,13 @@ namespace HW_Thermal_Tools.Forms
 
         }
 
-        public void Keithley2306Form_Activated(object sender, EventArgs e)
+       
+
+
+
+        private async void Keithley2306Form_FormClosing(object sender, FormClosingEventArgs e)
         {
-
-            //获取当前活动的form 
-            Form currentFrom = Form.ActiveForm;
-            // 获取取消令牌
-            CancellationToken token = CheckCTS.Token;
-            Task.Run(() =>
-            {
-
-                while (currentFrom.Visible)
-                {
-                    // 调用检测方法
-                    bool ConnectSatus = detector.CheckGPIBDevice(address);
-
-                    if (ConnectSatus == true)
-                    {
-                        StatusLabel_DeviceStatus.Text = "Connected";
-                        StatusLabel_DeviceStatus.BackColor = Color.Green;
-                    }
-                    else if (ConnectSatus == false)
-                    {
-                        StatusLabel_DeviceStatus.Text = "DisConnect";
-                        StatusLabel_DeviceStatus.BackColor = Color.Red;
-                    }
-
-                    // 延时
-                    Thread.Sleep(500);
-                }
-            }, token);  //床底取消令牌
-        }
-
-        private void Keithley2306Form_Deactivate(object sender, EventArgs e)
-        {
-            CheckCTS.Cancel();//发出取消请求
+            await service.StopAsync(CancellationToken.None);
         }
     }
 
