@@ -52,6 +52,7 @@
         public ExcelDataPoint(DateTime time, double currentvalue, double voltageValue, double powerValue)
         {
             Time = time;
+            CurentValue = currentvalue;
             VoltageValue = voltageValue;
             PowerValue = powerValue;
         }

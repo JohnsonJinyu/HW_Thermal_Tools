@@ -19,8 +19,8 @@ namespace HW_Thermal_Tools.Forms
         private static volatile bool CheckSignal = true;
         // 定义私有布尔变量，表示是否继续读取数据
         private static volatile bool ReadSignal = false;
-        // 定义两个后台任务
-        private Task CheckDeviceTask;
+        // 定义1个后台任务
+      
         private Task ReadDataTask;
         // 定义2个私有的字段，用来存储取消令牌源
         private CancellationTokenSource CheckCTS;
@@ -35,16 +35,16 @@ namespace HW_Thermal_Tools.Forms
         private int MinValueCol, MaxValueCol, CurrentValueCol, AverageValueCol;
 
 
-        //定义设备地址
-        private string address = "GPIB0::6::INSTR";
+        
 
         private DeviceDetectionService service;
 
         public Keithley2306Form(NiVisaFunction niVisaFunction)
         {
             InitializeComponent();
+            
             this.NiVisa = niVisaFunction; //构造函数中初始化
-
+            
 
 
             //初始化两个布尔变量为false
@@ -62,6 +62,7 @@ namespace HW_Thermal_Tools.Forms
 
             // 调用 SubscribeToDeviceDetection 方法，并传入 service 实例
             SubscribeToDeviceDetection(service);
+            
 
         }
 
@@ -71,6 +72,7 @@ namespace HW_Thermal_Tools.Forms
         {
             InitialGrid_WatchDog();
             InitialChart();
+            // 异步开始检测设备连接状态
             await service.StartAsync(CancellationToken.None);
 
 
@@ -430,6 +432,11 @@ namespace HW_Thermal_Tools.Forms
                     // 将OriDataHistory列表中的数据加载到工作表中，从第一行第一列开始
                     ws.Cells["A1"].LoadFromCollection(this.NiVisa.data.OriDataHistory, true);
 
+                    ws.Column(1).Style.Numberformat.Format = "yyyy-mm-dd hh:mm:ss"; // 设置第一列的单元格格式为DateTime
+                    ws.Column(1).Width = 20;
+                    ws.Column(2).Width = 14;
+                    ws.Column(3).Width = 14;
+                    ws.Column(4).Width = 14;
                     package.SaveAs(file); // 将excel文件保存到指定的路径
                 }
 

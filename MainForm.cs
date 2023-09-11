@@ -19,7 +19,7 @@ namespace HW_Thermal_Tools
         {
             InitializeComponent();
             random = new Random();
-            //detector.CheckGPIBDevice("GPIB0::6::INSTR");
+
         }
 
         private Color SelectThemeColor()
