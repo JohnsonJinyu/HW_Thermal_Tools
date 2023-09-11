@@ -66,7 +66,7 @@ namespace HW_Thermal_Tools.Forms
             {
                 if (control is System.Windows.Forms.Button)
                 {
-                    System.Windows.Forms.Button btn = (System.Windows.Forms.Button)control;
+                    System.Windows.Forms.Button btn = (Button)control;
                     btn.BackColor = ThemeColor.PrimaryColor;
                     btn.ForeColor = Color.White;
                     btn.FlatAppearance.BorderColor = ThemeColor.SecondaryColor;
@@ -116,7 +116,7 @@ namespace HW_Thermal_Tools.Forms
             //保存图片
             if (checkBox_SaveCurvePicture.CheckState == CheckState.Checked)
             {
-                string dir = "";
+                string dir = string.Empty;
                 FolderBrowserDialog dialog = new FolderBrowserDialog();
                 //设置diaglog的title
                 dialog.Description = "请选择保存图片的路径";
@@ -188,12 +188,12 @@ namespace HW_Thermal_Tools.Forms
 
         private bool CheckUserInput()
         {
-            if (txtNtcNames.Text == "")
+            if (txtNtcNames.Text == string.Empty)
             {
                 MessageBox.Show("请输入NTC的名称!", "Warning", MessageBoxButtons.OK, MessageBoxIcon.Warning);
                 return false;
             }
-            if (txtFrontPoint.Text == "" || txtFramePoint.Text == "" || txtBottomPoint.Text == "")
+            if (txtFrontPoint.Text == string.Empty || txtFramePoint.Text == string.Empty || txtBottomPoint.Text == string.Empty)
             {
                 MessageBox.Show("请输入用到的点位", "Warning", MessageBoxButtons.OK, MessageBoxIcon.Warning);
                 return false;
@@ -825,15 +825,15 @@ namespace HW_Thermal_Tools.Forms
             string bottom_equation = bottom_intercept.ToString("f4");
             for (int i = 0; i < front_slope.Length; i++)
             {
-                front_equation += (front_slope[i] > 0 ? "+" : "") + (front_slope[i]).ToString("f4") + "*" + NtcName[i];
+                front_equation += (front_slope[i] > 0 ? "+" : string.Empty) + (front_slope[i]).ToString("f4") + "*" + NtcName[i];
             }
             for (int i = 0; i < frame_slope.Length; i++)
             {
-                frame_equation += (frame_slope[i] > 0 ? "+" : "") + (frame_slope[i]).ToString("f4") + "*" + NtcName[i];
+                frame_equation += (frame_slope[i] > 0 ? "+" : string.Empty) + (frame_slope[i]).ToString("f4") + "*" + NtcName[i];
             }
             for (int i = 0; i < bottom_slope.Length; i++)
             {
-                bottom_equation += (bottom_slope[i] > 0 ? "+" : "") + (bottom_slope[i]).ToString("f4") + "*" + NtcName[i];
+                bottom_equation += (bottom_slope[i] > 0 ? "+" : string.Empty) + (bottom_slope[i]).ToString("f4") + "*" + NtcName[i];
             }
 
             //计算预测值
@@ -1057,7 +1057,7 @@ namespace HW_Thermal_Tools.Forms
         {
             string[] files = (string[])e.Data.GetData(DataFormats.FileDrop);
 
-            string allFilesPath = "";
+            string allFilesPath = string.Empty;
 
             foreach (string file in files)
             {

@@ -1,6 +1,4 @@
-﻿using HW_Thermal_Tools.Forms;
-using HW_Thermal_Tools.Forms.keithley2306;
-using System.Windows.Forms;
+﻿using HW_Thermal_Tools.Forms.keithley2306;
 
 namespace HW_Thermal_Tools
 {

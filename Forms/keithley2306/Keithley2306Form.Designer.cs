@@ -39,8 +39,6 @@
             DataGridViewCellStyle dataGridViewCellStyle1 = new DataGridViewCellStyle();
             TablePanel_Control = new DevExpress.Utils.Layout.TablePanel();
             Combox_CurrentLim_Select = new ComboBox();
-            textBox3 = new TextBox();
-            textBox2 = new TextBox();
             Combox_Channel = new ComboBox();
             DataGridView_ChargeInput = new DataGridView();
             Charge_Voltage = new DataGridViewTextBoxColumn();
@@ -57,8 +55,6 @@
             ChartControl_Watchdog = new DevExpress.XtraCharts.ChartControl();
             Chart_Panel = new Panel();
             TabPanel_Chart_Control = new DevExpress.Utils.Layout.TablePanel();
-            TextBox_Title_Display_Select = new TextBox();
-            TextBox_Title_Freq = new TextBox();
             DataGridView_WhatchDog = new DataGridView();
             Min_Value = new DataGridViewTextBoxColumn();
             Max_Value = new DataGridViewTextBoxColumn();
@@ -70,6 +66,10 @@
             CheckBox_CurrentLineDisplay = new CheckBox();
             statusStrip1 = new StatusStrip();
             StatusLabel_DeviceStatus = new ToolStripStatusLabel();
+            Label_Voltage_Select = new Label();
+            Label_Current_Lim_Select = new Label();
+            Label_Display_Options = new Label();
+            Label_ReadFrequence = new Label();
             ((System.ComponentModel.ISupportInitialize)TablePanel_Control).BeginInit();
             TablePanel_Control.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)DataGridView_ChargeInput).BeginInit();
@@ -92,9 +92,9 @@
             // TablePanel_Control
             // 
             TablePanel_Control.Columns.AddRange(new DevExpress.Utils.Layout.TablePanelColumn[] { new DevExpress.Utils.Layout.TablePanelColumn(DevExpress.Utils.Layout.TablePanelEntityStyle.Relative, 39.64F), new DevExpress.Utils.Layout.TablePanelColumn(DevExpress.Utils.Layout.TablePanelEntityStyle.Relative, 37.68F), new DevExpress.Utils.Layout.TablePanelColumn(DevExpress.Utils.Layout.TablePanelEntityStyle.Relative, 32.68F) });
+            TablePanel_Control.Controls.Add(Label_Current_Lim_Select);
+            TablePanel_Control.Controls.Add(Label_Voltage_Select);
             TablePanel_Control.Controls.Add(Combox_CurrentLim_Select);
-            TablePanel_Control.Controls.Add(textBox3);
-            TablePanel_Control.Controls.Add(textBox2);
             TablePanel_Control.Controls.Add(Combox_Channel);
             TablePanel_Control.Controls.Add(DataGridView_ChargeInput);
             TablePanel_Control.Controls.Add(Btn_Save);
@@ -125,26 +125,6 @@
             Combox_CurrentLim_Select.Size = new Size(74, 22);
             Combox_CurrentLim_Select.TabIndex = 15;
             Combox_CurrentLim_Select.Text = "2.0";
-            // 
-            // textBox3
-            // 
-            TablePanel_Control.SetColumn(textBox3, 1);
-            textBox3.Location = new Point(107, 109);
-            textBox3.Name = "textBox3";
-            TablePanel_Control.SetRow(textBox3, 2);
-            textBox3.Size = new Size(86, 22);
-            textBox3.TabIndex = 14;
-            textBox3.Text = "电流限制 / V";
-            // 
-            // textBox2
-            // 
-            TablePanel_Control.SetColumn(textBox2, 1);
-            textBox2.Location = new Point(107, 65);
-            textBox2.Name = "textBox2";
-            TablePanel_Control.SetRow(textBox2, 1);
-            textBox2.Size = new Size(86, 22);
-            textBox2.TabIndex = 13;
-            textBox2.Text = "电压选择 / V";
             // 
             // Combox_Channel
             // 
@@ -352,8 +332,8 @@
             // TabPanel_Chart_Control
             // 
             TabPanel_Chart_Control.Columns.AddRange(new DevExpress.Utils.Layout.TablePanelColumn[] { new DevExpress.Utils.Layout.TablePanelColumn(DevExpress.Utils.Layout.TablePanelEntityStyle.Absolute, 450F), new DevExpress.Utils.Layout.TablePanelColumn(DevExpress.Utils.Layout.TablePanelEntityStyle.Relative, 12.1F), new DevExpress.Utils.Layout.TablePanelColumn(DevExpress.Utils.Layout.TablePanelEntityStyle.Absolute, 86F), new DevExpress.Utils.Layout.TablePanelColumn(DevExpress.Utils.Layout.TablePanelEntityStyle.Absolute, 79F), new DevExpress.Utils.Layout.TablePanelColumn(DevExpress.Utils.Layout.TablePanelEntityStyle.Relative, 25.54F), new DevExpress.Utils.Layout.TablePanelColumn(DevExpress.Utils.Layout.TablePanelEntityStyle.Relative, 12.06F) });
-            TabPanel_Chart_Control.Controls.Add(TextBox_Title_Display_Select);
-            TabPanel_Chart_Control.Controls.Add(TextBox_Title_Freq);
+            TabPanel_Chart_Control.Controls.Add(Label_ReadFrequence);
+            TabPanel_Chart_Control.Controls.Add(Label_Display_Options);
             TabPanel_Chart_Control.Controls.Add(DataGridView_WhatchDog);
             TabPanel_Chart_Control.Controls.Add(ComboBox_DataFrequence);
             TabPanel_Chart_Control.Controls.Add(CheckBox_PowerLineDisplay);
@@ -367,31 +347,6 @@
             TabPanel_Chart_Control.Size = new Size(794, 136);
             TabPanel_Chart_Control.TabIndex = 5;
             TabPanel_Chart_Control.UseSkinIndents = true;
-            // 
-            // TextBox_Title_Display_Select
-            // 
-            TextBox_Title_Display_Select.Anchor = AnchorStyles.Top | AnchorStyles.Bottom | AnchorStyles.Left | AnchorStyles.Right;
-            TabPanel_Chart_Control.SetColumn(TextBox_Title_Display_Select, 2);
-            TextBox_Title_Display_Select.Font = new Font("Tahoma", 9F, FontStyle.Bold, GraphicsUnit.Point);
-            TextBox_Title_Display_Select.Location = new Point(502, 17);
-            TextBox_Title_Display_Select.Margin = new Padding(3, 2, 3, 2);
-            TextBox_Title_Display_Select.Name = "TextBox_Title_Display_Select";
-            TabPanel_Chart_Control.SetRow(TextBox_Title_Display_Select, 0);
-            TextBox_Title_Display_Select.Size = new Size(80, 22);
-            TextBox_Title_Display_Select.TabIndex = 6;
-            TextBox_Title_Display_Select.Text = "显示选项";
-            // 
-            // TextBox_Title_Freq
-            // 
-            TabPanel_Chart_Control.SetColumn(TextBox_Title_Freq, 3);
-            TextBox_Title_Freq.Font = new Font("Tahoma", 9F, FontStyle.Bold, GraphicsUnit.Point);
-            TextBox_Title_Freq.Location = new Point(588, 17);
-            TextBox_Title_Freq.Margin = new Padding(3, 2, 3, 2);
-            TextBox_Title_Freq.Name = "TextBox_Title_Freq";
-            TabPanel_Chart_Control.SetRow(TextBox_Title_Freq, 0);
-            TextBox_Title_Freq.Size = new Size(73, 22);
-            TextBox_Title_Freq.TabIndex = 5;
-            TextBox_Title_Freq.Text = "采样频率";
             // 
             // DataGridView_WhatchDog
             // 
@@ -460,7 +415,7 @@
             // 
             TabPanel_Chart_Control.SetColumn(ComboBox_DataFrequence, 3);
             ComboBox_DataFrequence.FormattingEnabled = true;
-            ComboBox_DataFrequence.Items.AddRange(new object[] { "250 ms / 次", "500 ms / 次", "1 S / 次", "2 S / 次", "5 S / 次", "10 S / 次" });
+            ComboBox_DataFrequence.Items.AddRange(new object[] { "100 ms / 次", "250 ms / 次", "500 ms / 次", "1 S / 次", "2 S / 次", "5 S / 次", "10 S / 次" });
             ComboBox_DataFrequence.Location = new Point(588, 48);
             ComboBox_DataFrequence.Margin = new Padding(3, 2, 3, 2);
             ComboBox_DataFrequence.Name = "ComboBox_DataFrequence";
@@ -533,6 +488,54 @@
             StatusLabel_DeviceStatus.Size = new Size(79, 19);
             StatusLabel_DeviceStatus.Text = "设备未连接";
             // 
+            // Label_Voltage_Select
+            // 
+            Label_Voltage_Select.AutoSize = true;
+            TablePanel_Control.SetColumn(Label_Voltage_Select, 1);
+            Label_Voltage_Select.Font = new Font("Tahoma", 9F, FontStyle.Bold, GraphicsUnit.Point);
+            Label_Voltage_Select.Location = new Point(108, 69);
+            Label_Voltage_Select.Name = "Label_Voltage_Select";
+            TablePanel_Control.SetRow(Label_Voltage_Select, 1);
+            Label_Voltage_Select.Size = new Size(82, 14);
+            Label_Voltage_Select.TabIndex = 16;
+            Label_Voltage_Select.Text = "电压选择 / V";
+            // 
+            // Label_Current_Lim_Select
+            // 
+            Label_Current_Lim_Select.AutoSize = true;
+            TablePanel_Control.SetColumn(Label_Current_Lim_Select, 1);
+            Label_Current_Lim_Select.Font = new Font("Tahoma", 9F, FontStyle.Bold, GraphicsUnit.Point);
+            Label_Current_Lim_Select.Location = new Point(108, 113);
+            Label_Current_Lim_Select.Name = "Label_Current_Lim_Select";
+            TablePanel_Control.SetRow(Label_Current_Lim_Select, 2);
+            Label_Current_Lim_Select.Size = new Size(83, 14);
+            Label_Current_Lim_Select.TabIndex = 17;
+            Label_Current_Lim_Select.Text = "电流限制 / A";
+            // 
+            // Label_Display_Options
+            // 
+            Label_Display_Options.AutoSize = true;
+            TabPanel_Chart_Control.SetColumn(Label_Display_Options, 2);
+            Label_Display_Options.Font = new Font("Tahoma", 9F, FontStyle.Bold, GraphicsUnit.Point);
+            Label_Display_Options.Location = new Point(502, 21);
+            Label_Display_Options.Name = "Label_Display_Options";
+            TabPanel_Chart_Control.SetRow(Label_Display_Options, 0);
+            Label_Display_Options.Size = new Size(59, 14);
+            Label_Display_Options.TabIndex = 6;
+            Label_Display_Options.Text = "显示选项";
+            // 
+            // Label_ReadFrequence
+            // 
+            Label_ReadFrequence.AutoSize = true;
+            TabPanel_Chart_Control.SetColumn(Label_ReadFrequence, 3);
+            Label_ReadFrequence.Font = new Font("Tahoma", 9F, FontStyle.Bold, GraphicsUnit.Point);
+            Label_ReadFrequence.Location = new Point(588, 21);
+            Label_ReadFrequence.Name = "Label_ReadFrequence";
+            TabPanel_Chart_Control.SetRow(Label_ReadFrequence, 0);
+            Label_ReadFrequence.Size = new Size(59, 14);
+            Label_ReadFrequence.TabIndex = 7;
+            Label_ReadFrequence.Text = "采样频率";
+            // 
             // Keithley2306Form
             // 
             Appearance.BackColor = Color.White;
@@ -548,7 +551,6 @@
             MinimumSize = new Size(1080, 580);
             Name = "Keithley2306Form";
             Text = "keithley2306";
-            
             FormClosing += Keithley2306Form_FormClosing;
             FormClosed += Keithley2306Form_FormClosed;
             Load += keithley2306_Load;
@@ -600,17 +602,17 @@
         private DataGridViewTextBoxColumn Charge_Voltage;
         private DataGridViewTextBoxColumn Charge_Current;
         private DataGridViewTextBoxColumn Charge_Time;
-        private TextBox TextBox_Title_Freq;
-        private TextBox TextBox_Title_Display_Select;
         private ComboBox Combox_Channel;
         private StatusStrip statusStrip1;
         private ToolStripStatusLabel StatusLabel_DeviceStatus;
-        private TextBox textBox3;
-        private TextBox textBox2;
         private ComboBox Combox_CurrentLim_Select;
         private DataGridViewTextBoxColumn Min_Value;
         private DataGridViewTextBoxColumn Max_Value;
         private DataGridViewTextBoxColumn Current_Value;
         private DataGridViewTextBoxColumn Ave_Value;
+        private Label Label_Current_Lim_Select;
+        private Label Label_Voltage_Select;
+        private Label Label_Display_Options;
+        private Label Label_ReadFrequence;
     }
 }

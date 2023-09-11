@@ -32,13 +32,13 @@ namespace HW_Thermal_Tools.Forms
 
         private void LoadTheme()
         {
-            
+
             //通过这种方式获取
             foreach (System.Windows.Forms.Control control in TabLayoutPanel_XmlToExcel.Controls)
             {
                 if (control is System.Windows.Forms.Button)
                 {
-                    System.Windows.Forms.Button btn = (System.Windows.Forms.Button)control;
+                    System.Windows.Forms.Button btn = (Button)control;
                     btn.BackColor = ThemeColor.PrimaryColor;
                     btn.ForeColor = Color.White;
                     btn.FlatAppearance.BorderColor = ThemeColor.SecondaryColor;
@@ -81,7 +81,7 @@ namespace HW_Thermal_Tools.Forms
         private void BtnXmlToExcelFile_Click(object sender, EventArgs e)
         {
             //判断用户是否都选择了文件
-            if (TxtXmlFilePath.Text == "" || TxtConfigFile.Text == "")
+            if (TxtXmlFilePath.Text == string.Empty || TxtConfigFile.Text == string.Empty)
             {
                 MessageBox.Show("请选择xml文件和配置表excel文件");
                 return;

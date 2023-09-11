@@ -1,12 +1,7 @@
-﻿using DevExpress.CodeParser;
-using DevExpress.XtraPrinting.Preview;
-using Microsoft.Extensions.Hosting;
+﻿using Microsoft.Extensions.Hosting;
 using NationalInstruments.Visa;
 using System;
-using System.Collections.Generic;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace HW_Thermal_Tools.Forms.keithley2306
 {

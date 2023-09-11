@@ -1,5 +1,4 @@
-﻿using Ivi.Visa;
-using NationalInstruments.Visa;
+﻿using NationalInstruments.Visa;
 
 
 namespace HW_Thermal_Tools.Forms.keithley2306
@@ -134,7 +133,7 @@ namespace HW_Thermal_Tools.Forms.keithley2306
 
             // 读取电压  
             Session.RawIO.Write("MEAS:VOLT?");
-            data.Voltage = Math.Round(float.Parse(Session.RawIO.ReadString()) , 5);  //转为mV,并保留小数点后5位
+            data.Voltage = Math.Round(float.Parse(Session.RawIO.ReadString()), 5);  //转为mV,并保留小数点后5位
 
 
             // 计算功率 

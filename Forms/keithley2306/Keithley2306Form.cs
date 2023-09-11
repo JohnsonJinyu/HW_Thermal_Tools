@@ -1,9 +1,6 @@
-﻿using DevExpress.CodeParser;
-using HW_Thermal_Tools.Forms.keithley2306;
+﻿using HW_Thermal_Tools.Forms.keithley2306;
 using HZH_Controls;
-using NPOI.SS.Formula.Functions;
 using OfficeOpenXml;
-using System.Windows.Forms;
 
 namespace HW_Thermal_Tools.Forms
 {
@@ -20,7 +17,7 @@ namespace HW_Thermal_Tools.Forms
         // 定义私有布尔变量，表示是否继续读取数据
         private static volatile bool ReadSignal = false;
         // 定义1个后台任务
-      
+
         private Task ReadDataTask;
         // 定义2个私有的字段，用来存储取消令牌源
         private CancellationTokenSource CheckCTS;
@@ -35,16 +32,16 @@ namespace HW_Thermal_Tools.Forms
         private int MinValueCol, MaxValueCol, CurrentValueCol, AverageValueCol;
 
 
-        
+
 
         private DeviceDetectionService service;
 
         public Keithley2306Form(NiVisaFunction niVisaFunction)
         {
             InitializeComponent();
-            
+
             this.NiVisa = niVisaFunction; //构造函数中初始化
-            
+
 
 
             //初始化两个布尔变量为false
@@ -62,7 +59,7 @@ namespace HW_Thermal_Tools.Forms
 
             // 调用 SubscribeToDeviceDetection 方法，并传入 service 实例
             SubscribeToDeviceDetection(service);
-            
+
 
         }
 
@@ -74,8 +71,37 @@ namespace HW_Thermal_Tools.Forms
             InitialChart();
             // 异步开始检测设备连接状态
             await service.StartAsync(CancellationToken.None);
+            LoadTheme();
 
 
+        }
+
+        private void LoadTheme()
+        {
+            //由于button放在panel容易中，无法通过这种方式获取button
+            /*
+             foreach (System.Windows.Forms.Control btns in this.Controls)
+             {
+                 if (btns.GetType() == typeof(System.Windows.Forms.Button))
+                 {
+                     System.Windows.Forms.Button btn = (System.Windows.Forms.Button)btns;
+                     btn.BackColor = ThemeColor.PrimaryColor;
+                     btn.ForeColor = Color.White;
+                     btn.FlatAppearance.BorderColor = ThemeColor.SecondaryColor;
+                 }
+             }
+             */
+            //通过这种方式获取
+            foreach (System.Windows.Forms.Control control in TablePanel_Control.Controls)
+            {
+                if (control is System.Windows.Forms.Button)
+                {
+                    System.Windows.Forms.Button btn = (Button)control;
+                    btn.BackColor = ThemeColor.PrimaryColor;
+                    btn.ForeColor = Color.White;
+                    btn.FlatAppearance.BorderColor = ThemeColor.SecondaryColor;
+                }
+            }
 
         }
 
@@ -84,7 +110,7 @@ namespace HW_Thermal_Tools.Forms
         private void Btn_Power_Off_Click(object sender, EventArgs e)
         {
             this.NiVisa.OutPut_Off();
-            
+
         }
 
         private void Btn_Power_On_Click(object sender, EventArgs e)
@@ -246,6 +272,9 @@ namespace HW_Thermal_Tools.Forms
         {
             switch (ComboBox_DataFrequence.Text)
             {
+                case "100 ms / 次":
+                    ReadFrequence = 100;
+                    break;
                 case "250 ms / 次":
                     ReadFrequence = 250;
                     break;
@@ -446,7 +475,7 @@ namespace HW_Thermal_Tools.Forms
 
         }
 
-       
+
 
 
 

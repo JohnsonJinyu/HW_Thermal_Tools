@@ -26,7 +26,7 @@ namespace HW_Thermal_Tools.Forms
             {
                 if (btns.GetType() == typeof(System.Windows.Forms.Button))
                 {
-                    System.Windows.Forms.Button btn = (System.Windows.Forms.Button)btns;
+                    System.Windows.Forms.Button btn = (Button)btns;
                     btn.BackColor = ThemeColor.PrimaryColor;
                     btn.ForeColor = Color.White;
                     btn.FlatAppearance.BorderColor = ThemeColor.SecondaryColor;
