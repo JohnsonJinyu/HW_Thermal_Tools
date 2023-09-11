@@ -51,6 +51,7 @@ namespace HW_Thermal_Tools.Forms.keithley2306
                 connected = false;
 
             }
+            
             //Monitor.Exit(sessionLock);
             return connected;
 

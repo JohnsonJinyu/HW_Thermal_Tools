@@ -32,19 +32,7 @@ namespace HW_Thermal_Tools.Forms
 
         private void LoadTheme()
         {
-            //由于button放在panel容易中，无法通过这种方式获取button
-            /*
-             foreach (System.Windows.Forms.Control btns in this.Controls)
-             {
-                 if (btns.GetType() == typeof(System.Windows.Forms.Button))
-                 {
-                     System.Windows.Forms.Button btn = (System.Windows.Forms.Button)btns;
-                     btn.BackColor = ThemeColor.PrimaryColor;
-                     btn.ForeColor = Color.White;
-                     btn.FlatAppearance.BorderColor = ThemeColor.SecondaryColor;
-                 }
-             }
-             */
+            
             //通过这种方式获取
             foreach (System.Windows.Forms.Control control in TabLayoutPanel_XmlToExcel.Controls)
             {
