@@ -147,6 +147,15 @@ namespace HW_Thermal_Tools
             lblTitle.Text = "主页";
         }
 
-
+        private void MainForm_FormClosing(object sender, FormClosingEventArgs e)
+        {
+            // 弹出确认框
+            DialogResult result = MessageBox.Show("是否确认关闭？", "提示", MessageBoxButtons.YesNo, MessageBoxIcon.Question);
+            // 如果用户选择否，则取消关闭
+            if (result == DialogResult.No)
+            {
+                e.Cancel = true;
+            }
+        }
     }
 }

@@ -206,6 +206,7 @@
             MinimumSize = new Size(1239, 679);
             Name = "MainForm";
             Text = "硬件小工具集";
+            FormClosing += MainForm_FormClosing;
             Load += MainForm_Load;
             panelMenu.ResumeLayout(false);
             panelLogo.ResumeLayout(false);
