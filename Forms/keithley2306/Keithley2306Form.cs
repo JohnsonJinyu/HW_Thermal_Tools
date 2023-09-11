@@ -1,6 +1,9 @@
-﻿using HW_Thermal_Tools.Forms.keithley2306;
+﻿using DevExpress.CodeParser;
+using HW_Thermal_Tools.Forms.keithley2306;
 using HZH_Controls;
+using NPOI.SS.Formula.Functions;
 using OfficeOpenXml;
+using System.Windows.Forms;
 
 namespace HW_Thermal_Tools.Forms
 {
@@ -31,6 +34,9 @@ namespace HW_Thermal_Tools.Forms
         //定义数据Grid的列索引
         private int ItemCol, MinValueCol, MaxValueCol, CurrentValueCol, AverageValueCol;
 
+        private NiDeviceDetection detector;
+        //定义设备地址
+        private string address = "GPIB0::6::INSTR";
 
         public Keithley2306Form(NiVisaFunction niVisaFunction)
         {
@@ -59,7 +65,7 @@ namespace HW_Thermal_Tools.Forms
             InitialChart();
 
             //启动后台线程检测设备变化
-            StartDetection();
+            //StartDetection();
 
 
         }
@@ -183,7 +189,7 @@ namespace HW_Thermal_Tools.Forms
         private void Keithley2306Form_FormClosed(object sender, FormClosedEventArgs e)
         {
             //当Form closed时，关闭session会话和Task
-            
+
 
 
             CheckSignal = false;
@@ -265,71 +271,7 @@ namespace HW_Thermal_Tools.Forms
 
 
 
-        // 定义一个公共的方法，用来启动check()任务
-        public void StartDetection()
-        {
-            // 设置running变量为true，表示需要继续检测
-            CheckSignal = true;
 
-            // 创建一个取消令牌源
-            CheckCTS = new CancellationTokenSource();
-
-            // 获取取消令牌
-            var token = CheckCTS.Token;
-
-            // 使用Task类的Run方法来创建并启动一个后台线程，并传入DectionAndUpdateUITask方法和取消令牌作为参数
-
-            CheckDeviceTask = Task.Run(() => DectionAndUpdateUITask(token), token);
-
-        }
-
-
-        
-
-
-        private async void DectionAndUpdateUITask(CancellationToken token)
-        {
-
-
-            while (CheckSignal)
-            {
-
-                ConnectedStatu = await this.NiVisa.Detection_Thread();
-                // 如果connected为true，表示设备已连接
-                if (ConnectedStatu)
-                {
-                    // 使用Invoke方法来更新界面上的控件或触发事件，例如：
-                    Invoke(new Action(() =>
-                    {
-                        StatusLabel_DeviceStatus.Text = "Connected";
-                        StatusLabel_DeviceStatus.BackColor = Color.Green;
-                    }));
-                }
-                else
-                {
-                    // 使用Invoke方法来更新界面上的控件或触发事件，例如：
-                    Invoke(new Action(() =>
-                    {
-                        StatusLabel_DeviceStatus.Text = "DisConnected";
-                        StatusLabel_DeviceStatus.BackColor = Color.Red;
-                    }));
-                }
-
-                // 在循环中检查取消令牌是否已经被取消，如果是，则退出循环
-                /*
-                if (token.IsCancellationRequested)
-                {
-                    break;
-                }
-                if (!CheckSignal)
-                {
-                    break;
-                }
-                */
-                if (!CheckSignal)
-                    break;
-            }
-        }
 
 
         //定义一个方法，用来启动ReadData()后台任务
@@ -470,6 +412,42 @@ namespace HW_Thermal_Tools.Forms
 
         }
 
+        public void Keithley2306Form_Activated(object sender, EventArgs e)
+        {
+
+            //获取当前活动的form 
+            Form currentFrom = Form.ActiveForm;
+            // 获取取消令牌
+            CancellationToken token = CheckCTS.Token;
+            Task.Run(() =>
+            {
+
+                while (currentFrom.Visible)
+                {
+                    // 调用检测方法
+                    bool ConnectSatus = detector.CheckGPIBDevice(address);
+
+                    if (ConnectSatus == true)
+                    {
+                        StatusLabel_DeviceStatus.Text = "Connected";
+                        StatusLabel_DeviceStatus.BackColor = Color.Green;
+                    }
+                    else if (ConnectSatus == false)
+                    {
+                        StatusLabel_DeviceStatus.Text = "DisConnect";
+                        StatusLabel_DeviceStatus.BackColor = Color.Red;
+                    }
+
+                    // 延时
+                    Thread.Sleep(500);
+                }
+            }, token);  //床底取消令牌
+        }
+
+        private void Keithley2306Form_Deactivate(object sender, EventArgs e)
+        {
+            CheckCTS.Cancel();//发出取消请求
+        }
     }
 
 }

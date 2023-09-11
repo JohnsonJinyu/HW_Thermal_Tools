@@ -15,9 +15,9 @@ namespace HW_Thermal_Tools.Forms.keithley2306
         private bool connected;
 
         private ResourceManager rm = new ResourceManager();
+
         //定义设备地址
         private string address = "GPIB0::6::INSTR";
-
 
         // 创建PowerData对象
         public PowerData data;
@@ -32,13 +32,13 @@ namespace HW_Thermal_Tools.Forms.keithley2306
          设备连接检测功能
          */
 
-        public async Task<bool> Detection_Thread()
+        /*public bool Detection_Thread()
         {
             //获取锁
             //Monitor.Enter(sessionLock);
             try
             {
-                string[] resources = await Task.Run(() => (string[])rm.Find(address));
+                string[] resources = (string[])rm.Find(address);
                 if (resources.Length > 0)
                 {
                     connected = true;
@@ -55,7 +55,7 @@ namespace HW_Thermal_Tools.Forms.keithley2306
             //Monitor.Exit(sessionLock);
             return connected;
 
-        }
+        }*/
 
 
         /*

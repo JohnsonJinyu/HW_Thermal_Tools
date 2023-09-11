@@ -548,6 +548,8 @@
             MinimumSize = new Size(1080, 580);
             Name = "Keithley2306Form";
             Text = "keithley2306";
+            Activated += Keithley2306Form_Activated;
+            Deactivate += Keithley2306Form_Deactivate;
             FormClosed += Keithley2306Form_FormClosed;
             Load += keithley2306_Load;
             ((System.ComponentModel.ISupportInitialize)TablePanel_Control).EndInit();
