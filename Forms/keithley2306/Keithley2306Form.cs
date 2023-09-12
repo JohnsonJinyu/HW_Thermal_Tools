@@ -3,6 +3,7 @@ using HW_Thermal_Tools.Forms.keithley2306;
 using HZH_Controls;
 using OfficeOpenXml;
 using System.ComponentModel;
+using System.Windows.Forms;
 using LicenseContext = OfficeOpenXml.LicenseContext;
 
 namespace HW_Thermal_Tools.Forms
@@ -199,6 +200,7 @@ namespace HW_Thermal_Tools.Forms
                         // 显示充电进度信息
                         Label_Progress.Text = $"正在执行第{index + 1}行充电操作，持续{time}秒";
                     };
+
                     // 在RunWorkerCompleted事件中访问或修改控件，显示充电完成信息
                     worker.RunWorkerCompleted += (s, e) =>
                     {
@@ -303,7 +305,7 @@ namespace HW_Thermal_Tools.Forms
             //将dataGridView 的RowHeader设定
             DataGridView_WhatchDog.Rows[0].HeaderCell.Value = "Current(mA)";
             DataGridView_WhatchDog.Rows[1].HeaderCell.Value = "Voltage(V)";
-            DataGridView_WhatchDog.Rows[2].HeaderCell.Value = "Power(mW)";
+            DataGridView_WhatchDog.Rows[2].HeaderCell.Value = "Power(W)";
         }
         //定义一个方法,初始化数据曲线图
         public void InitialChart()
@@ -322,10 +324,10 @@ namespace HW_Thermal_Tools.Forms
             ChartControl_Watchdog.Series["Voltage(V)"].ValueDataMembers.AddRange(new string[] { "Value" }); // 指定Series的纵轴数据
 
             // 设置Power Series的属性
-            ChartControl_Watchdog.Series["Power(mW)"].DataSource = this.NiVisa.data.PowerHistory;
+            ChartControl_Watchdog.Series["Power(W)"].DataSource = this.NiVisa.data.PowerHistory;
             //ChartControl_Watchdog.Series["Power"].SeriesDataMember = "Power"; // 指定Series的名称
-            ChartControl_Watchdog.Series["Power(mW)"].ArgumentDataMember = "Time"; // 指定Series的横轴数据
-            ChartControl_Watchdog.Series["Power(mW)"].ValueDataMembers.AddRange(new string[] { "Value" }); // 指定Series的纵轴数据
+            ChartControl_Watchdog.Series["Power(W)"].ArgumentDataMember = "Time"; // 指定Series的横轴数据
+            ChartControl_Watchdog.Series["Power(W)"].ValueDataMembers.AddRange(new string[] { "Value" }); // 指定Series的纵轴数据
 
         }
 
@@ -500,7 +502,7 @@ namespace HW_Thermal_Tools.Forms
 
         private void CheckBox_PowerLineDisplay_CheckedChanged(object sender, EventArgs e)
         {
-            ChartControl_Watchdog.Series["Power(mW)"].Visible = CheckBox_PowerLineDisplay.Checked;
+            ChartControl_Watchdog.Series["Power(W)"].Visible = CheckBox_PowerLineDisplay.Checked;
         }
 
 

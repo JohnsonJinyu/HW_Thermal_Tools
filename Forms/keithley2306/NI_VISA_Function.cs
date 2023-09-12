@@ -137,7 +137,7 @@ namespace HW_Thermal_Tools.Forms.keithley2306
 
 
             // 计算功率 
-            data.Power = data.Current * data.Voltage;
+            data.Power = data.Current * data.Voltage / 1000; // 功率W
 
 
 

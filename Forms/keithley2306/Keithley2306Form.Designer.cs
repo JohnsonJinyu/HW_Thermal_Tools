@@ -79,8 +79,8 @@
             CheckBox_CurrentLineDisplay = new CheckBox();
             statusStrip1 = new StatusStrip();
             StatusLabel_DeviceStatus = new ToolStripStatusLabel();
-            timer1 = new System.Windows.Forms.Timer(components);
             Label_Progress = new ToolStripStatusLabel();
+            timer1 = new System.Windows.Forms.Timer(components);
             ((System.ComponentModel.ISupportInitialize)TablePanel_Control).BeginInit();
             TablePanel_Control.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)digitalGauge1).BeginInit();
@@ -205,7 +205,7 @@
             TablePanel_Control.SetColumn(Combox_CurrentLim_Select, 2);
             Combox_CurrentLim_Select.FormattingEnabled = true;
             Combox_CurrentLim_Select.Items.AddRange(new object[] { "1.0", "1.5", "2.0", "2.25", "3.0" });
-            Combox_CurrentLim_Select.Location = new Point(197, 109);
+            Combox_CurrentLim_Select.Location = new Point(197, 107);
             Combox_CurrentLim_Select.Name = "Combox_CurrentLim_Select";
             TablePanel_Control.SetRow(Combox_CurrentLim_Select, 2);
             Combox_CurrentLim_Select.Size = new Size(74, 22);
@@ -218,7 +218,7 @@
             TablePanel_Control.SetColumn(Combox_Channel, 2);
             Combox_Channel.FormattingEnabled = true;
             Combox_Channel.Items.AddRange(new object[] { "CH1", "CH2" });
-            Combox_Channel.Location = new Point(198, 20);
+            Combox_Channel.Location = new Point(198, 22);
             Combox_Channel.Margin = new Padding(3, 2, 3, 2);
             Combox_Channel.Name = "Combox_Channel";
             TablePanel_Control.SetRow(Combox_Channel, 0);
@@ -335,7 +335,7 @@
             TablePanel_Control.SetColumn(ComboBox_Voltage_Select, 2);
             ComboBox_Voltage_Select.FormattingEnabled = true;
             ComboBox_Voltage_Select.Items.AddRange(new object[] { "3.5", "3.7", "3.9", "4.0" });
-            ComboBox_Voltage_Select.Location = new Point(198, 65);
+            ComboBox_Voltage_Select.Location = new Point(198, 64);
             ComboBox_Voltage_Select.Margin = new Padding(3, 2, 3, 2);
             ComboBox_Voltage_Select.Name = "ComboBox_Voltage_Select";
             TablePanel_Control.SetRow(ComboBox_Voltage_Select, 1);
@@ -395,7 +395,7 @@
             swiftPlotDiagram1.EnableAxisXZooming = true;
             swiftPlotDiagram1.EnableAxisYScrolling = true;
             swiftPlotDiagram1.EnableAxisYZooming = true;
-            swiftPlotDiagramSecondaryAxisy1.AxisID = 0;
+            swiftPlotDiagramSecondaryAxisy1.AxisID = 1;
             swiftPlotDiagramSecondaryAxisy1.Name = "Secondary AxisY 1";
             swiftPlotDiagramSecondaryAxisy1.VisibleInPanesSerializable = "-1";
             swiftPlotDiagram1.SecondaryAxesY.AddRange(new DevExpress.XtraCharts.SwiftPlotDiagramSecondaryAxisY[] { swiftPlotDiagramSecondaryAxisy1 });
@@ -404,18 +404,22 @@
             ChartControl_Watchdog.Location = new Point(0, 0);
             ChartControl_Watchdog.Margin = new Padding(3, 2, 3, 2);
             ChartControl_Watchdog.Name = "ChartControl_Watchdog";
-            series1.Name = "Power(mW)";
+            series1.Name = "Power(W)";
             series1.SeriesID = 1;
+            swiftPlotSeriesView1.AxisYName = "Secondary AxisY 1";
             swiftPlotSeriesView1.Color = Color.Lime;
+            swiftPlotSeriesView1.LineStyle.Thickness = 2;
             series1.View = swiftPlotSeriesView1;
             series2.Name = "Voltage(V)";
             series2.SeriesID = 2;
             swiftPlotSeriesView2.AxisYName = "Secondary AxisY 1";
             swiftPlotSeriesView2.Color = Color.Blue;
+            swiftPlotSeriesView2.LineStyle.Thickness = 2;
             series2.View = swiftPlotSeriesView2;
             series3.Name = "Current(mA)";
             series3.SeriesID = 3;
             swiftPlotSeriesView3.Color = Color.Red;
+            swiftPlotSeriesView3.LineStyle.Thickness = 2;
             series3.View = swiftPlotSeriesView3;
             ChartControl_Watchdog.SeriesSerializable = new DevExpress.XtraCharts.Series[] { series1, series2, series3 };
             ChartControl_Watchdog.Size = new Size(788, 370);
@@ -614,16 +618,16 @@
             StatusLabel_DeviceStatus.Size = new Size(79, 19);
             StatusLabel_DeviceStatus.Text = "设备未连接";
             // 
-            // timer1
-            // 
-            timer1.Interval = 1000;
-            timer1.Tick += timer1_Tick;
-            // 
             // Label_Progress
             // 
             Label_Progress.Name = "Label_Progress";
             Label_Progress.Size = new Size(56, 19);
             Label_Progress.Text = "充电进度";
+            // 
+            // timer1
+            // 
+            timer1.Interval = 1000;
+            timer1.Tick += timer1_Tick;
             // 
             // Keithley2306Form
             // 
