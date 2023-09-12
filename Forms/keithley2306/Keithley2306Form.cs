@@ -235,6 +235,15 @@ namespace HW_Thermal_Tools.Forms
             //如果已有数据 需要清空
             if (this.NiVisa.data.OriDataHistory.Count > 0)
             {
+                // 增加防误触 如果已有数据，弹窗确认数据已经保存
+                // 弹出确认框
+                DialogResult result = MessageBox.Show("请确认数据是否已经保存？", "提示", MessageBoxButtons.YesNo, MessageBoxIcon.Question);
+
+                if (result == DialogResult.No)
+                {
+                    return;
+                }
+
                 this.NiVisa.data.OriDataHistory.Clear();
                 this.NiVisa.data.CurrentHistory.Clear();
                 this.NiVisa.data.VoltageHistory.Clear();
