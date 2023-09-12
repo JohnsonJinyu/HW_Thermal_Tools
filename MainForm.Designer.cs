@@ -203,6 +203,7 @@
             Controls.Add(panelDeskTopPanel);
             Controls.Add(panelTitleBar);
             Controls.Add(panelMenu);
+            Icon = (Icon)resources.GetObject("$this.Icon");
             MinimumSize = new Size(1239, 679);
             Name = "MainForm";
             Text = "硬件小工具集";
