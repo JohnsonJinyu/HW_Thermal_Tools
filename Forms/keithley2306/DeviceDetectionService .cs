@@ -13,6 +13,21 @@ namespace HW_Thermal_Tools.Forms.keithley2306
         // 定义一个 ResourceManager 的实例，用于管理 VISA 资源
         private ResourceManager resourceManager = new ResourceManager();
 
+
+        // 在DeviceDetectionService类中定义一个名为NiVisa的属性，它的类型是NiVisaFunction
+        public NiVisaFunction NiVisa { get; set; }
+
+        // 在检测设备时，创建一个布尔初始连接状态
+        bool initialConnectionStatus = false;
+
+        // 在DeviceDetectionService类的构造函数中，给NiVisa属性赋值为keithley2306Form类中的NiVisa属性
+        public DeviceDetectionService(Keithley2306Form form)
+        {
+            // 赋值为form参数中的NiVisa属性
+            NiVisa = form.NiVisa;
+        }
+
+
         // 定义一个 CheckGPIBDevice 的方法，用于检测 GPIB 设备是否存在
         public bool CheckGPIBDevice(string address)
         {
@@ -20,13 +35,26 @@ namespace HW_Thermal_Tools.Forms.keithley2306
             {
                 string[] resources = (string[])resourceManager.Find(address);
                 if (resources.Length > 0)
-                    return true;
+                {
+                    if (initialConnectionStatus == false)
+                    {
+                        initialConnectionStatus = true;
+                        NiVisa.OpenSession();
+                        MessageBox.Show("Session 会话已开启");
+                    }
+                    return initialConnectionStatus;
+                }
                 else
-                    return false; //添加默认的返回情况，也就是 == 0的时候
+                {
+                    initialConnectionStatus = false;
+                    return initialConnectionStatus; //添加默认的返回情况，也就是 == 0的时候
+                }
+                    
             }
             catch (Exception e)
             {
-                return false;
+                initialConnectionStatus = false;
+                return initialConnectionStatus;
             }
         }
 

@@ -63,7 +63,8 @@ namespace HW_Thermal_Tools.Forms
             AverageValueCol = 3;
 
             // 创建一个 DeviceDetectionService 的实例
-            service = new DeviceDetectionService();
+            // 给构造函数传递一个keithley2306Form类的对象作为参数（this表示当前对象）
+            service = new DeviceDetectionService(this);
 
             // 调用 SubscribeToDeviceDetection 方法，并传入 service 实例
             SubscribeToDeviceDetection(service);
@@ -131,12 +132,12 @@ namespace HW_Thermal_Tools.Forms
             }
             else if (RadioButton_PowerTest.Checked == true)
             {
-                this.NiVisa.OpenSession();
+                //this.NiVisa.OpenSession();
                 this.NiVisa.SelectChannel(Combox_Channel.Text);
                 this.NiVisa.SetVoltage(ComboBox_Voltage_Select.Text);
                 this.NiVisa.SetCurrent_Lim(Combox_CurrentLim_Select.Text);
                 this.NiVisa.OutPut_On();
-                MessageBox.Show("Session 会话已开启");
+                //MessageBox.Show("Session 会话已开启");
             }
             else if (RadioButton_ChargeTest.Checked == true)
             {
@@ -147,8 +148,8 @@ namespace HW_Thermal_Tools.Forms
                 }
                 else
                 {
-                    this.NiVisa.OpenSession();
-                    MessageBox.Show("Session 会话已开启");
+                    //this.NiVisa.OpenSession();
+                    //MessageBox.Show("Session 会话已开启");
                     // 创建一个BackgroundWorker组件
                     BackgroundWorker worker = new BackgroundWorker();
                     // 设置worker可以报告进度
