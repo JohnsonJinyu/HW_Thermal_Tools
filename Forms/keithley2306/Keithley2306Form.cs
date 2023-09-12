@@ -23,8 +23,6 @@ namespace HW_Thermal_Tools.Forms
         // 定义1个后台任务
 
         private Task ReadDataTask;
-        // 定义2个私有的字段，用来存储取消令牌源
-        private CancellationTokenSource CheckCTS;
         private CancellationTokenSource ReadCTS;
 
         public NiVisaFunction NiVisa { get; set; } //这里声明Visa属性

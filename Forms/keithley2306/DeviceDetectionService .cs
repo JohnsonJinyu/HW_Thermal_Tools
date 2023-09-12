@@ -49,7 +49,7 @@ namespace HW_Thermal_Tools.Forms.keithley2306
                     initialConnectionStatus = false;
                     return initialConnectionStatus; //添加默认的返回情况，也就是 == 0的时候
                 }
-                    
+
             }
             catch (Exception e)
             {

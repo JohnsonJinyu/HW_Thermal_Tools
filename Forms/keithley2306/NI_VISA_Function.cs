@@ -6,13 +6,9 @@ namespace HW_Thermal_Tools.Forms.keithley2306
 
     public class NiVisaFunction
     {
-
-
-        //定义一个锁对象
-        private Object sessionLock = new object();
         private MessageBasedSession Session;
-        private bool connected;
 
+        // 创建一个resourceManager 实例化对象
         private ResourceManager rm = new ResourceManager();
 
         //定义设备地址
@@ -124,21 +120,16 @@ namespace HW_Thermal_Tools.Forms.keithley2306
              2、Math.Round的参数为double类型
              3、最后再转为float类型赋值给Current
              */
-
             // 读取电流
             Session.RawIO.Write("MEAS:CURR?");
-
             data.Current = Math.Round(float.Parse(Session.RawIO.ReadString()) * 1000, 5); //转为mA,并保留小数点后5位
-
 
             // 读取电压  
             Session.RawIO.Write("MEAS:VOLT?");
             data.Voltage = Math.Round(float.Parse(Session.RawIO.ReadString()), 5);  //转为mV,并保留小数点后5位
 
-
             // 计算功率 
             data.Power = data.Current * data.Voltage / 1000; // 功率W
-
 
 
             // 保存到队列历史记录
@@ -146,8 +137,6 @@ namespace HW_Thermal_Tools.Forms.keithley2306
             data.VoltageHistory.Add(new DataPoint(DateTime.Now, data.Voltage));
             data.PowerHistory.Add(new DataPoint(DateTime.Now, data.Power));
             data.OriDataHistory.Add(new ExcelDataPoint(DateTime.Now, data.Current, data.Voltage, data.Power));
-
-
         }
 
         public async Task ReadDataAsync()
