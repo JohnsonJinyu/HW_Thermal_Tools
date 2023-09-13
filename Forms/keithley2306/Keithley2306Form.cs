@@ -1,9 +1,7 @@
-﻿using DevExpress.XtraGauges.Win;
-using HW_Thermal_Tools.Forms.keithley2306;
+﻿using HW_Thermal_Tools.Forms.keithley2306;
 using HZH_Controls;
 using OfficeOpenXml;
 using System.ComponentModel;
-using System.Windows.Forms;
 using LicenseContext = OfficeOpenXml.LicenseContext;
 
 namespace HW_Thermal_Tools.Forms
