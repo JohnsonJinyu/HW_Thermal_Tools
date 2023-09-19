@@ -5,7 +5,7 @@ VisualStudioVersion = 17.6.33829.357
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "HW_Thermal_Tools", "HW_Thermal_Tools.csproj", "{A613442C-2827-42C0-A898-FEF377C032BF}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Keithley2306", "..\Keithley2306\Keithley2306.csproj", "{BB163063-DB9F-423D-B0FC-0B6DE27508ED}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "2306IPC", "..\2306IPC\2306IPC.csproj", "{14EED085-8904-4006-9F41-C4305F796B9D}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -17,10 +17,10 @@ Global
 		{A613442C-2827-42C0-A898-FEF377C032BF}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{A613442C-2827-42C0-A898-FEF377C032BF}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{A613442C-2827-42C0-A898-FEF377C032BF}.Release|Any CPU.Build.0 = Release|Any CPU
-		{BB163063-DB9F-423D-B0FC-0B6DE27508ED}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{BB163063-DB9F-423D-B0FC-0B6DE27508ED}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{BB163063-DB9F-423D-B0FC-0B6DE27508ED}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{BB163063-DB9F-423D-B0FC-0B6DE27508ED}.Release|Any CPU.Build.0 = Release|Any CPU
+		{14EED085-8904-4006-9F41-C4305F796B9D}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{14EED085-8904-4006-9F41-C4305F796B9D}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{14EED085-8904-4006-9F41-C4305F796B9D}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{14EED085-8904-4006-9F41-C4305F796B9D}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
