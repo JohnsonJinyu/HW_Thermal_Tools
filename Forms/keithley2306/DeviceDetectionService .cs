@@ -1,5 +1,7 @@
 ﻿using Microsoft.Extensions.Hosting;
 using NationalInstruments.Visa;
+using System;
+using System.Linq;
 
 namespace HW_Thermal_Tools.Forms.keithley2306
 {
