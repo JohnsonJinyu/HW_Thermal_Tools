@@ -11,8 +11,10 @@ namespace HW_Thermal_Tools.Forms
 
         //定义一个全局变量ExcelTitleList，用于保存Excel表格的标题
         List<string> ExcelTitleList = new List<string>();
+
         //定义一个Excel2DictList，用于保存遍历Excel得到的字典合集,内层嵌套列表，用于存储多个value
         Dictionary<string, Dictionary<string, List<string>>> Excel2Dict = new Dictionary<string, Dictionary<string, List<string>>>();
+
         //定义一个DataTable用于存储XML读取以及匹配后的数据
         System.Data.DataTable XMLDataTable = new System.Data.DataTable();
 

@@ -43,7 +43,7 @@
 
   <ItemGroup>
     <PackageReference Include="DevExpress.Win.Design" Version="23.1.4" />
-    <PackageReference Include="EPPlus" Version="6.2.7" />
+    <PackageReference Include="EPPlus" Version="7.0.8" />
     <PackageReference Include="HZH_Controls" Version="1.0.14" />
     <PackageReference Include="MathNet.Numerics" Version="5.0.0" />
     <PackageReference Include="Microsoft.Extensions.Hosting.Abstractions" Version="7.0.0" />
@@ -52,13 +52,13 @@
 
   <ItemGroup>
     <Reference Include="Ivi.Visa">
-      <HintPath>C:\Program Files (x86)\IVI Foundation\VISA\Microsoft.NET\Framework32\v2.0.50727\VISA.NET Shared Components 5.8.0\Ivi.Visa.dll</HintPath>
+      <HintPath>C:\Program Files (x86)\IVI Foundation\VISA\Microsoft.NET\Framework32\v2.0.50727\VISA.NET Shared Components 7.2.0\Ivi.Visa.dll</HintPath>
     </Reference>
     <Reference Include="NationalInstruments.Common">
-      <HintPath>C:\Windows\Microsoft.NET\assembly\GAC_MSIL\NationalInstruments.Common\v4.0_17.5.40.49153__dc6ad606294fc298\NationalInstruments.Common.dll</HintPath>
+      <HintPath>C:\Windows\Microsoft.NET\assembly\GAC_MSIL\NationalInstruments.Common\v4.0_19.1.40.49152__dc6ad606294fc298\NationalInstruments.Common.dll</HintPath>
     </Reference>
     <Reference Include="NationalInstruments.Visa">
-      <HintPath>C:\Program Files (x86)\IVI Foundation\VISA\Microsoft.NET\Framework32\v4.0.30319\NI VISA.NET 17.5\NationalInstruments.Visa.dll</HintPath>
+      <HintPath>C:\Windows\Microsoft.NET\assembly\GAC_MSIL\NationalInstruments.Visa\v4.0_23.5.0.49313__2eaa5af0834e221d\NationalInstruments.Visa.dll</HintPath>
     </Reference>
   </ItemGroup>
 
