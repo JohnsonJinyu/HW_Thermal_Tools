@@ -186,6 +186,10 @@ namespace HW_Thermal_Tools.Forms
 
         }
 
+        /**
+         检查用户输入的内容是否合规
+         */
+
         private bool CheckUserInput()
         {
             if (txtNtcNames.Text == string.Empty)
@@ -239,8 +243,7 @@ namespace HW_Thermal_Tools.Forms
             string[] fileNames = TxtboxStfFilesPath.Text.Split(new string[] { "\r\n" }, StringSplitOptions.RemoveEmptyEntries);
             List<string> CsvFilesList = new List<string>();
             List<string> ExcelFilesList = new List<string>();
-            //定义一个用于接收预处理csv文件和excel文件结果DataTable的lsit
-            //List<System.Data.DataTable> DataTablesList = new List<System.Data.DataTable>();
+
             foreach (string fileName in fileNames)
             {
                 if (fileName.EndsWith(".csv"))
@@ -266,21 +269,30 @@ namespace HW_Thermal_Tools.Forms
             List<System.Data.DataTable> resultDataTablesList = new List<System.Data.DataTable>();
 
             //创建两个dataTable,分别名为CsvDataTable和ExcelDataTable
+            // 其中CsvDataTable 用于保存读取单个csv文件后补充/补齐的数据
+            // ExcelDataTable用于保存读取到的数据，因为excel文件的数据格式是一致的，所以不需要补充/补齐
             System.Data.DataTable CsvDataTable = new System.Data.DataTable();
             System.Data.DataTable ExcelDataTable = new System.Data.DataTable();
+
 
             //创建两个dataTable，用于临时存储数据后去对齐时间，分别名为csvTempDataTable和excelTempDataTable
             System.Data.DataTable csvTempDataTable = new System.Data.DataTable();
             System.Data.DataTable excelTempDataTable = new System.Data.DataTable();
 
-            //csv时间格式
-            string csvTimeFormat = "HH-mm-ss.fff";
 
+            //csv时间格式
+            string csvReferTimeFormat = "HH-mm-ss.fff";
+            string csvTimeFormatWithoutMilliseconds = "HH-mm-ss";
+
+
+            const double allowedVarianceInSeconds = 1.02; // 允许的误差为1.02秒，通过原始csv表格看到硬件读取到的时间 大部分是差1.001秒，稍微放开一些
 
             /*
              获取并设置csv文件的dataTable的列名
              */
-            //遍历所有的csv文件的，对比csv文件的列数，将列数最多的csv文件的第一行设置为表的列名
+            // 遍历所有的csv文件的，对比csv文件的列数，将列数最多的csv文件的第一行设置为表的列名
+            // 这里的处理是为了避免壳温拟合的时候hypermonitor的数据列数不一致的问题
+
             var csvTableHeaders = new string[0];
             var headers = new string[0];
             foreach (string csvFile in csvFilesList)
@@ -305,6 +317,7 @@ namespace HW_Thermal_Tools.Forms
 
                 }
             }
+
             //设置表的列名以及时间列的数据类型
             foreach (string header in csvTableHeaders)
             {
@@ -316,8 +329,11 @@ namespace HW_Thermal_Tools.Forms
             csvTempDataTable.Columns[0].ColumnName = "Time";
             csvTempDataTable.Columns[0].DataType = typeof(DateTime);
 
+
+
             /*
              由于excel文件都是手动设置的GP10,所以内容格式上会完全一致，直接获取第一个文件 读取标题
+             设置临时DataTable 和 组合后的 DataTable的标题
              */
             using (ExcelPackage package = new ExcelPackage(new FileInfo(excelFilesList[0])))
             {
@@ -326,6 +342,7 @@ namespace HW_Thermal_Tools.Forms
                 ExcelWorksheet worksheet = package.Workbook.Worksheets.First();
 
                 //读取标题
+                // 将Excel文件中工作表的第一行的每个单元格值（通常是列标题）作为列名添加到两个DataTable对象中。
                 for (int i = 1; i <= worksheet.Dimension.End.Column; i++)
                 {
                     ExcelDataTable.Columns.Add(worksheet.Cells[1, i].Value.ToString());
@@ -366,18 +383,22 @@ namespace HW_Thermal_Tools.Forms
 
 
 
-                        //再单独读取csv文件的第二行，定义preDateTime以及PreValues并获取值；
+                        //再单独读取csv文件的第二行，定义用于备份的时间、参考的时间以及备份的数据backTime、referTime、backValues
                         //根据skipTitleList读取数据与DataTable的列数保持一致，同步将preValues添加到表；
-                        string preLine = reader.ReadLine();
-                        string[] preValues = preLine.Split(',');
-                        DateTime preDateTime = DateTime.ParseExact(preValues[0], csvTimeFormat, CultureInfo.InvariantCulture);
-                        //将dateTime转为字符串给到preValues[0]
-                        string preTimeString = preDateTime.ToString("HH:mm:ss");
-                        preValues[0] = preTimeString;
+                        string backLine = reader.ReadLine();
+                        string[] backValues = backLine.Split(',');
+                        // 获取backTime(HH:mm:ss)用于直接填充到preValues[0]中，获取不包含毫秒的部分
+                        DateTime backTime = DateTime.ParseExact(backValues[0].Split('.')[0], csvTimeFormatWithoutMilliseconds, CultureInfo.InvariantCulture);
+
+                        // 获取referTime(HH-mm-ss.fff)用于后面遍历中判断时间是否连续
+                        DateTime referTime = DateTime.ParseExact(backValues[0], csvReferTimeFormat, CultureInfo.InvariantCulture);
+                        
+                        // 将backTime 转为字符串，用于填充到preValues[0]中
+                        backValues[0] = backTime.ToString();
 
                         //这个动作是为了跳过不存在的标题
                         //拆分为字段数组,临时存储逐行读取的数据的数组
-                        string[] tempValues = preLine.Split(',');
+                        string[] tempValues = backLine.Split(',');
                         //再定义一个数组，用于存储对比过后的数据的数组
                         string[] values = new string[csvTempDataTable.Columns.Count];
 
@@ -394,96 +415,107 @@ namespace HW_Thermal_Tools.Forms
                                 j++;
                             }
                         }
-                        values[0] = preTimeString;
+                        values[0] = backTime.ToString();
 
-                        //将preValues添加到临时表
+                        //将Values添加到临时表
                         csvTempDataTable.Rows.Add(values);
 
                         //将values的值同步给preValues
-                        preValues = values;
+                        backValues = values;
 
 
 
                         // 从第三开始逐行遍历
                         while (!reader.EndOfStream)
                         {
-                            string line = reader.ReadLine();
-                            //拆分为字段数组,临时存储逐行读取的数据的数组
-                            tempValues = line.Split(',');
-                            //再定义一个属于，用于存储对比过后的数据的数组
-                            string[] currentValues = new string[csvTempDataTable.Columns.Count];
+                            string line = reader.ReadLine();  
+                            tempValues = line.Split(',');  //拆分为字段数组,临时存储逐行读取的数据的数组
+                            string[] currentValues = new string[csvTempDataTable.Columns.Count];  //再定义一个属于，用于存储对比过后的数据的数组
+
+                            DateTime CurrentDateTime; // 定义当前时间,HH:mm:ss.fff格式
+
                             /*
                              为了在读取到最后一行csv非时间的数据时，能退出while循环，
                             使用TryParseExact方法将时间列的数据转换为DateTime类型，如果转换失败，
                              */
-                            DateTime CurrentDateTime;
-                            if (!DateTime.TryParseExact(tempValues[0], csvTimeFormat, CultureInfo.InvariantCulture, DateTimeStyles.None, out CurrentDateTime))
+                            if (!DateTime.TryParseExact(tempValues[0], csvReferTimeFormat, CultureInfo.InvariantCulture, DateTimeStyles.None, out CurrentDateTime))
                             {
-                                break;
+                                break; // 跳出循环，结束当前这个csv文件的遍历
                             }
 
-                            // 解析为 DateTime
-                            CurrentDateTime = DateTime.ParseExact(tempValues[0], csvTimeFormat, CultureInfo.InvariantCulture);
+                           // 说明是正常数据，继续执行其他步骤
+                            
 
-                            // 转换为字符串
-                            string currentDateTimeToString = CurrentDateTime.ToString("HH:mm:ss");
-                            //赋值给字符串数组
-                            tempValues[0] = currentDateTimeToString;
+                            CurrentDateTime = DateTime.ParseExact(tempValues[0], csvReferTimeFormat, CultureInfo.InvariantCulture);  // 解析当前行的时间
 
-                            /*
-                             这里添加对获取的数组的内容的判断，主要是为了解决两种抓取的数据中存在的问题：
-                            1、某个时刻抓取的数据存在空值，即csv文件中有空值
-                            2、抓取的数据在时间上不连续的问题
-                             */
-                            //为了忽略毫秒带来的影响,使用dateTime的take方法取整到秒
-                            string preDateTimeToString = preDateTime.ToString("HH:mm:ss");
-                            DateTime curDateTimeWithoutMs = DateTime.Parse(currentDateTimeToString);
-                            DateTime preDateTimeWithoutMs = DateTime.Parse(preDateTimeToString);
-                            TimeSpan timeSpan = curDateTimeWithoutMs - preDateTimeWithoutMs;
+                            // 对比referTime，计算timeSpan，判断是否是连续的时间
+                            TimeSpan timeSpan = CurrentDateTime - referTime;
 
-                            if (timeSpan.TotalSeconds > 1) //如果时差大于1s，说明时间上不连续
+
+
+
+                            // 先判断当前行是否为空
+                            if (tempValues.Any(string.IsNullOrEmpty))
                             {
-                                //将preDateTime加1s
-                                preDateTime = preDateTime.AddSeconds(1);
-                                //将preDateTime转为字符串给到preValues[0]
-                                preTimeString = preDateTime.ToString("HH:mm:ss");
-                                preValues[0] = preTimeString;
-                                //将preValues添加到临时表
-                                csvTempDataTable.Rows.Add(preValues);
-                            }
-
-                            //如果tempValues中存在空值
-                            else if (tempValues.Any(string.IsNullOrEmpty))
-                            {
-                                //将preDateTime加1s
-                                preDateTime = preDateTime.AddSeconds(1);
-                                //将preDateTime转为字符串给到preValues[0]
-                                preTimeString = preDateTime.ToString("HH:mm:ss");
-                                preValues[0] = preTimeString;
-                                //将preValues添加到临时表
-                                csvTempDataTable.Rows.Add(preValues);
-                            }
-
-                            //添加这一行的数据到表，根据表的列数与skipTitleList来判断是否需要跳过某些列
-                            for (int i = 0, j = 0; i < csvTempDataTable.Columns.Count; i++)
-                            {
-                                //如果skipTitleList中包含i，则跳过这一列
-                                if (skipTitleList.Contains(i))
+                                // 数据存在空值，再判断数据的时间上是否连续
+                                if (timeSpan.TotalSeconds < allowedVarianceInSeconds)
                                 {
-                                    currentValues[i] = "None";
+                                    backTime = backTime.AddSeconds(1); // backTime 递增1s
+                                    backValues[0] = backTime.ToString(); // 将backTime转为字符串给到backValues[0]、tempValues[0]
+                                    
 
+                                    // 这里就是使用backValues赋值给CurrentValues,然后使用CurrentValues填充当前行
+                                    currentValues = backValues;
+                                    
+                                    referTime = CurrentDateTime; // 将这一行的时间更新到referTime 
+                                    tempValues[0] = backTime.ToString();
                                 }
-                                else
-                                {
-                                    currentValues[i] = tempValues[j];
-                                    j++;
-                                }
+                                
+
+                                continue;
                             }
+
+                            // 再判断时间上是否是连续的,如果小于允许的误差，说明是连续的
+                            else if (timeSpan.TotalSeconds < allowedVarianceInSeconds)
+                            {
+                                
+                                backTime = backTime.AddSeconds(1);// backTime 递增1s
+                                                               
+
+                                //添加这一行的数据到表，根据表的列数与skipTitleList来判断是否需要跳过某些列
+                                for (int i = 0, j = 0; i < csvTempDataTable.Columns.Count; i++)
+                                {
+                                    //如果skipTitleList中包含i，则跳过这一列
+                                    if (skipTitleList.Contains(i))
+                                    {
+                                        currentValues[i] = "None";
+
+                                    }
+                                    else
+                                    {
+                                        currentValues[i] = tempValues[j];
+                                        j++;
+                                    }
+                                }
+
+
+                                backValues[0] = backTime.ToString();// 将backTime转为字符串给到backValues[0]、tempValues[0]
+                                currentValues[0] = backTime.ToString();  //更新时间列的值
+
+                                backValues = currentValues;  // 将这一行的值更新到backValues
+                                referTime = CurrentDateTime; // 将这一行的时间更新到referTime 
+                            }
+                            
+
+
+                            
+
+
+                            
+                      
 
                             //添加这行数据到表
                             csvTempDataTable.Rows.Add(currentValues);
-                            preValues = currentValues;
-                            preDateTime = CurrentDateTime;
 
 
 
@@ -548,7 +580,7 @@ namespace HW_Thermal_Tools.Forms
                         excelTempDataTable = excelTempDataTable.AsEnumerable().Where(r => (DateTime)r[0] >= startTime && (DateTime)r[0] <= endTime).CopyToDataTable();
 
                         //判断确认临时表不为空，保存临时表的数据到最终表
-                        if (csvTempDataTable.Rows.Count > 0 && excelTempDataTable.Rows.Count > 0)
+                        /*if (csvTempDataTable.Rows.Count > 0 && excelTempDataTable.Rows.Count > 0)
                         {
                             foreach (DataRow row in csvTempDataTable.Rows)
                             {
@@ -562,12 +594,33 @@ namespace HW_Thermal_Tools.Forms
                             //清除临时表的数据
                             csvTempDataTable.Rows.Clear();
                             excelTempDataTable.Rows.Clear();
-                        }
-                        else
+                        }*/
+
+                        // 比较数据长度，保留行数较少的部分
+                        if (csvTempDataTable.Rows.Count < excelTempDataTable.Rows.Count)
                         {
-                            //提示用户
-                            MessageBox.Show("文件" + "没有对齐的数据");
+                            excelTempDataTable = excelTempDataTable.AsEnumerable().Take(csvTempDataTable.Rows.Count).CopyToDataTable();
                         }
+                        else if (csvTempDataTable.Rows.Count > excelTempDataTable.Rows.Count)
+                        {
+                            csvTempDataTable = csvTempDataTable.AsEnumerable().Take(excelTempDataTable.Rows.Count).CopyToDataTable();
+                        }
+
+                        // 保存对齐并截取后的数据
+                        foreach (DataRow row in csvTempDataTable.Rows)
+                        {
+                            CsvDataTable.ImportRow(row);
+                        }
+                        foreach (DataRow row in excelTempDataTable.Rows)
+                        {
+                            ExcelDataTable.ImportRow(row);
+                        }
+
+                        // 清除临时表的数据
+                        csvTempDataTable.Rows.Clear();
+                        excelTempDataTable.Rows.Clear();
+
+
                     }
                 }
 
