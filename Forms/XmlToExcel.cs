@@ -322,7 +322,7 @@ namespace HW_Thermal_Tools.Forms
 
                             //将attr.Name(TempGear)作为key，在Excel2Dict中查找对应的子字典
                             Dictionary<string, List<string>> TempDict;
-                            Excel2Dict.TryGetValue("TempGear", out TempDict);
+                            Excel2Dict.TryGetValue("温度档位", out TempDict);
 
                             //将attr.Value作为key，在TempDict中查找对应的value
                             List<string> TempList;
@@ -344,7 +344,7 @@ namespace HW_Thermal_Tools.Forms
 
                             //将attr.Name(Charge)作为key，在Excel2Dict中查找对应的子字典
                             Dictionary<string, List<string>> ChargeDict;
-                            if (Excel2Dict.TryGetValue("Charge", out ChargeDict))
+                            if (Excel2Dict.TryGetValue("充电档位", out ChargeDict))
                             {
 
                                 //将attr.Value作为key，在ChargeDict中查找对应的value
@@ -422,7 +422,7 @@ namespace HW_Thermal_Tools.Forms
 
                             //将attr.Name(brightness)作为key，在Excel2Dict中查找对应的子字典
                             Dictionary<string, List<string>> BrightnessDict;
-                            if (Excel2Dict.TryGetValue("brightness", out BrightnessDict))
+                            if (Excel2Dict.TryGetValue("亮度等级", out BrightnessDict))
                             {
                                 List<string> BrightnessList;
 
