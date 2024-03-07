@@ -506,17 +506,9 @@ namespace HW_Thermal_Tools.Forms
                                 referTime = CurrentDateTime; // 将这一行的时间更新到referTime 
                             }
                             
-
-
-                            
-
-
-                            
-                      
-
+  
                             //添加这行数据到表
                             csvTempDataTable.Rows.Add(currentValues);
-
 
 
                         }

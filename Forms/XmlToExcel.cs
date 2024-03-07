@@ -290,6 +290,10 @@ namespace HW_Thermal_Tools.Forms
                 }
 
 
+                // ！！！！！如果这一行的父节点与上一行的父节点相同，复制上一行的内容到新添加的这一行里！！！！ 为了适配当前OPPO最新的温控策略
+
+
+
                 //在新添加的一行里，将父节点的名称添加到列名为“场景名称”的列中
                 row["场景名称"] = parentName;
                 /*
@@ -447,7 +451,7 @@ namespace HW_Thermal_Tools.Forms
 
                             // 将attr.Name(modem)作为key,在在Excel2Dict中查找对应的子字典
                             Dictionary<string, List<string>> ModemDict;
-                            if (Excel2Dict.TryGetValue("modem", out ModemDict))
+                            if (Excel2Dict.TryGetValue("Modem", out ModemDict))
                             {
                                 List<string> ModemList;
 
@@ -494,6 +498,8 @@ namespace HW_Thermal_Tools.Forms
 
                             }
                             break;
+
+
 
 
                         default:
