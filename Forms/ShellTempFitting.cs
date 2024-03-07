@@ -514,22 +514,73 @@ namespace HW_Thermal_Tools.Forms
                         }
 
 
+                        /**
+                         * 
+                         * 原本的方案
+                         // 读取对应的Excel
+                            using (var package = new ExcelPackage(excelFile))
+                            {
+                                var worksheet = package.Workbook.Worksheets.First();
+
+                                //循环读取每个单元格
+                                for (int r = 2; r <= worksheet.Dimension.End.Row; r++)
+                                {
+                                    //存储一行的数据
+                                    object[] row = new object[worksheet.Dimension.End.Column];
+                                    for (int c = 1; c <= worksheet.Dimension.End.Column; c++)
+                                    {
+                                        //读取单元格
+                                        object cell = worksheet.Cells[r, c].Value;
+                                        //如果是时间所在的列
+                                        if (c == 1)
+                                        {
+                                            // Excel用数字序列表示时间
+                                            double timeNumber = (double)cell;
+
+                                            // 转换为DateTime
+                                            DateTime dateTime = DateTime.FromOADate(timeNumber);
+
+                                            // 格式化时间字符串
+                                            cell = dateTime.ToString("HH:mm:ss");
+                                        }
+                                        row[c - 1] = cell;
+                                    }
+                                    //添加这行数据到临时表
+                                    excelTempDataTable.Rows.Add(row);
+                                }
+                            }
+                         */
+
+
+                        //出现的问题可能是由于Excel工作表的Dimension属性返回的列数不正确。这可能是因为工作表中某些位置曾经有过数据，但后来被删除，导致Excel仍然认为那些列是被使用的
+                        //添加了一个循环来确定实际使用的最后一列，这样就可以避免创建包含空值的额外列
 
                         // 读取对应的Excel
                         using (var package = new ExcelPackage(excelFile))
                         {
                             var worksheet = package.Workbook.Worksheets.First();
 
-                            //循环读取每个单元格
+                            // 获取实际使用的列数
+                            int actualColumnCount = worksheet.Dimension.End.Column;
+                            for (int c = actualColumnCount; c > 0; c--)
+                            {
+                                if (worksheet.Cells[1, c].Value != null)
+                                {
+                                    actualColumnCount = c;
+                                    break;
+                                }
+                            }
+
+                            // 循环读取每个单元格
                             for (int r = 2; r <= worksheet.Dimension.End.Row; r++)
                             {
-                                //存储一行的数据
-                                object[] row = new object[worksheet.Dimension.End.Column];
-                                for (int c = 1; c <= worksheet.Dimension.End.Column; c++)
+                                // 存储一行的数据
+                                object[] row = new object[actualColumnCount];
+                                for (int c = 1; c <= actualColumnCount; c++)
                                 {
-                                    //读取单元格
+                                    // 读取单元格
                                     object cell = worksheet.Cells[r, c].Value;
-                                    //如果是时间所在的列
+                                    // 如果是时间所在的列
                                     if (c == 1)
                                     {
                                         // Excel用数字序列表示时间
@@ -543,12 +594,17 @@ namespace HW_Thermal_Tools.Forms
                                     }
                                     row[c - 1] = cell;
                                 }
-                                //添加这行数据到临时表
+                                // 添加这行数据到临时表
                                 excelTempDataTable.Rows.Add(row);
                             }
-
-
                         }
+
+
+
+
+
+
+
 
 
                         /*
