@@ -45,6 +45,7 @@
     <PackageReference Include="DevExpress.Win.Design" Version="23.2.3" />
     <PackageReference Include="EPPlus" Version="6.2.7" />
     <PackageReference Include="HZH_Controls" Version="1.0.14" />
+    <PackageReference Include="Markdown" Version="2.2.1" />
     <PackageReference Include="MathNet.Numerics" Version="5.0.0" />
     <PackageReference Include="Microsoft.Extensions.Hosting.Abstractions" Version="7.0.0" />
     <PackageReference Include="OxyPlot.WindowsForms" Version="2.1.2" />
