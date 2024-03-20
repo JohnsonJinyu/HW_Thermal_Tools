@@ -1,6 +1,7 @@
 ﻿using OfficeOpenXml;
 using OfficeOpenXml.Style;
 using System.Data;
+using System.Text.Json.Serialization;
 using System.Xml;
 using LicenseContext = OfficeOpenXml.LicenseContext;
 
@@ -14,6 +15,9 @@ namespace HW_Thermal_Tools.Forms
 
         //定义一个Excel2DictList，用于保存遍历Excel得到的字典合集,内层嵌套列表，用于存储多个value
         Dictionary<string, Dictionary<string, List<string>>> Excel2Dict = new Dictionary<string, Dictionary<string, List<string>>>();
+
+        // 定义一个globalPolicyDict，用于保存默认的温控
+        Dictionary<int, Dictionary<string, string>> globalPolicyDict = new Dictionary<int, Dictionary<string, string>>();
 
         //定义一个DataTable用于存储XML读取以及匹配后的数据
         System.Data.DataTable XMLDataTable = new System.Data.DataTable();
@@ -290,8 +294,6 @@ namespace HW_Thermal_Tools.Forms
                 }
 
 
-                // ！！！！！如果这一行的父节点与上一行的父节点相同，复制上一行的内容到新添加的这一行里！！！！ 为了适配当前OPPO最新的温控策略
-
 
 
                 //在新添加的一行里，将父节点的名称添加到列名为“场景名称”的列中
@@ -299,6 +301,8 @@ namespace HW_Thermal_Tools.Forms
                 /*
                 1、遍历gear_config节点的属性；
                 2、根据属性的名称，与XMLDataTable的列的名称进行匹配，如果匹配成功，将属性的值添加到XMLDataTable的对应列中；
+
+                3、如果"paretName"的值是"globalPolicy",则将"gera_config"节点的属性的名称与值保存到一个名为"globalPolicyDic"的字典中
                  */
                 foreach (XmlAttribute attr in node.Attributes)
                 {
@@ -309,210 +313,77 @@ namespace HW_Thermal_Tools.Forms
                         XMLDataTable.Columns.Add(attr.Name);
                     }
 
-                    /*
-                   1、如果属性名称是cpu、gpu、charge、brightness、tempGear：
-                       则需要根据名称在Excel2DictList这个字典合集中查找对应的字典key；
-                       再根据属性的值，在对应的子字典里面查找对应的对应的key以及value(描述)；
-                       将描述插入到属性值的后面
-                   2、如果属性名称不是cpu、gpu、charge、brightness、tempGear：
-                       则直接将属性值插入到XMLDataTable中
-                     */
-                    switch (attr.Name)
-                    {
-                        case "tempGear":
-
-                            //先将XML文件中的属性值插入到XMLDataTable中
-                            row[attr.Name] = attr.Value;
-
-                            //将attr.Name(TempGear)作为key，在Excel2Dict中查找对应的子字典
-                            Dictionary<string, List<string>> TempDict;
-                            Excel2Dict.TryGetValue("温度档位", out TempDict);
-
-                            //将attr.Value作为key，在TempDict中查找对应的value
-                            List<string> TempList;
-                            TempDict.TryGetValue(attr.Value, out TempList);
-
-                            //获取row[attr.Name]的索引
-                            int TempIndex = XMLDataTable.Columns.IndexOf(attr.Name);
-                            //以循环的方式按照索引将TempList内容添加到row[attr.Name]后；
-                            for (int i = 1; i <= TempList.Count; i++)
-                            {
-                                row[TempIndex + i] = TempList[i - 1];
-                            }
-                            break;
-
-                        case "charge":
-
-                            //先将XML文件中的属性值插入到XMLDataTable中
-                            row[attr.Name] = attr.Value;
-
-                            //将attr.Name(Charge)作为key，在Excel2Dict中查找对应的子字典
-                            Dictionary<string, List<string>> ChargeDict;
-                            if (Excel2Dict.TryGetValue("充电档位", out ChargeDict))
-                            {
-
-                                //将attr.Value作为key，在ChargeDict中查找对应的value
-                                List<string> ChargeList;
-                                ChargeDict.TryGetValue(attr.Value, out ChargeList);
-
-                                //获取row[attr.Name]的索引
-                                int ChargeIndex = XMLDataTable.Columns.IndexOf(attr.Name);
-                                //以循环的方式按照索引将ChargeList内容添加到row[attr.Name]后；
-                                for (int i = 1; i <= ChargeList.Count; i++)
-                                {
-                                    row[ChargeIndex + i] = ChargeList[i - 1];
-                                }
-
-                            }
-
-                            break;
-
-                        case "cpu":
-                        case "CPU":
-
-                            row[attr.Name] = attr.Value;
-
-                            //将attr.Name(CPU)作为key，在Excel2Dict中查找对应的子字典
-                            Dictionary<string, List<string>> CPUDict;
-                            if (Excel2Dict.TryGetValue("CPU", out CPUDict))
-                            {
-
-                                //将attr.Value作为key，在CPUDict中查找对应的value
-                                List<string> CPUList;
-                                CPUDict.TryGetValue(attr.Value, out CPUList);
-
-                                //获取row[attr.Name]的索引
-                                int CPUIndex = XMLDataTable.Columns.IndexOf(attr.Name);
-                                //以循环的方式按照索引将CPUList内容添加到row[attr.Name]后；
-                                for (int i = 1; i <= CPUList.Count; i++)
-                                {
-                                    row[CPUIndex + i] = CPUList[i - 1];
-                                }
-                            }
-
-
-
-                            break;
-
-                        case "gpu":
-                        case "GPU":
-
-                            row[attr.Name] = attr.Value;
-
-                            //将attr.Name(GPU)作为key，在Excel2Dict中查找对应的子字典
-                            Dictionary<string, List<string>> GPUDict;
-                            if (Excel2Dict.TryGetValue("GPU", out GPUDict))
-                            {
-                                //将attr.Value作为key，在GPUDict中查找对应的value
-                                List<string> GPUList;
-                                GPUDict.TryGetValue(attr.Value, out GPUList);
-
-                                //获取row[attr.Name]的索引
-                                int GPUIndex = XMLDataTable.Columns.IndexOf(attr.Name);
-                                //以循环的方式按照索引将GPUList内容添加到row[attr.Name]后；
-                                for (int i = 1; i <= GPUList.Count; i++)
-                                {
-                                    row[GPUIndex + i] = GPUList[i - 1];
-                                }
-                            }
-
-
-
-                            break;
-
-                        case "brightness":
-
-                            row[attr.Name] = attr.Value;
-
-                            //将attr.Name(brightness)作为key，在Excel2Dict中查找对应的子字典
-                            Dictionary<string, List<string>> BrightnessDict;
-                            if (Excel2Dict.TryGetValue("亮度等级", out BrightnessDict))
-                            {
-                                List<string> BrightnessList;
-
-                                //将attr.Value作为key，在BrightnessDict中查找对应的value
-                                BrightnessDict.TryGetValue(attr.Value, out BrightnessList);
-
-                                //获取row[attr.Name]的索引
-                                int BrightnessIndex = XMLDataTable.Columns.IndexOf(attr.Name);
-                                //以循环的方式按照索引将BrightnessList内容添加到row[attr.Name]后；
-                                for (int i = 1; i <= BrightnessList.Count; i++)
-                                {
-                                    row[BrightnessIndex + i] = BrightnessList[i - 1];
-                                }
-                            }
-
-
-                            break;
-
-                        case "modem":
-
-                            row[attr.Name] = attr.Value;
-
-                            // 将attr.Name(modem)作为key,在在Excel2Dict中查找对应的子字典
-                            Dictionary<string, List<string>> ModemDict;
-                            if (Excel2Dict.TryGetValue("Modem", out ModemDict))
-                            {
-                                List<string> ModemList;
-
-                                // 将attr.Value作为key，在ModemDict中查找对应的value
-                                if (ModemDict.TryGetValue(attr.Value, out ModemList))
-                                {
-                                    // 获取row[attr.Name]的索引
-                                    int ModemIndex = XMLDataTable.Columns.IndexOf(attr.Name);
-                                    // 以循环的方式按照索引将ModemList内容添加到row[attr.Name]后
-                                    for (int i = 1; i <= ModemList.Count; i++)
-                                    {
-                                        row[ModemIndex + i] = ModemList[i - 1];
-                                    }
-                                }
-                            }
-                            break;
+                    // 先将XML文件中的属性的值插入到XMLDataTable中
+                    row[attr.Name] = attr.Value;
+                    // 再调用函数补充对应属性值的描述
+                    HandleValueDescriptino(attr.Name, attr.Value, row, Excel2Dict);
 
 
 
 
 
-                        case "restrict":
-
-                            row[attr.Name] = attr.Value;
-
-                            // 将attr.Name(Restrict)作为key,在在Excel2Dict中查找对应的子字典
-                            Dictionary<string, List<string>> RestrictDict;
-                            // 需要先判断restrict属性值是否存在
-                            if (Excel2Dict.TryGetValue("Restrict", out RestrictDict))
-                            {
-                                List<string> RestrictList;
-
-                                // 将attr.Value作为key，在ModemDict中查找对应的value
-                                if (RestrictDict.TryGetValue(attr.Value.ToString(), out RestrictList))
-                                {
-                                    // 获取row[attr.Name]的索引
-                                    int RestrictIndex = XMLDataTable.Columns.IndexOf(attr.Name);
-                                    // 以循环的方式按照索引将ModemList内容添加到row[attr.Name]后
-                                    for (int i = 1; i <= RestrictList.Count; i++)
-                                    {
-                                        row[RestrictIndex + i] = RestrictList[i - 1];
-                                    }
-                                }
-
-                            }
-                            break;
-
-
-
-
-                        default:
-                            row[attr.Name] = attr.Value;
-                            break;
-                    }
-
-                    /*
-                    上面成功将XML的值获取并赋给XMLDataTable
-                    另外将根据字典将cpu GPU、tempGear、charge、brightness的描述添加到dataTable中
-                     */
 
                 }
+
+                // 如果parentName = "globalPolicy" ，则将这 gear_Config中的属性中以tempGear为 globalPolicyDict 这个字典的键，出tempGear意外的其他值保存到 globalPolicyDict 的子字典中 
+                if (parentName == "globalPolicy")
+                {
+                    // 当 parentName 是 "globalPolicy" 时，创建一个新的字典来保存 gear_config 的属性
+                    Dictionary<string, string> gearConfigDict = new Dictionary<string, string>();
+
+                    // 将 gear_config 的属性添加到字典中
+                    foreach (XmlAttribute attr in node.Attributes)
+                    {
+                        gearConfigDict.Add(attr.Name, attr.Value);
+                    }
+
+                    // 从 gearConfigDict 中移除 "tempGear" 属性，并获取其值
+                    string tempGearValue = gearConfigDict["tempGear"];
+                    gearConfigDict.Remove("tempGear");
+
+                    // 使用 tempGear 的值作为键，将 gearConfigDict 添加到 globalPolicyDict 中
+                    globalPolicyDict.Add(int.Parse(tempGearValue), gearConfigDict);
+
+                }
+                // 如果parentName的值不为 "globalPolicy",则遍历gearConfigDict的键；
+                // 如果遍历的键没有包含在node.Attributes的属性名称中，则获取当前tempGear的值，在globalPolicyDict中查询对应的键，获取到对应的gearConfigDict
+                // 然后将gearConfigDict中有但是当前node.Attributes的属性中没有的属性添加到这一行数据对应的列中
+
+                else
+                {
+                    // 获取 tempGear 的值
+                    string tempGearValue = node.Attributes["tempGear"].Value;
+
+                    // 检查 globalPolicyDict 中是否有对应 tempGear 的键
+                    if (globalPolicyDict.TryGetValue(int.Parse(tempGearValue), out Dictionary<string, string> defaultGearConfigDict))
+                    {
+                        // 遍历 defaultGearConfigDict 的键
+                        foreach (string key in defaultGearConfigDict.Keys)
+                        {
+                            // 检查 node.Attributes 中是否包含该键
+                            if (node.Attributes[key] == null)
+                            {
+                                // 如果 node.Attributes 中不包含该键，将 defaultGearConfigDict 中的值添加到 XMLDataTable 中
+
+                                // 检查数据表中是否存在该列 
+                                if (!XMLDataTable.Columns.Contains(key))
+                                {
+                                    XMLDataTable.Columns.Add(key);
+                                }
+
+                                // 获取 defaultGearConfigDict 中的值
+                                string attrValue = defaultGearConfigDict[key];
+                                row[key] = attrValue;
+
+                                // 调用 HandleValueDescriptino 函数，添加描述
+                                HandleValueDescriptino(key, attrValue, row, Excel2Dict);
+                            }
+                        }
+                    }
+                }
+
+
+
 
                 // 添加行
                 XMLDataTable.Rows.Add(row);
@@ -521,5 +392,149 @@ namespace HW_Thermal_Tools.Forms
             //释放XMLDocument占用的非托管资源
             doc = null;
         }
+
+
+        // 将添加描述部分封装为一个函数，以便与多次调用
+
+        private void HandleValueDescriptino(string attrName, string attrValue, DataRow row, Dictionary<string, Dictionary<string, List<string>>> Excel2Dict)
+        {
+            switch (attrName)
+            {
+                case "tempGear":
+                    //获取row[attr.Name]的索引
+                    int TempIndex = XMLDataTable.Columns.IndexOf(attrName);
+                    //将attr.Name(TempGear)作为key，在Excel2Dict中查找对应的子字典
+                    if (Excel2Dict.TryGetValue("温度档位", out Dictionary<string, List<string>> TempDict))
+                    {
+                        //将attr.Value作为key，在TempDict中查找对应的value
+                        if (TempDict.TryGetValue(attrValue, out List<string> TempList))
+                        {
+                            //以循环的方式按照索引将TempList内容添加到row[attr.Name]后；
+                            for (int i = 1; i <= TempList.Count; i++)
+                            {
+                                row[TempIndex + i] = TempList[i - 1];
+                            }
+                        }
+                    }
+                    break;
+
+                case "charge":
+                    //获取row[attr.Name]的索引
+                    int ChargeIndex = XMLDataTable.Columns.IndexOf(attrName);
+                    //将attr.Name(Charge)作为key，在Excel2Dict中查找对应的子字典
+                    if (Excel2Dict.TryGetValue("充电档位", out Dictionary<string, List<string>> ChargeDict))
+                    {
+                        //将attr.Value作为key，在ChargeDict中查找对应的value
+                        if (ChargeDict.TryGetValue(attrValue, out List<string> ChargeList))
+                        {
+                            //以循环的方式按照索引将ChargeList内容添加到row[attr.Name]后；
+                            for (int i = 1; i <= ChargeList.Count; i++)
+                            {
+                                row[ChargeIndex + i] = ChargeList[i - 1];
+                            }
+                        }
+                    }
+                    break;
+
+                case "cpu":
+                case "CPU":
+                    //获取row[attr.Name]的索引
+                    int CPUIndex = XMLDataTable.Columns.IndexOf(attrName);
+                    //将attr.Name(CPU)作为key，在Excel2Dict中查找对应的子字典
+                    if (Excel2Dict.TryGetValue("CPU", out Dictionary<string, List<string>> CPUDict))
+                    {
+                        //将attr.Value作为key，在CPUDict中查找对应的value
+                        if (CPUDict.TryGetValue(attrValue, out List<string> CPUList))
+                        {
+                            //以循环的方式按照索引将CPUList内容添加到row[attr.Name]后；
+                            for (int i = 1; i <= CPUList.Count; i++)
+                            {
+                                row[CPUIndex + i] = CPUList[i - 1];
+                            }
+                        }
+                    }
+                    break;
+
+                case "gpu":
+                case "GPU":
+                    //获取row[attr.Name]的索引
+                    int GPUIndex = XMLDataTable.Columns.IndexOf(attrName);
+                    //将attr.Name(GPU)作为key，在Excel2Dict中查找对应的子字典
+                    if (Excel2Dict.TryGetValue("GPU", out Dictionary<string, List<string>> GPUDict))
+                    {
+                        //将attr.Value作为key，在GPUDict中查找对应的value
+                        if (GPUDict.TryGetValue(attrValue, out List<string> GPUList))
+                        {
+                            //以循环的方式按照索引将GPUList内容添加到row[attr.Name]后；
+                            for (int i = 1; i <= GPUList.Count; i++)
+                            {
+                                row[GPUIndex + i] = GPUList[i - 1];
+                            }
+                        }
+                    }
+                    break;
+
+                case "brightness":
+                    //获取row[attr.Name]的索引
+                    int BrightnessIndex = XMLDataTable.Columns.IndexOf(attrName);
+                    //将attr.Name(brightness)作为key，在Excel2Dict中查找对应的子字典
+                    if (Excel2Dict.TryGetValue("亮度等级", out Dictionary<string, List<string>> BrightnessDict))
+                    {
+                        //将attr.Value作为key，在BrightnessDict中查找对应的value
+                        if (BrightnessDict.TryGetValue(attrValue, out List<string> BrightnessList))
+                        {
+                            //以循环的方式按照索引将BrightnessList内容添加到row[attr.Name]后；
+                            for (int i = 1; i <= BrightnessList.Count; i++)
+                            {
+                                row[BrightnessIndex + i] = BrightnessList[i - 1];
+                            }
+                        }
+                    }
+                    break;
+
+                case "modem":
+                    //获取row[attr.Name]的索引
+                    int ModemIndex = XMLDataTable.Columns.IndexOf(attrName);
+                    // 将attr.Name(modem)作为key,在在Excel2Dict中查找对应的子字典
+                    if (Excel2Dict.TryGetValue("Modem", out Dictionary<string, List<string>> ModemDict))
+                    {
+                        // 将attr.Value作为key，在ModemDict中查找对应的value
+                        if (ModemDict.TryGetValue(attrValue, out List<string> ModemList))
+                        {
+                            // 以循环的方式按照索引将ModemList内容添加到row[attr.Name]后
+                            for (int i = 1; i <= ModemList.Count; i++)
+                            {
+                                row[ModemIndex + i] = ModemList[i - 1];
+                            }
+                        }
+                    }
+                    break;
+
+                case "restrict":
+                    //获取row[attr.Name]的索引
+                    int RestrictIndex = XMLDataTable.Columns.IndexOf(attrName);
+                    // 将attr.Name(Restrict)作为key,在在Excel2Dict中查找对应的子字典
+                    if (Excel2Dict.TryGetValue("Restrict", out Dictionary<string, List<string>> RestrictDict))
+                    {
+                        // 将attr.Value作为key，在ModemDict中查找对应的value
+                        if (RestrictDict.TryGetValue(attrValue.ToString(), out List<string> RestrictList))
+                        {
+                            // 以循环的方式按照索引将ModemList内容添加到row[attr.Name]后
+                            for (int i = 1; i <= RestrictList.Count; i++)
+                            {
+                                row[RestrictIndex + i] = RestrictList[i - 1];
+                            }
+                        }
+                    }
+                    break;
+
+                default:
+                    row[attrName] = attrValue;
+                    break;
+            }
+        }
+
+
+
     }
 }
